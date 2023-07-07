@@ -16,7 +16,8 @@ const Config = (path = "", params = null) => {
                 values += key + "=" + params[key] + "&";
             }
             return values.slice(0, values.lastIndexOf("&")); // loại bỏ dấu:: "&" ở vị trí cuối cùng.
-        }
+        },
+        custom_url: ()=> domain ? domain :this.http+this.ip+this.uri,
     };
 
     let url = "";
