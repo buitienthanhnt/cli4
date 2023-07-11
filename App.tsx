@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -35,6 +35,12 @@ const Stack = createNativeStackNavigator();
 
 // import Icon from 'react-native-vector-icons/dist/FontAwesome';
 // import Icon from 'react-native-vector-icons/Ionicons';
+import { requestUserPermission } from './src/utils/notificationHelper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -66,6 +72,21 @@ function Section({children, title}: SectionProps): JSX.Element {
 }
 
 function App(): JSX.Element {
+
+  const [token, setToken] = useState("");
+
+  useEffect(()=>{
+    requestUserPermission();
+    getFcmToken();
+  }, []);
+
+  const getFcmToken = async ()=>{
+    const token = await AsyncStorage.getItem("fcmToken");
+    console.log("token in app: ", token);
+    if (token) {
+      setToken(token);
+    }
+  };
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {

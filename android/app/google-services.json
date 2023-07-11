@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "515691323092",
+    "project_id": "react-cli4",
+    "storage_bucket": "react-cli4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515691323092:android:9cc570b98e4b444d95e541",
+        "android_client_info": {
+          "package_name": "com.cli4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515691323092-skujhelipo5161lqdtoif44qa759q3ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAeIUcO9QX-fzDzR0dGOkX6VPS0xBjuKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515691323092-skujhelipo5161lqdtoif44qa759q3ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515691323092:android:fbf5ea932369822e95e541",
+        "android_client_info": {
+          "package_name": "com.tha.cli4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515691323092-skujhelipo5161lqdtoif44qa759q3ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAeIUcO9QX-fzDzR0dGOkX6VPS0xBjuKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515691323092-skujhelipo5161lqdtoif44qa759q3ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
