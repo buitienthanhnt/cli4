@@ -2,10 +2,11 @@ import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // npm install react-native-screens react-native-safe-area-context @react-native-community/masked-view @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs @react-navigation/drawer @react-navigation/native-stack
 // import { Icon } from '@expo/vector-icons';                             // chạy được cả trên web và android. xem icon: https://icons.expo.fyi || install: npm i @expo/vector-icons
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';                 // xem icon https://oblador.github.io/react-native-vector-icons/
 import AccountScreen from "./tabs/AccountScreen";
 import HomeScreen    from "./tabs/HomeScreen";
 import PaperScreen   from "./tabs/PaperScreen";
+import MoreScreen from "./tabs/MoreScreen";
 
 const Tab = createBottomTabNavigator();
 const BottomTabs = ({props, route})=>{
@@ -39,7 +40,13 @@ const BottomTabs = ({props, route})=>{
                 options={{
                     tabBarLabel: 'User',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"bug"} size={26} color={color} />)
-                }} />              
+                }} />
+
+            <Tab.Screen name="MoreScreen" component={MoreScreen} tabBarOptions={{ showLabel: false }}
+                options={{
+                    tabBarLabel: 'More',
+                    tabBarIcon: ({ focused, color, size }) => (<Icon name={"windows"} size={26} color={color} />)
+                }} />
 
         </Tab.Navigator>
     );
