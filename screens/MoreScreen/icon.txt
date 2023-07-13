@@ -1,5 +1,5 @@
 Warning: Failed prop type: Invalid prop `name` of value `Car` supplied to `Icon`,
-expected one of:
+expected one of(FontAwesome5Icon):
 
 ["500px","accessible-icon","accusoft","acquisitions-incorporated","ad","address-book","address-card","adjust",
 "adn","adversal","affiliatetheme","air-freshener","airbnb","algolia","align-center","align-justify","align-left","align-right",

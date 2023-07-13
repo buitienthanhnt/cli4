@@ -32,7 +32,7 @@ const BottomTabs = ({props, route})=>{
             <Tab.Screen name="PaperScreen" component={PaperScreen}
                 options={{
                     tabBarLabel: 'Papers',              
-                    tabBarIcon: ({ focused, color, size }) => <Icon name={focused ? 'bug' : 'list'} size={26} color={color} />
+                    tabBarIcon: ({ focused, color, size }) => <Icon name={focused ? 'truck' : 'list'} size={26} color={color} />
                 }}
             />
 

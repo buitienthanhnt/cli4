@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, RefreshControl, Text, View } from "react-native";
+import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList } from "react-native";
 import Config from "../../config/Config";
 
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // npm install @native-html/iframe-plugin
@@ -33,17 +33,17 @@ const PaperDetail = ({ navigation, route }) => {
                 var result = await detail.json();
                 if (result) {
                     setDetail(result);
-                }else{
+                } else {
                     navigation.goBack();
-                } 
+                }
             } catch (error) {
                 navigation.goBack();
             }
-            
+
         }
     };
 
-    const onRefresh = ()=>{
+    const onRefresh = () => {
         // alert("refresh");
         getDetailPaper(route.params.data.id);
 
@@ -79,6 +79,9 @@ const PaperDetail = ({ navigation, route }) => {
                         }
                     }}
                 />
+                <View style={{height: 1, backgroundColor: "black"}}></View>
+                {/* <Text></Text> */}
+                <LastNews paper_id={route.params.data.id} navigation={navigation}></LastNews>
             </ScrollView>
         );
     } else {
@@ -88,6 +91,32 @@ const PaperDetail = ({ navigation, route }) => {
                 <Text>loading...</Text>
             </View>);
     }
+}
+
+const LastNews = (props) => {
+    const { paper_id, navigation } = props;
+    const [data, setData] = useState(['1', "2", "3", "4", "5"]);
+
+    const getRelatedPaper = async () => {
+        try {
+            let request_api = Config.url + Config.api_request.getRelatedPaper + paper_id;
+            const response = await fetch(getRelatedPaper);
+            const _data = await response.json();
+            setData(_data?.["items"]);
+        } catch (error) {console.log(error);}
+    }
+    useEffect(() => {
+        // console.log(paper_id);
+    }, [])
+
+    return (
+        <View  style={{paddingBottom: 20, marginTop: 20}}>
+            <FlatList data={data} 
+                keyExtractor={(item) => item.id}
+                renderItem={({item})=><Text>{item}</Text>}>
+            </FlatList>
+        </View>
+    );
 }
 
 export default PaperDetail;
