@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList } from "react-native";
+import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator } from "react-native";
 import Config from "../../config/Config";
 
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // npm install @native-html/iframe-plugin
@@ -87,7 +87,8 @@ const PaperDetail = ({ navigation, route }) => {
     } else {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Image source={require("../../assets/DoubleRing-1s-200px.gif")} style={{ width: 100, height: 100 }}></Image>
+                 <ActivityIndicator size="small" color="#0000ff" />
+                {/* <Image source={require("../../assets/DoubleRing-1s-200px.gif")} style={{ width: 100, height: 100 }}></Image> */}
                 <Text>loading...</Text>
             </View>);
     }

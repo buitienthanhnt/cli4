@@ -17,7 +17,7 @@ import {
   View,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome'; // 
+// import Icon from 'react-native-vector-icons/FontAwesome';  // npm install react-native-vector-icons --save && thêm: apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" vào: android/app/build.gradle
 
 import {
   Colors,

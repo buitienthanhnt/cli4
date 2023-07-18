@@ -1,24 +1,40 @@
 import React, { useRef, useState } from "react"; // gán lại giá trị mà không render lại đối tượng. https://www.w3schools.com/react/react_useref.asp
-import { Button, Image, Text, View, Dimensions, TouchableOpacity, ScrollView } from "react-native";
+import { Button, Image, Text, View, Dimensions, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 
 // import { Ionicons } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";  // npm i react-native-raw-bottom-sheet
+import DeviceInfo from 'react-native-device-info'; // npm install --save react-native-device-info  && react-native link react-native-device-info
+import DatePicker from 'react-native-date-picker'
+import { Colors, Slider, DateTimePicker, Dialog } from 'react-native-ui-lib';  // npm i react-native-ui-lib // https://wix.github.io/react-native-ui-lib/docs/foundation/colors
+
+Colors.loadColors({
+    error: '#ff2442',
+    success: '#00CD8B',
+    text: '#20303C'
+});
 
 const AccountDetail = (props) => {
     const refRBSheet = useRef();
     const [state, setState] = useState(0.1);
+    const [date, setDate] = useState(new Date());
+    const [open, setOpen] = useState(false);
     const { width, height } = Dimensions.get("screen");
+    // DeviceInfo.getAndroidId().then((androidId) => {console.log(androidId);}); // https://www.npmjs.com/package/react-native-device-info#getandroidid
+    DeviceInfo.getUniqueId().then((uniqueId) => {
+        // console.log(uniqueId);
+        // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
+        // Android: "dd96dec43fb81c97"
+        // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
+    });
     // console.log(width, height);
     return (
         <View>
-            <Text>
-                product screen
-            </Text>
+            <Text></Text>
             <Button title="show bottom" onPress={() => {
                 refRBSheet.current.open();
             }}></Button>
-             <Text>{"\n"}</Text>
+            <Text>{"\n"}</Text>
 
             <Button title="to detail" onPress={() => {
                 props.navigation.navigate("Detail");
@@ -100,8 +116,46 @@ const AccountDetail = (props) => {
                     </View>
                 </ScrollView>
             </RBSheet>
+
+            <Image source={require("../../assets/DoubleRing-1s-200px.gif")} style={{ width: 200, height: 200 }}></Image>
+
+            {/* <ActivityIndicator size="small" color="#0000ff" /> */}
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+                <View style={{ width: 120 }}>
+                    <Button title={date.toLocaleDateString() ? date.toLocaleDateString() : "select date"} onPress={() => setOpen(true)} />
+                </View>
+            </View>
+            <DatePicker
+                modal
+                open={open}
+                date={date}
+                mode="date"
+                onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                }}
+                onCancel={() => {
+                    setOpen(false)
+                }}
+            />
+
+            <Text style={{ color: Colors.error }}>Error Message</Text>
+            <View style={{ padding: 10 }}>
+                <Slider
+                    value={0}
+                    minimumValue={0}
+                    maximumValue={10}
+                    onValueChange={() => { }
+                        // console.log('value changed')
+                    }
+                />
+                {/* <DateTimePicker title={'Select time'} placeholder={'Placeholder'} mode={'time'} /> */}
+
+            </View>
+
+
         </View>
     )
 }
 
-export default AccountDetail;
+export default AccountDetail;       

@@ -9,7 +9,6 @@ const Home = (props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            console.log(222);
             setData({ values: data.values.reverse() });
         }, 3000);
     }, [])
