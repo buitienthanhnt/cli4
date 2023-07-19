@@ -74,19 +74,29 @@ class PaperList extends Component {
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
                     >
-                        {this.state.topCategory && this.state.topCategory.map((item, index) => {
-                            return (
-                                <View key={item.id} style={css.title_container}>
-                                    <TouchableOpacity onPress={()=>{
-                                        this.props.navigation.navigate("PaperListCategory", {category_id: item.id})
-                                    }}>
-                                        <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 18, fontWeight: "600" }}>{item.name}</Text></View>
-                                        <Image source={{ uri: item.image_path }} style={css.top_image} resizeMode="cover"></Image>
-                                    </TouchableOpacity>
-                                </View>
-                            )
-                        })}
-                        <View style={css.title_container}>
+                        {(
+                            ()=>{
+                                if (this.state.topCategory) {
+                                    return this.state.topCategory && this.state.topCategory.map((item, index) => {
+                                        return (
+                                            <View key={item.id} style={css.title_container}>
+                                                <TouchableOpacity onPress={()=>{
+                                                    this.props.navigation.navigate("PaperListCategory", {category_id: item.id})
+                                                }}>
+                                                    <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 18, fontWeight: "600" }}>{item.name}</Text></View>
+                                                    <Image source={{ uri: item.image_path }} style={css.top_image} resizeMode="cover"></Image>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    });
+                                }else{
+                                    return <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>;
+                                }
+                            }
+                        )()}
+                        
+
+                        {/* <View style={css.title_container}>
                             <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 18, fontWeight: "600" }}>News</Text></View>
                             <Image source={require("../../assets/hinh-ke-ga-3307-1684226630.jpg")} style={css.top_image} resizeMode="cover"></Image>
                         </View>
@@ -94,7 +104,7 @@ class PaperList extends Component {
                             <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 18, fontWeight: "600" }}>Chiến sự</Text></View>
                             <Image source={require("../../assets/6623ThuydienLaiChau1_1.jpg")} style={css.top_image} resizeMode="cover"></Image>
 
-                        </View>
+                        </View> */}
                     </ScrollView>
                 </View>
 

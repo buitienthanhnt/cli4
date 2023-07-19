@@ -12,6 +12,7 @@ import ColorPickerWheel from 'react-native-wheel-color-picker'; // npm install r
 
 // Ignore log notification by message
 // LogBox.ignoreLogs(['Warning: ...']); // ẩn các lỗi có dạng:
+// https://loading.io/ xem ảnh gif động.
 
 //Ignore all log notifications
 LogBox.ignoreAllLogs();                 // ẩn thộng báo tất cả các lỗi cảnh báo màu vàng hiện trên màn hình.

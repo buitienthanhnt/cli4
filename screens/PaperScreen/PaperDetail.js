@@ -5,6 +5,7 @@ import Config from "../../config/Config";
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // npm install @native-html/iframe-plugin
 import RenderHTML from 'react-native-render-html';                          // npm install react-native-render-html
 import WebView from 'react-native-webview';                                 // npm install react-native-webview
+import Wishlist from "../AccountScreen/Wishlist";
 
 const renderers = {
     iframe: IframeRenderer
@@ -79,7 +80,7 @@ const PaperDetail = ({ navigation, route }) => {
                         }
                     }}
                 />
-                <View style={{height: 1, backgroundColor: "black"}}></View>
+                {/* <View style={{height: 1, backgroundColor: "black"}}></View> */}
                 {/* <Text></Text> */}
                 <LastNews paper_id={route.params.data.id} navigation={navigation}></LastNews>
             </ScrollView>
@@ -87,9 +88,8 @@ const PaperDetail = ({ navigation, route }) => {
     } else {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                 <ActivityIndicator size="small" color="#0000ff" />
-                {/* <Image source={require("../../assets/DoubleRing-1s-200px.gif")} style={{ width: 100, height: 100 }}></Image> */}
-                <Text>loading...</Text>
+                {/* <ActivityIndicator size="small" color="#0000ff" /> */}
+                <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image> 
             </View>);
     }
 }
@@ -111,11 +111,8 @@ const LastNews = (props) => {
     }, [])
 
     return (
-        <View  style={{paddingBottom: 20, marginTop: 20}}>
-            <FlatList data={data} 
-                keyExtractor={(item) => item.id}
-                renderItem={({item})=><Text>{item}</Text>}>
-            </FlatList>
+        <View  style={{paddingBottom: 20}}>
+            <Wishlist></Wishlist>
         </View>
     );
 }

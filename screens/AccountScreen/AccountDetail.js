@@ -4,7 +4,7 @@ import { Button, Image, Text, View, Dimensions, TouchableOpacity, ScrollView, Ac
 // import { Ionicons } from '@expo/vector-icons';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import RBSheet from "react-native-raw-bottom-sheet";  // npm i react-native-raw-bottom-sheet
-import DeviceInfo from 'react-native-device-info'; // npm install --save react-native-device-info  && react-native link react-native-device-info
+import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
 import DatePicker from 'react-native-date-picker'
 import { Colors, Slider, DateTimePicker, Dialog } from 'react-native-ui-lib';  // npm i react-native-ui-lib // https://wix.github.io/react-native-ui-lib/docs/foundation/colors
 
@@ -36,8 +36,8 @@ const AccountDetail = (props) => {
             }}></Button>
             <Text>{"\n"}</Text>
 
-            <Button title="to detail" onPress={() => {
-                props.navigation.navigate("Detail");
+            <Button title="to Wishlist" onPress={() => {
+                props.navigation.navigate("Wishlist");
             }}></Button>
             <Text>{"\n"}</Text>
 
@@ -117,7 +117,7 @@ const AccountDetail = (props) => {
                 </ScrollView>
             </RBSheet>
 
-            <Image source={require("../../assets/DoubleRing-1s-200px.gif")} style={{ width: 200, height: 200 }}></Image>
+            {/* <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image> */}
 
             {/* <ActivityIndicator size="small" color="#0000ff" /> */}
             <View style={{ flexDirection: "row", justifyContent: "center" }}>
