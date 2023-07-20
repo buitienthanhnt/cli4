@@ -1,71 +1,82 @@
-import * as React from 'react';
+import react, { Component } from "react";
 import {
   Text,
   View,
   SafeAreaView, TouchableOpacity, StyleSheet, Image
 } from 'react-native';
+import Config from '../../../config/Config';
 
 //   npm install --save react-native-snap-carousel ||(type Typescript) npm install --save @types/react-native-snap-carousel
 import Carousel from 'react-native-snap-carousel'; // https://www.npmjs.com/package/react-native-snap-carousel#example
 
-export default class Carolsel extends React.Component {
+class Carolsel extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       activeIndex: 0,
-      carouselItems: [
-        {
-          title: "I discovered Soviet herita",
-          text: "Text 1",
-        },
-        {
-          title: "VietnamSau Ukraina, Nga c",
-          text: "Text 2",
-        },
-        {
-          title: "dã sử dụng đạn chùm",
-          text: "Text 3",
-        },
-        {
-          title: "thương rất khủng khiếp",
-          text: "Text 4",
-        },
-        {
-          title: "Bình luận BTCS 19-7",
-          text: "Text 5",
-        },
-      ]
+      data: null
+      // carouselItems: [
+      //   {
+      //     title: "I discovered Soviet herita",
+      //     text: "Text 1",
+      //   },
+      //   {
+      //     title: "VietnamSau Ukraina, Nga c",
+      //     text: "Text 2",
+      //   },
+      // ]
     }
   }
 
-  _renderItem({ item, index }) {
+  loadData = async () => {
+    let result = null;;
+    let request = Config.custom_url() + Config.api_request.getpapers+ Config.buy_params({page:3});
+    const response = await fetch(request);
+    result = await response.json();
+    this.setState({
+      data: result.data
+    });
+  };
+
+  componentDidMount() {
+    this.loadData();
+  };
+
+  _renderItem({ item, index}) {
     return (
       <TouchableOpacity style={css.item}
-        onPress={() => { console.log(item.title); }}
+        onPress={() => { 
+          this.props.navigation.push("PaperDetail", { data: item }); // dùng push để  chuyển hướng trong cùng trang với props thay đổi.  
+        }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "bold", color: "#5877f4" }}>{item.title}</Text>
-        {/* <Text>{item.text}</Text> */}
-        <Image source={require("../../../assets/6623ThuydienLaiChau1_1.jpg")} style={{flex: 1}}></Image>
+        <View style={{paddingLeft: 8}}>
+          <Text style={{ fontSize: 18, fontWeight: "bold", color: "#5877f4" }}>{item.title}</Text>
+        </View>
+        <Image source={{ uri: item.image_path }} style={{ flex: 1 }}></Image>
       </TouchableOpacity>
-
     )
   }
 
   render() {
     return (
-      <SafeAreaView style={css.area}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', }}>
-          <Carousel
-            layout={"stack"}
-            ref={ref => this.carousel = ref}
-            data={this.state.carouselItems}
-            sliderWidth={400}
-            itemWidth={360}
-            renderItem={this._renderItem}
-            onSnapToItem={index => this.setState({ activeIndex: index })} />
-        </View>
-      </SafeAreaView>
+      this.state.data ?
+        <SafeAreaView style={css.area}>
+          <View style={{ paddingLeft: 8, marginBottom: 8 }}>
+            <Text style={{ color: "#d31bd6", fontSize: 16, fontWeight: 600 }}>Tin liên quan:</Text>
+          </View>
+          <View style={css.container1}>
+            <Carousel
+              layout={"stack"}
+              ref={ref => this.carousel = ref}
+              data={this.state.data}
+              sliderWidth={400}
+              itemWidth={360}
+              renderItem={this._renderItem.bind(this)}
+              onSnapToItem={index => this.setState({ activeIndex: index })} />
+          </View>
+        </SafeAreaView> :
+        <View style={{ flexDirection: "row", justifyContent: "center" }}><Image source={require("../../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image></View>
     );
   }
 }
@@ -73,18 +84,27 @@ export default class Carolsel extends React.Component {
 const css = StyleSheet.create({
   area: {
     flex: 1,
-    paddingTop: 10,
-    borderRadius: 12
-    // backgroundColor: '#c4f4b0',
+    paddingTop: 8,
+    borderRadius: 12,
     // paddingBottom: 10,
+    // height: 320,
+    // paddingLeft: 8,
+    // backgroundColor: '#c4f4b0',
   },
   item: {
-    // backgroundColor: '#b2ddf4',
     borderRadius: 5,
     height: 250,
-    padding: 10,
-    marginRight: 20
+    backgroundColor: '#ffdc9b',
+    // padding: 6,
+    // marginRight: 20
     // marginLeft: 20,
+  },
+  container1: {
+    flex: 1, flexDirection: 'row',
+    justifyContent: 'center',
+    paddingRight: 4
   }
 });
+
+export default Carolsel;
 

@@ -1,9 +1,9 @@
 import React from "react";
 import Carolsel from "./components/Carolsel";
 
-const Wishlist = ()=>{
+const Wishlist = (props)=>{
 	return(
-		<Carolsel></Carolsel>
+		<Carolsel navigation={props.navigation}></Carolsel>
 	);
 };
 

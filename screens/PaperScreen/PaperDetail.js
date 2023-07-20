@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator } from "react-native";
+import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator, StyleSheet } from "react-native";
 import Config from "../../config/Config";
 
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // npm install @native-html/iframe-plugin
@@ -30,8 +30,10 @@ const PaperDetail = ({ navigation, route }) => {
     const getDetailPaper = async (paper_id = 0) => {
         if (paper_id) {
             try {
+                setRefreshing(true);
                 const detail = await fetch(Config.url + Config.api_request.getPaperDetail + paper_id);
                 var result = await detail.json();
+                setRefreshing(false);
                 if (result) {
                     setDetail(result);
                 } else {
@@ -55,9 +57,10 @@ const PaperDetail = ({ navigation, route }) => {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                style={{ flex: 1, padding: 8 }}
+                style={css.container}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
+                {/* {refreshing ? <View style={{flexDirection: "row", justifyContent: "center"}}><Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image></View>  : null} */}
                 <Text style={{ fontSize: 18, fontWeight: "600", color: "green", textDecorationLine: "underline" }}>{detail.title}</Text>
                 {/* <RenderHTML contentWidth={Dimensions.get("screen").width} source={{ html }}></RenderHTML> */}
                 <RenderHTML
@@ -80,7 +83,7 @@ const PaperDetail = ({ navigation, route }) => {
                         }
                     }}
                 />
-                {/* <View style={{height: 1, backgroundColor: "black"}}></View> */}
+                <View style={{height: 1, backgroundColor: "black"}}></View>
                 {/* <Text></Text> */}
                 <LastNews paper_id={route.params.data.id} navigation={navigation}></LastNews>
             </ScrollView>
@@ -112,9 +115,17 @@ const LastNews = (props) => {
 
     return (
         <View  style={{paddingBottom: 20}}>
-            <Wishlist></Wishlist>
+            <Wishlist navigation={navigation}></Wishlist>
         </View>
     );
 }
+
+const css = StyleSheet.create({
+    container: {
+        flex: 1, 
+        padding: 8, 
+        // backgroundColor: "#d6ffc6"
+    }
+})
 
 export default PaperDetail;

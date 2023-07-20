@@ -21,7 +21,7 @@ const Config = (path = "", params = null) => {
             }
             return values.slice(0, values.lastIndexOf("&")); // loại bỏ dấu:: "&" ở vị trí cuối cùng.
         },
-        custom_url: ()=> this.domain ? this.domain :this.http+this.ip+this.uri,
+        custom_url: function(){return this.domain ? this.domain : this.http+this.ip+this.uri;}
     };
 
     let url = "";
