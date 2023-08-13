@@ -7,6 +7,7 @@ import RBSheet from "react-native-raw-bottom-sheet";  // npm i react-native-raw-
 import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
 import DatePicker from 'react-native-date-picker'
 import { Colors, Slider, DateTimePicker, Dialog } from 'react-native-ui-lib';  // npm i react-native-ui-lib // https://wix.github.io/react-native-ui-lib/docs/foundation/colors
+import { useNetInfo } from "@react-native-community/netinfo";
 
 Colors.loadColors({
     error: '#ff2442',
@@ -27,6 +28,10 @@ const AccountDetail = (props) => {
         // Android: "dd96dec43fb81c97"
         // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
     });
+
+    const netInfo = useNetInfo();
+    // console.log(neetInfo);
+
     // console.log(width, height);
     return (
         <View>
@@ -35,6 +40,11 @@ const AccountDetail = (props) => {
                 refRBSheet.current.open();
             }}></Button>
             <Text>{"\n"}</Text>
+
+            <View>
+                <Text>Type: {netInfo.type}</Text>
+                <Text>Is Connected?: {netInfo.isConnected? "conneted" : "not connected"}</Text>
+            </View>
 
             <Button title="to Wishlist" onPress={() => {
                 props.navigation.navigate("Wishlist");

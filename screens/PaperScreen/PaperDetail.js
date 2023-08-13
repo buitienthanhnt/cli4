@@ -23,6 +23,7 @@ const PaperDetail = ({ navigation, route }) => {
     const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
+        console.log(route.params);
         getDetailPaper(route.params.data.id);
     }, []
     );

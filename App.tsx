@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator();
 // import Icon from 'react-native-vector-icons/Ionicons';
 import { requestUserPermission } from './src/utils/notificationHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import linking from './linking';
 
 
 
@@ -94,7 +94,7 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator>
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
