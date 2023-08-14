@@ -24,6 +24,7 @@ class ColorIcon extends Component {
     }
 
     render() {
+        console.log(this.props.params);
         return (
             <View style={{ flex: 1 }}>
                 <FindIcon></FindIcon>

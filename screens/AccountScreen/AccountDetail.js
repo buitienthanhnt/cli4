@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"; // gán lại giá trị mà không render lại đối tượng. https://www.w3schools.com/react/react_useref.asp
+import React, { useEffect, useRef, useState } from "react"; // gán lại giá trị mà không render lại đối tượng. https://www.w3schools.com/react/react_useref.asp
 import { Button, Image, Text, View, Dimensions, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
 
 // import { Ionicons } from '@expo/vector-icons';
@@ -16,6 +16,12 @@ Colors.loadColors({
 });
 
 const AccountDetail = (props) => {
+
+    useEffect(
+        ()=>{
+            console.log(props.route.params);
+        }, [props]
+    )
     const refRBSheet = useRef();
     const [state, setState] = useState(0.1);
     const [date, setDate] = useState(new Date());
@@ -31,7 +37,6 @@ const AccountDetail = (props) => {
 
     const netInfo = useNetInfo();
     // console.log(neetInfo);
-
     // console.log(width, height);
     return (
         <View>

@@ -17,15 +17,19 @@ const customHTMLElementModels = {
 
 const PaperDetail = ({ navigation, route }) => {
 
-    const [html, setHtml] = useState(route.params.data.conten);
+    const [html, setHtml] = useState(route?.params?.data?.conten || '');
     const [detail, setDetail] = useState(null);
 
     const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         console.log(route.params);
-        getDetailPaper(route.params.data.id);
-    }, []
+        if (route.params.paper_id != undefined) {
+            getDetailPaper(route.params.paper_id);
+        }else{
+            getDetailPaper(route.params.data.id);
+        }
+    }, [route.params]
     );
 
     const getDetailPaper = async (paper_id = 0) => {
@@ -49,8 +53,9 @@ const PaperDetail = ({ navigation, route }) => {
 
     const onRefresh = () => {
         // alert("refresh");
-        getDetailPaper(route.params.data.id);
-
+        if (route?.params?.data?.id) {
+            getDetailPaper(route.params.data.id);
+        }
     }
 
     if (detail) {
@@ -67,7 +72,7 @@ const PaperDetail = ({ navigation, route }) => {
                 <RenderHTML
                     renderers={renderers}
                     WebView={WebView}
-                    source={{ html: detail.conten }}
+                    source={{ html: detail?.conten || '' }}
                     contentWidth={Dimensions.get("screen").width}
                     customHTMLElementModels={customHTMLElementModels}
                     defaultWebViewProps={
@@ -86,7 +91,7 @@ const PaperDetail = ({ navigation, route }) => {
                 />
                 <View style={{height: 1, backgroundColor: "black"}}></View>
                 {/* <Text></Text> */}
-                <LastNews paper_id={route.params.data.id} navigation={navigation}></LastNews>
+                <LastNews paper_id={route?.params?.data?.id || 1} navigation={navigation}></LastNews>
             </ScrollView>
         );
     } else {
