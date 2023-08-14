@@ -24,7 +24,7 @@ const linking = {
             PaperScreen: {
               screens: {
                 PaperList: 'PaperList',
-                PaperDetail: 'PaperDetail/:paper_id'
+                PaperDetail: 'PaperDetail/:paper_id' // pass param for screen(get by props.route.params.paper_id)
               }
             }
           },
@@ -34,26 +34,4 @@ const linking = {
   };
 
 export default linking;
-
-// const config = {
-// 	screens: {
-// 	  // set config for App init screen
-// 	  PersonalInfoScreen: {
-// 		path: "info_register/",
-// 		parse: {
-// 		  token: (token) => `${token}`,
-// 		},
-// 	  },
-// 	  // set config for Tabs screen 
-// 	  TabStack: {
-// 		screens: {
-// 		  Setting: {
-// 			screens: {
-// 			  SettingScreen: "setting_register/:token",
-// 			},
-// 		  },
-// 		},
-// 	  },
-// 	},
-//   };
 // https://reactnavigation.org/docs/configuring-links/
