@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';  // npm install react-native-vector-icons --save && thêm: apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" vào: android/app/build.gradle
-
+// import Icon from 'react-native-vector-icons/Ionicons';
 import {
   Colors,
   DebugInstructions,
@@ -26,26 +26,20 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import BottomTabs from './bottoms/Bottom';
-const Stack = createNativeStackNavigator();
-
-// import Icon from 'react-native-vector-icons/dist/FontAwesome';
-// import Icon from 'react-native-vector-icons/Ionicons';
 import { requestUserPermission } from './src/utils/notificationHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import linking from './linking';
 
-
+const Stack = createNativeStackNavigator();
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
+function Section({ children, title }: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -75,12 +69,12 @@ function App(): JSX.Element {
 
   const [token, setToken] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     requestUserPermission();
     getFcmToken();
   }, []);
 
-  const getFcmToken = async ()=>{
+  const getFcmToken = async () => {
     const token = await AsyncStorage.getItem("fcmToken");
     console.log("token in app: ", token);
     if (token) {
@@ -94,7 +88,7 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer linking={linking}>
+    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator>
         <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
