@@ -4,9 +4,10 @@ import {
     ScrollView, ToastAndroid, Platform, Dimensions, LogBox,
 } from "react-native";
 import { Tooltip } from 'react-native-elements';                                     // npm i react-native-elements
-import { ColorPicker, TriangleColorPicker, toHsv } from 'react-native-color-picker'; //  npm install react-native-color-picker --save & npm install @react-native-community/slider --save
+import { ColorPicker, TriangleColorPicker, toHsv } from 'react-native-color-picker'; // npm install react-native-color-picker --save & npm install @react-native-community/slider --save
 import { SketchPicker, SwatchesPicker, PhotoshopPicker } from 'react-color';         // npm install react-color --save :: https://casesandberg.github.io/react-color/
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';                            // // xem icon https://oblador.github.io/react-native-vector-icons/
 //import { Ionicons } from '@expo/vector-icons';                  // chạy được cả trên web và android. xem icon: https://icons.expo.fyi || install: npm i @expo/vector-icons
 import ColorPickerWheel from 'react-native-wheel-color-picker'; // npm install react-native-wheel-color-picker
 
@@ -24,7 +25,6 @@ class ColorIcon extends Component {
     }
 
     render() {
-        console.log(this.props.params);
         return (
             <View style={{ flex: 1 }}>
                 <FindIcon></FindIcon>
@@ -64,6 +64,7 @@ class FindIcon extends Component {
         return (
             <View style={{ padding: 6 }}>
                 <Text style={css.title}>Find Icon image</Text>
+                {/* <Icon name={"home"} size={26} color={'red'} /> */}
                 <View style={css.icon}>
                     <Text style={{ fontSize: 18 }}>icon name:</Text>
                     <TextInput
@@ -115,6 +116,31 @@ class FindIcon extends Component {
                         </View>
                         <Text>
                             {`<FontAwesome5Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`}
+                        </Text>
+                        <View style={{ backgroundColor: "black", height: 1 }}></View>
+                    </View>
+
+                    <View >
+                        <View style={css.icon}>
+                            <Tooltip popover={<Text>coppied to Clipboard</Text>}
+                                withOverlay={false}
+                                skipAndroidStatusBar={true}
+                                onOpen={() => {
+                                    copyToClipboard(`<Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`);
+                                }}
+                            >
+                                <Text style={{ fontSize: 18 }}>Icon(size=28): </Text>
+                            </Tooltip>
+                            {(() => {
+                                if (this.state.use_find_icon) {
+                                    return (<Icon name={this.state.find_icon ? this.state.icon_name : null} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                } else {
+                                    return (<Icon name={this.state.icon_name} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                }
+                            })()}
+                        </View>
+                        <Text>
+                            {`<Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`}
                         </Text>
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
@@ -319,3 +345,4 @@ export default ColorIcon;
 //and delete: "Slider" that is imported from react-native and add this:
 //import Slider from "@react-native-community/slider";
 //Do the same for: node_modules/react-native-color-picker/src/HoloColorPicker.tsx
+// <FontAwesome5Icon name='bug' size={28} color='#00ebff'/>
