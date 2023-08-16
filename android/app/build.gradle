@@ -109,6 +109,10 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
+    
+    implementation("com.google.firebase:firebase-inappmessaging-display")
+    implementation("com.google.firebase:firebase-analytics")
+
     // support gif, already added this: cho ảnh gif và WebP
         // If your app supports Android versions before Ice Cream Sandwich (API level 14)
         implementation 'com.facebook.fresco:animated-base-support:1.3.0'
