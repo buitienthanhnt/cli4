@@ -60,6 +60,11 @@ const AccountDetail = (props) => {
             }}></Button>
             <Text>{"\n"}</Text>
 
+            <Button title="to Login" onPress={() => {
+                props.navigation.navigate("Login");
+            }}></Button>
+            <Text>{"\n"}</Text>
+
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal
                 closeOnDragDown={true} // kéo xuống để ẩn popup modal
