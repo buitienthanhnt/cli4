@@ -110,7 +110,7 @@ const LastNews = (props) => {
     const getRelatedPaper = async () => {
         try {
             let request_api = Config.url + Config.api_request.getRelatedPaper + paper_id;
-            const response = await fetch(getRelatedPaper);
+            const response = await fetch(request_api);
             const _data = await response.json();
             setData(_data?.["items"]);
         } catch (error) {console.log(error);}

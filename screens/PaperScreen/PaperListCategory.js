@@ -10,12 +10,12 @@ class PaperListCategory extends Component {
             items: [],
             refreshing: false,
             page: 1,
-            end: false
+            end: false,
+            category_id: null
         };
     }
 
     componentDidMount() {
-        // console.log(this.props);
         this.getSourceData();
         // tắt cảnh báo màu vàng trên màn hình dùng: LogBox.
         LogBox.ignoreAllLogs(); // cho tất cả các cảnh báo.
@@ -24,7 +24,7 @@ class PaperListCategory extends Component {
 
     getSourceData = async function (paper = false, refresh = false) {
         if (!this.state.refreshing) {
-            this.setState({ refreshing: true });
+            this.setState({ refreshing: true, category_id: this.props.route.params.category_id });
             // console.log(Config.url + Config.api_request.getPaperCategory + this.props.route.params.category_id + Config.buy_params({ page: paper !== false ? paper : this.state.page }));
             const data = await fetch(Config.url + Config.api_request.getPaperCategory + this.props.route.params.category_id + Config.buy_params({ page: paper !== false ? paper : this.state.page }));
             const result = await data.json();
@@ -39,7 +39,7 @@ class PaperListCategory extends Component {
                 await this.setState({
                     items: items,
                     page: refresh ? 2 : this.state.page += 1,
-                    refreshing: false
+                    refreshing: false,
                 });
             } else {
                 this.setState({
@@ -51,6 +51,13 @@ class PaperListCategory extends Component {
     }
 
     componentDidUpdate() {
+        // console.log("componentDidUpdate");
+        if (this.props.route.params.category_id != this.state.category_id) {
+            console.log("====>", this.state.category_id, this.props.route.params.category_id);
+            if (this.state.items) {
+                this.getSourceData(1, true);
+            }
+        }
         var items_count = this.state.items.length;
         if (!this.state.refreshing && !this.state.end && (items_count * Dimensions.get("screen").height / 7 < Dimensions.get("screen").height)) {
             this.getSourceData();
@@ -58,12 +65,9 @@ class PaperListCategory extends Component {
     }
 
     render() { // https://viblo.asia/p/react-native-lifecycle-gAm5yXY8ldb
-        const height = Dimensions.get("screen").height;
-        const width = Dimensions.get("screen").width;
         return (
             <View style={css.container}>
                 <FlatList
-
                     data={this.state.items}
                     refreshing={this.state.refreshing}
                     onRefresh={() => {

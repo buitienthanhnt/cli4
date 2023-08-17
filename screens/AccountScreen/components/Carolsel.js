@@ -31,7 +31,7 @@ class Carolsel extends Component {
 
   loadData = async () => {
     let result = null;;
-    let request = Config.custom_url() + Config.api_request.getpapers+ Config.buy_params({page:3});
+    let request = Config.custom_url() + Config.api_request.getRelatedPaper;
     const response = await fetch(request);
     result = await response.json();
     this.setState({

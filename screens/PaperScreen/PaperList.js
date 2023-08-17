@@ -110,7 +110,7 @@ class PaperList extends Component {
 
                 <FlatList
 
-                    data={this.state.items}
+                    data={this.state?.items}
                     refreshing={this.state.refreshing}
                     onRefresh={() => {
                         this.getSourceData(1, true);
