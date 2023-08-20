@@ -48,7 +48,7 @@ class FindIcon extends Component {
         this.state = {
             icon_name: "bug", // bug analytics
             color: "tomato",
-            size: 16,
+            size: "28",
             copiedText: "",
             find_icon: false,
             use_find_icon: 0
@@ -88,6 +88,18 @@ class FindIcon extends Component {
                         }}
                     ></TextInput>
                 </View>
+
+                <View style={css.icon}>
+                    <Text style={{ fontSize: 18 }}>icon size:</Text>
+                    <TextInput
+                        keyboardType="numeric"
+                        value={this.state.size}
+                        style={css.icon_input_size}
+                        onChangeText={(text) => {
+                            this.setState({ ...this.state, size: text });
+                        }}
+                    ></TextInput>
+                </View>
                 <View>
                     {/* <Button title="find icon" onPress={() => {
                         this.setState({ find_icon: true });
@@ -101,21 +113,21 @@ class FindIcon extends Component {
                                 withOverlay={false}
                                 skipAndroidStatusBar={true}
                                 onOpen={() => {
-                                    copyToClipboard(`<FontAwesome5Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`);
+                                    copyToClipboard(`<FontAwesome5Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`);
                                 }}
                             >
-                                <Text style={{ fontSize: 18 }}>FontAwesome5Icon(size=28): </Text>
+                                <Text style={{ fontSize: 18 }}>FontAwesome5Icon(size={this.state.size}): </Text>
                             </Tooltip>
                             {(() => {
                                 if (this.state.use_find_icon) {
-                                    return (<FontAwesome5Icon name={this.state.find_icon ? this.state.icon_name : null} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                    return (<FontAwesome5Icon name={this.state.find_icon ? this.state.icon_name : null} size={Number(this.state.size)} color={this.state.color} style={{ marginLeft: 10 }} />);
                                 } else {
-                                    return (<FontAwesome5Icon name={this.state.icon_name} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                    return (<FontAwesome5Icon name={this.state.icon_name} size={Number(this.state.size)} color={this.state.color} style={{ marginLeft: 10 }} />);
                                 }
                             })()}
                         </View>
                         <Text>
-                            {`<FontAwesome5Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`}
+                            {`<FontAwesome5Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
                         </Text>
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
@@ -126,21 +138,21 @@ class FindIcon extends Component {
                                 withOverlay={false}
                                 skipAndroidStatusBar={true}
                                 onOpen={() => {
-                                    copyToClipboard(`<Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`);
+                                    copyToClipboard(`<Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`);
                                 }}
                             >
-                                <Text style={{ fontSize: 18 }}>Icon(size=28): </Text>
+                                <Text style={{ fontSize: 18 }}>Icon(size={this.state.size}): </Text>
                             </Tooltip>
                             {(() => {
                                 if (this.state.use_find_icon) {
-                                    return (<Icon name={this.state.find_icon ? this.state.icon_name : null} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                    return (<Icon name={this.state.find_icon ? this.state.icon_name : null} size={Number(this.state.size)} color={this.state.color} style={{ marginLeft: 10 }} />);
                                 } else {
-                                    return (<Icon name={this.state.icon_name} size={28} color={this.state.color} style={{ marginLeft: 10 }} />);
+                                    return (<Icon name={this.state.icon_name} size={Number(this.state.size)} color={this.state.color} style={{ marginLeft: 10 }} />);
                                 }
                             })()}
                         </View>
                         <Text>
-                            {`<Icon name='${this.state.icon_name}' size={28} color='${this.state.color}'/>`}
+                            {`<Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
                         </Text>
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
@@ -320,7 +332,7 @@ const css = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         paddingLeft: 8,
-        width: "30%",
+        width: "40%",
         marginLeft: 10
     },
     icon_input_size: {
@@ -329,12 +341,13 @@ const css = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         paddingLeft: 8,
-        width: "30%",
+        width: "40%",
         marginLeft: 10
     },
     icon: {
         flexDirection: "row",
-        marginTop: 8
+        marginTop: 8,
+        justifyContent: "space-between"
     }
 });
 

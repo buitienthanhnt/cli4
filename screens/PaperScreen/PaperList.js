@@ -1,5 +1,5 @@
-import react, { Component } from "react";
-import { FlatList, StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, LogBox, ScrollView, ImageBackground } from "react-native";
+import react, { Component, useCallback } from "react";
+import { FlatList, StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, LogBox, ScrollView, RefreshControl } from "react-native";
 
 import Config from "../../config/Config";
 
@@ -9,6 +9,7 @@ class PaperList extends Component {
         this.state = {
             items: [],
             refreshing: false,
+            topRefresh: false,
             page: 1,
             topCategory: []
         };
@@ -52,7 +53,8 @@ class PaperList extends Component {
         const data = await fetch(Config.url + Config.api_request.getCategoryTop);
         const result = await data.json();
         this.setState({
-            topCategory: result
+            topCategory: result,
+            topRefresh: false
         })
     }
 
@@ -66,6 +68,14 @@ class PaperList extends Component {
     render() { // https://viblo.asia/p/react-native-lifecycle-gAm5yXY8ldb
         const height = Dimensions.get("screen").height;
         const width = Dimensions.get("screen").width;
+        const onRefresh = () => {
+            this.setState({topRefresh: true});
+            this.getCategoryTop();
+            // setTimeout(() => {
+            //     this.setState({topRefresh: false});
+            // }, 2000);
+          }
+
         return (
             <View style={css.container}>
                 <View >
@@ -73,6 +83,8 @@ class PaperList extends Component {
                         pagingEnabled={true}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
+                        refreshControl={
+                            <RefreshControl refreshing={this.state.topRefresh} onRefresh={onRefresh} />}
                     >
                         {(
                             ()=>{

@@ -49,6 +49,10 @@ const CategoryTree = (props) => {
                 <Button title="to suport" onPress={() => {
                     props.navigation.navigate("ColorIcon")
                 }}></Button>
+
+                <Button title="to SwipeListViews" onPress={() => {
+                    props.navigation.navigate("SwipeListViews")
+                }}></Button>
             </View>
         )
     }
@@ -63,10 +67,10 @@ const CategoryItem = (props) => {
     )
 
     return (
-        <View style={{paddingLeft: 6, paddingRight: 6}}>
+        <View style={{ paddingLeft: 6, paddingRight: 6 }}>
             <View style={css.categoryItem}>
-                <TouchableOpacity onPress={()=>{
-                    props?.navigation.navigate("PaperScreen", { screen: "PaperListCategory", params: {category_id: props?.data?.id}})
+                <TouchableOpacity onPress={() => {
+                    props?.navigation.navigate("PaperScreen", { screen: "PaperListCategory", params: { category_id: props?.data?.id } })
                 }}>
                     <Text style={css.categoryItemName}>{props?.data?.name}</Text>
                 </TouchableOpacity>
@@ -76,17 +80,17 @@ const CategoryItem = (props) => {
                     {props?.data?.items && <FontAwesome5Icon name={status ? 'plus' : 'chevron-down'} size={18} color='#000000' />}
                 </TouchableOpacity>
             </View>
-            {props?.data?.items && 
-            <Collapsible collapsed={status}>
-                <View style={{paddingLeft: 10, paddingRight: 8}}>
-                    <FlatList
-                        data={props?.data?.items}
-                        renderItem={({ item }) => {
-                            return <CategoryItem data={item} navigation={props.navigation}></CategoryItem>
-                        }}
-                    ></FlatList>
-                </View>
-            </Collapsible>}
+            {props?.data?.items &&
+                <Collapsible collapsed={status}>
+                    <View style={{ paddingLeft: 10, paddingRight: 8 }}>
+                        <FlatList
+                            data={props?.data?.items}
+                            renderItem={({ item }) => {
+                                return <CategoryItem data={item} navigation={props.navigation}></CategoryItem>
+                            }}
+                        ></FlatList>
+                    </View>
+                </Collapsible>}
         </View>
     )
 }
