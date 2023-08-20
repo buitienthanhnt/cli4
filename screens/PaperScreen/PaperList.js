@@ -10,7 +10,8 @@ class PaperList extends Component {
             items: [],
             refreshing: false,
             page: 1,
-            topCategory: []
+            topCategory: [],
+            end: false
         };
     }
 
@@ -42,7 +43,8 @@ class PaperList extends Component {
                 });
             } else {
                 this.setState({
-                    refreshing: false
+                    refreshing: false,
+                    end: true
                 });
             }
         }
@@ -58,7 +60,7 @@ class PaperList extends Component {
 
     componentDidUpdate() {
         var items_count = this.state.items.length;
-        if (!this.state.refreshing && (items_count * Dimensions.get("screen").height / 7 < Dimensions.get("screen").height)) {
+        if (!this.state.refreshing && !this.state.end && (items_count * Dimensions.get("screen").height / 7 < Dimensions.get("screen").height)) {
             this.getSourceData();
         }
     }

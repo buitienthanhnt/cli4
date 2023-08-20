@@ -5,14 +5,17 @@ const Config = (path = "", params = null) => {
         https: "https://",
         // ip: "192.168.1.150/",                 // 192.168.1.153(m4700-mochi)
         // uri: "laravel1/public/index.php/",    // laravel1/public/index.php(m4700-mochi)
-        ip: "192.168.100.210/",            // 192.168.100.210(jm-destop)
-        uri: "newpaper/public/index.php/", // newpaper/public/index.php(jm-destop)
+        // ip: "192.168.100.210/",            // 192.168.100.210(jm-destop)
+        // uri: "newpaper/public/index.php/", // newpaper/public/index.php(jm-destop)
+        ip: "192.168.1.214/",            // 192.168.100.210(m6800)
+        uri: "caycanh5/public/index.php/", // newpaper/public/index.php(m6800)
         api_request: {
             getpapers:        "api/getpapers/",
             getPaperDetail:   "api/getpaperdetail/",
             getCategoryTop:   "api/getcategorytop/",
             getPaperCategory: "api/papercategory/",
             getRelatedPaper:  "api/getRelatedPaper",
+            getCategoryTree:  "api/getcategorytree"
         },
         buy_params: function (params) {
             var values = "?";
