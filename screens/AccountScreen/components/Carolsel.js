@@ -45,7 +45,7 @@ class Carolsel extends Component {
 
   _renderItem({ item, index}) {
     return (
-      <TouchableOpacity style={css.item}
+      <TouchableOpacity style={css.item} activeOpacity={1} // không làm mờ khi nhấn vào.
         onPress={() => { 
           this.props.navigation.push("PaperDetail", { data: item }); // dùng push để  chuyển hướng trong cùng trang với props thay đổi.  
         }}

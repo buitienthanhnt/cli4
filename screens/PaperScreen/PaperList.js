@@ -123,7 +123,6 @@ class PaperList extends Component {
                 </View>
 
                 <FlatList
-
                     data={this.state?.items}
                     refreshing={this.state.refreshing}
                     onRefresh={() => {

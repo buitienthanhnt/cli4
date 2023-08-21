@@ -55,6 +55,7 @@ class PaperListCategory extends Component {
         if (this.props.route.params.category_id != this.state.category_id) {
             console.log("====>", this.state.category_id, this.props.route.params.category_id);
             if (this.state.items) {
+                this.setState({ items: [] });
                 this.getSourceData(1, true);
             }
         }
@@ -65,9 +66,16 @@ class PaperListCategory extends Component {
     }
 
     render() { // https://viblo.asia/p/react-native-lifecycle-gAm5yXY8ldb
+        if (!this.state.items.length) {
+            return (
+                <View style={{ alignItems: "center" }}>
+                    <Text>!!! not has data !!!</Text>
+                </View>
+            )
+        }
         return (
             <View style={css.container}>
-                <FlatList
+                {this.state.items.length && <FlatList
                     data={this.state.items}
                     refreshing={this.state.refreshing}
                     onRefresh={() => {
@@ -86,7 +94,7 @@ class PaperListCategory extends Component {
                     onEndReached={() => {
                         this.getSourceData();
                     }}
-                ></FlatList>
+                ></FlatList>}
 
             </View>
         );
@@ -146,7 +154,7 @@ class ProductItemHost extends Component {
 
 const css = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     title_container: {
         width: Dimensions.get("screen").width,
@@ -158,7 +166,6 @@ const css = StyleSheet.create({
         color: "green"
     },
     top_image: {
-        // flex: 1,
         width: "100%",
         height: Dimensions.get("screen").height / 6
     },
@@ -171,7 +178,7 @@ const css = StyleSheet.create({
     },
     pro_item_host: {
         width: "100%",
-        height: Dimensions.get("screen").height / 4, padding: 5
+        height: Dimensions.get("screen").height / 4, padding: 5,
     },
     pro_item_host_title: {
         fontSize: 16,

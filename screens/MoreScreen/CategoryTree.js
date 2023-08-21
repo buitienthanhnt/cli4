@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, StyleSheet, Button, Image, TouchableOpacity, ImageBackground, ScrollView } from "react-native";
 import Config from "../../config/Config";
 import axios from 'react-native-axios'; // npm i react-native-axios
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'; // https://fontawesome.com/v5/search?q=right&o=r
@@ -8,70 +8,71 @@ import Collapsible from 'react-native-collapsible';  // npm install --save react
 const CategoryTree = (props) => {
     const [category_id, setCategoryId] = useState(0);
     const [tree, setTree] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     const getCategoryTree = useCallback(async () => {
         let request = Config.custom_url() + Config.api_request.getCategoryTree + Config.buy_params({ category_id: category_id });
-        // console.log("begin call");
         const detail = await fetch(request);
         var result = await detail.json();
-        // console.log(result);
         setTree(result);
-        // console.log("end call");
+        setRefresh(false)
     }, [category_id])
 
     useEffect(() => {
-        // console.log("get category tree");
         getCategoryTree();
-        // console.log("get category tree success");
     }, [category_id])
 
     if (!tree) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                {/* <ActivityIndicator size="small" color="#0000ff" /> */}
                 <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>
             </View>);
     } else {
         return (
-            <View style={css.container}>
+            <ImageBackground style={css.backGroundView} source={require("../../assets/pexels-brakou-abdelghani-1723637.jpg")}>
                 <FlatList
                     data={tree?.items}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return <CategoryItem data={item} navigation={props.navigation}></CategoryItem>
                     }}
+                    refreshing={refresh}
+                    onRefresh={() => {
+                        () => {
+                            setRefresh(true);
+                            CategoryTree()
+                        }
+                    }}
                 ></FlatList>
-                <Button title="show data" onPress={() => {
-                    console.log(tree);
-                }}></Button>
-                <Text>{"\n"}</Text>
 
                 <Button title="to suport" onPress={() => {
                     props.navigation.navigate("ColorIcon")
                 }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to SwiperComponent" onPress={() => {
+                    props.navigation.navigate("SwiperComponent")
+                }}></Button>
+                <Text>{"\n"}</Text>
 
                 <Button title="to SwipeListViews" onPress={() => {
                     props.navigation.navigate("SwipeListViews")
                 }}></Button>
-            </View>
+            </ImageBackground>
         )
     }
 }
 
 const CategoryItem = (props) => {
     const [status, setStatus] = useState(true)
-    useEffect(
-        () => {
-            // console.log("CategoryItem");
-        }, []
-    )
+    useEffect(() => { }, [])
 
     return (
         <View style={{ paddingLeft: 6, paddingRight: 6 }}>
             <View style={css.categoryItem}>
                 <TouchableOpacity onPress={() => {
                     props?.navigation.navigate("PaperScreen", { screen: "PaperListCategory", params: { category_id: props?.data?.id } })
-                }}>
+                }} style={{ width: '70%' }}>
                     <Text style={css.categoryItemName}>{props?.data?.name}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
@@ -98,13 +99,17 @@ const CategoryItem = (props) => {
 const css = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 12
+    },
+    backGroundView: {
+        flex: 1,
+        paddingTop: 12,
+        resizeMode: "cover"
     },
     categoryItem: {
         padding: 4,
         paddingLeft: 10,
         margin: 2,
-        backgroundColor: "#dddddd",
+        backgroundColor: "#c69eff", //"#dddddd",
         flexDirection: "row",
         justifyContent: "space-between",
         paddingRight: 15,
