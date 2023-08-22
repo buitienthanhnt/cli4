@@ -355,7 +355,7 @@ export default ColorIcon;
 
 // lỗi:  Invariant Violation: Slider has been removed from react-native core. It can now be installed and imported from '@react-native-community/slider' instead of 'react-native'. See:
 // vào:  node_modules/react-native-color-picker/dist/HoloColorPicker.js
-//and delete: "Slider" that is imported from react-native and add this:
-//import Slider from "@react-native-community/slider";
-//Do the same for: node_modules/react-native-color-picker/src/HoloColorPicker.tsx
+// and delete: "Slider" that is imported from react-native and add this:
+// import Slider from "@react-native-community/slider";
+// Do the same for: node_modules/react-native-color-picker/src/HoloColorPicker.tsx
 // <FontAwesome5Icon name='bug' size={28} color='#00ebff'/>

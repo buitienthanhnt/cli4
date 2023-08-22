@@ -1,14 +1,16 @@
-import react, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator, StyleSheet, Button, TextInput, TouchableOpacity } from "react-native";
+import react, { useCallback, useEffect, useMemo, useState } from "react";
+import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, Linking, StyleSheet, Button, TextInput, TouchableOpacity } from "react-native";
 import Config from "../../config/Config";
 import axios from 'react-native-axios';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { color } from "react-native-elements/dist/helpers";
+import Collapsible from 'react-native-collapsible';  // npm install --save react-native-collapsible
 
 const Sdetail = () => {
     const [detail, setDetail] = useState(null);
     const [store, setStore] = useState([]);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         stores();
@@ -30,19 +32,38 @@ const Sdetail = () => {
             url: resquest,
         }).then((response) => {
             setDetail(response.data);
+            setRefresh(false);
         });
     }
 
+    const onRefresh = useCallback(()=>{
+        setRefresh(true)
+        stores();
+        proData();
+    })
+
     if (!detail) {
         return <View>
-            <Text>not has product detail data</Text>
+            <Text>not has product detail data </Text>
         </View>
     } else {
         return (
-            <View style={css.container}>
+            <View style={css.container} refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh} />}>
                 <TopSerach></TopSerach>
                 <ProDetail detail={detail}></ProDetail>
-                <StoreList stores={store}></StoreList>
+                {/* <View style={{maxHeight: 'auto', height: 300}}> */}
+                {(()=>{
+                    if (store.length) {
+                        return <StoreList stores={store}></StoreList>
+                    }else{
+                        return(
+                            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                                 <Image style={{width: 250, height: 250, resizeMode: 'cover', borderRadius: 125}} source={{uri: 'https://cdn11.bigcommerce.com/s-4cnnicdo9y/images/stencil/120x180/products/2845/19117/08962-6911-fancy__50291.1685064043.jpg?c=1'}}></Image>
+                            </View>
+                        )
+                    }
+                })()}
+                {/* </View> */}
             </View>
         )
     }
@@ -117,7 +138,7 @@ const StoreList = (props) => {
     useEffect(() => {
     }, [])
     return (
-        <View style={{marginTop: 20}}>
+        <View style={{ marginTop: 20 }}>
             {
                 props?.stores &&
                 <FlatList
@@ -133,18 +154,76 @@ const StoreList = (props) => {
 }
 
 const StoreItem = (props) => {
+    const [show, setShow] = useState(true);
+    const stock = useMemo(() => {
+        if (props.store?.stock <= 0) {
+            return {
+                color: "red",
+                label: "Op voorraad"
+            }
+        } else if (props.store?.stock == 1) {
+            return {
+                color: "green",
+                label: "Laatste stuk"
+            }
+        } else {
+            return {
+                color: "green",
+                label: "Bijna uitverkocht"
+            }
+        }
+    }, props.store?.stock)
+
     useEffect(() => {
         // console.log(props);
     }, [])
     return (
-        <View style={{ paddingHorizontal: 8, height: 50, flexDirection: 'row' }}>
-            <View>
+        <View style={{ paddingHorizontal: 8 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' }}>
                 <Text style={{ fontSize: 20, fontWeight: "bold", color: 'black' }}>{props?.store?.store?.name}</Text>
-                <View></View>
+                <Text style={{ fontSize: 16, color: stock.color }}>{stock.label}</Text>
             </View>
-            <View>
-
+            <View style={{ marginVertical: 10 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+                    <Text style={{ fontSize: 16, marginRight: 12 }}>{props?.store?.store?.city}</Text>
+                    <TouchableOpacity onPress={() => {
+                        setShow(!show)
+                    }}>
+                        <FontAwesome5Icon name={!show ? 'chevron-up' : 'chevron-down'} size={16} color='#b2b2b2' />
+                    </TouchableOpacity>
+                </View>
+                <>
+                    <Collapsible collapsed={show}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ paddingRight: 8 }}>
+                                {/* <Text>{props?.store?.store?.name}</Text> */}
+                                <Text>{props?.store?.store?.addressLine1}</Text>
+                                <Text>{props?.store?.store?.addressLine2}</Text>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Icon name='phone' size={18} color='#b2b2b2' onPress={() => {
+                                        Linking.openURL(`tel:${props?.store?.store?.phoneNumber}`)
+                                    }} />
+                                    <Text style={{ marginLeft: 10 }}>{props?.store?.store?.phoneNumber}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <Icon name='google' size={18} color='#b2b2b2' onPress={() => {
+                                        Linking.openURL(`mailto:${props?.store?.store?.email}`)
+                                    }} />
+                                    <Text style={{ marginLeft: 10 }}>{props?.store?.store?.email}</Text>
+                                </View>
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                <TouchableOpacity style={{ backgroundColor: 'black', padding: 8 }} onPress={() => {
+                                    Linking.openURL(`https://${props?.store?.store?.websiteUrl}`)
+                                }}>
+                                    <Text style={{ color: 'white' }}>Winkel Bekijken</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Collapsible>
+                </>
             </View>
+            <View style={{ height: 1, backgroundColor: '#b2b2b2' }}></View>
         </View>
     )
 }
@@ -152,7 +231,7 @@ const StoreItem = (props) => {
 const css = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 8
+        padding: 8,
     },
     location: {
         width: 50,
