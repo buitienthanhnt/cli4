@@ -1,5 +1,5 @@
 import react, { useEffect, useState } from "react";
-import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import { Dimensions, Image, ScrollView, RefreshControl, Text, View, FlatList, ActivityIndicator, StyleSheet, Button } from "react-native";
 import Config from "../../config/Config";
 
 import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // npm install @native-html/iframe-plugin
@@ -19,7 +19,7 @@ const PaperDetail = ({ navigation, route }) => {
 
     const [html, setHtml] = useState(route?.params?.data?.conten || '');
     const [detail, setDetail] = useState(null);
-
+    const [showWebview, setShowwebview] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
@@ -59,6 +59,9 @@ const PaperDetail = ({ navigation, route }) => {
     }
 
     if (detail) {
+        if (showWebview) {
+            return  <WebView source={{ uri: "www.topsy-fashion.nl" }} />
+        }
         return (
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -66,7 +69,6 @@ const PaperDetail = ({ navigation, route }) => {
                 style={css.container}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
-                {/* {refreshing ? <View style={{flexDirection: "row", justifyContent: "center"}}><Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image></View>  : null} */}
                 <Text style={{ fontSize: 18, fontWeight: "600", color: "green", textDecorationLine: "underline" }}>{detail.title}</Text>
                 {/* <RenderHTML contentWidth={Dimensions.get("screen").width} source={{ html }}></RenderHTML> */}
                 <RenderHTML
@@ -90,8 +92,11 @@ const PaperDetail = ({ navigation, route }) => {
                     }}
                 />
                 <View style={{height: 1, backgroundColor: "black"}}></View>
-                {/* <Text></Text> */}
                 <LastNews paper_id={route?.params?.data?.id || 1} navigation={navigation}></LastNews>
+                <View style={{height: 1, backgroundColor: "black", marginBottom: 10}}></View>
+                <Button title="view in webview" onPress={()=>{
+                    setShowwebview(true)
+                }}></Button>
             </ScrollView>
         );
     } else {

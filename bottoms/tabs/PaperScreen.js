@@ -4,11 +4,13 @@ import Detail            from '../../screens/PaperScreen/Detail';
 import PaperList         from '../../screens/PaperScreen/PaperList';
 import PaperDetail       from '../../screens/PaperScreen/PaperDetail';
 import PaperListCategory from '../../screens/PaperScreen/PaperListCategory';
+import { Sdetail } from '../../screens/PaperScreen/Sdetail';
 
 const Stack = createNativeStackNavigator();
 const PaperScreen = ()=>{
     return(
         <Stack.Navigator>
+            <Stack.Screen name="Sdetail" component={Sdetail} options={{ headerShown: false }} />
             <Stack.Screen name="PaperList" component={PaperList} options={{ headerShown: false }} />
             <Stack.Screen name="PaperDetail" component={PaperDetail} options={{ headerShown: true }} />
             <Stack.Screen name="PaperListCategory" component={PaperListCategory} options={{ headerShown: false }} />

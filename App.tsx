@@ -17,6 +17,10 @@ import {
   View,
 } from 'react-native';
 
+// https://viblo.asia/p/webpack-5-babel-plugin-module-resolver-djeZ1EN8ZWz tạo Alias trong webpack
+// https://viblo.asia/p/webpack-5-webpack-resolve-alias-extensions-naQZRL4Q5vx
+// https://nguyenvanphuoc.com/bai-viet/cau-hinh-path-alias-voi-react-typescript-craco
+
 // import Icon from 'react-native-vector-icons/FontAwesome';  // npm install react-native-vector-icons --save && thêm: apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" vào: android/app/build.gradle
 // import Icon from 'react-native-vector-icons/Ionicons';
 import {
