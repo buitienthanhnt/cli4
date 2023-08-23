@@ -4,6 +4,7 @@ import Config from "../../config/Config";
 import axios from 'react-native-axios'; // npm i react-native-axios
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'; // https://fontawesome.com/v5/search?q=right&o=r
 import Collapsible from 'react-native-collapsible';  // npm install --save react-native-collapsible
+import CustomNavigation from "../CustomNavigation";
 
 const CategoryTree = (props) => {
     const [category_id, setCategoryId] = useState(0);
@@ -47,6 +48,10 @@ const CategoryTree = (props) => {
 
                 <Button title="to suport" onPress={() => {
                     props.navigation.navigate("ColorIcon")
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to navigation" onPress={() => {
                 }}></Button>
                 <Text>{"\n"}</Text>
 

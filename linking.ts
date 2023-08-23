@@ -24,7 +24,8 @@ const linking = {
             PaperScreen: {
               screens: {
                 PaperList: 'PaperList',
-                PaperDetail: 'PaperDetail/:paper_id' // pass param for screen(get by props.route.params.paper_id)
+                PaperDetail: 'PaperDetail/:paper_id', // pass param for screen(get by props.route.params.paper_id)
+                WebInApp: 'WebInApp/:storeUrl?',// WebInApp (dấu hỏi chấm là có thể không truyền giá trị)
               }
             }
           },
