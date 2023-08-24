@@ -22,13 +22,14 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
 
-         <!-- for focus screen when open message of farebase -->
+         <!-- thêm phần dưới đây for focus screen when open message of firebase dùng cho linking  -->
         <intent-filter>
           <action android:name="android.intent.action.VIEW" />
           <category android:name="android.intent.category.DEFAULT" />
           <category android:name="android.intent.category.BROWSABLE" />
           <data android:host="app" android:scheme="myapp" />
         </intent-filter>
+          <!-- for focus screen when open message of firebase -->
 
       </activity>
     </application>

@@ -4,13 +4,14 @@ import WebView from "react-native-webview";
 
 const WebInApp = (props: any) => {
     useEffect(() => {
+        console.log(decodeURIComponent(props?.route?.params?.storeUrl))
     }, []);
     return (
         <View style={{flex: 1}}>
             {
                 props?.route?.params?.storeUrl ? (
                     <WebView // open webview in app by url
-                        source={{ uri: `https://${props?.route?.params?.storeUrl}` }}
+                        source={{ uri: decodeURIComponent(props?.route?.params?.storeUrl) }}
                         renderLoading={() => {
                             return (
                                 <View
