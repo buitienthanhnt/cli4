@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Paper             from '../../screens/PaperScreen/Paper';
-import Detail            from '../../screens/PaperScreen/Detail';
-import PaperList         from '../../screens/PaperScreen/PaperList';
-import PaperDetail       from '../../screens/PaperScreen/PaperDetail';
+import Paper from '../../screens/PaperScreen/Paper';
+import Detail from '../../screens/PaperScreen/Detail';
+import PaperList from '../../screens/PaperScreen/PaperList';
+import PaperDetail from '../../screens/PaperScreen/PaperDetail';
 import PaperListCategory from '../../screens/PaperScreen/PaperListCategory';
 import { Sdetail } from '../../screens/PaperScreen/Sdetail';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -16,8 +16,9 @@ const PaperScreen = (props) => {
 
     return (
         <Stack.Navigator>
+            {/* <Stack.Screen name="PaperList" component={PaperList} options={{ headerShown: false }} /> */}
             <Stack.Screen name="Sdetail" component={Sdetail}
-                options={{ // xem: https://reactnavigation.org/docs/header-buttons && https://reactnavigation.org/docs/headers
+                options={{ // custom header of page xem: https://reactnavigation.org/docs/header-buttons && https://reactnavigation.org/docs/headers
                     headerShown: true,
                     title: "Bekijk Winkelvoorraad",
                     headerTitleAlign: 'center',

@@ -1,6 +1,5 @@
 import react, { Component, useCallback } from "react";
 import { FlatList, StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, LogBox, ScrollView, RefreshControl } from "react-native";
-
 import Config from "../../config/Config";
 
 class PaperList extends Component {

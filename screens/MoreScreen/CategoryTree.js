@@ -5,6 +5,7 @@ import axios from 'react-native-axios'; // npm i react-native-axios
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'; // https://fontawesome.com/v5/search?q=right&o=r
 import Collapsible from 'react-native-collapsible';  // npm install --save react-native-collapsible
 import CustomNavigation from "../CustomNavigation";
+import { useNavigation } from '@react-navigation/native';
 
 const CategoryTree = (props) => {
     const [category_id, setCategoryId] = useState(0);

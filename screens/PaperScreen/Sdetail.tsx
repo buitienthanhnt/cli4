@@ -10,10 +10,14 @@ import { color } from "react-native-elements/dist/helpers";
 import Collapsible from 'react-native-collapsible';  // npm install --save react-native-collapsible
 import { useNavigation } from '@react-navigation/native';
 
+import { useQuery } from 'react-query'               // https://codestus.com/posts/su-dung-react-query-de-fetch-du-lieu
+import fetchingPosts from './api/fetchingPosts'
+
 const Sdetail = () => {
     const [detail, setDetail] = useState(null);
     const [store, setStore] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const { data, error, isError, isLoading } = useQuery(['articles'], fetchingPosts)
 
     useEffect(() => {
         stores();
@@ -22,16 +26,20 @@ const Sdetail = () => {
 
     const stores = async () => {
         let request = Config.custom_url() + "api/getStore";
+        // let request = 'http://192.168.100.248/newpaper/public/index.php/api/getStore';
+        console.log(request);
         const result = await fetch(request);
         const data = await result.json();
         setStore(data);
     }
 
     const proData = async () => {
-        let resquest = Config.custom_url() + "api/sdetail";
+        let request = Config.custom_url() + "api/sdetail";
+        // let request = 'http://192.168.100.248/newpaper/public/index.php/api/sdetail';
+        console.log(request);
         axios({
             method: 'get',
-            url: resquest,
+            url: request,
         }).then((response?: any) => {
             setDetail(response.data);
             setRefresh(false);
@@ -43,8 +51,13 @@ const Sdetail = () => {
         stores();
         proData();
     }, [])
+    if (isLoading) {
+        return <View style={{flex: 1, justifyContent: "center", alignItems: 'center'}}>
+            <Image source={require('../../assets/Rolling-1s-200px.gif')} style={{width: 120, height: 120, resizeMode: 'cover'}}></Image>
+        </View>
+    }
 
-    if (!detail) {
+    if (!detail ) {
         return <View>
             <Text>not has product detail data </Text>
         </View>
@@ -212,11 +225,11 @@ const StoreItem = (props?: any) => {
                                     <Text style={{ marginLeft: 10 }}>{props?.store?.store?.phoneNumber}</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Icon name='google' size={18} color='#b2b2b2' onPress={() => {
+                                    <Icon name='google' size ={18} color='#b2b2b2' onPress={() => {
                                         Linking.openURL(`mailto:${props?.store?.store?.email}`)
                                     }} />
                                     <Text style={{ marginLeft: 10 }}>{props?.store?.store?.email}</Text>
-                                </View>
+                                </View> 
                             </View>
                             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
                                 <TouchableOpacity style={{ backgroundColor: 'black', padding: 8 }} onPress={() => {

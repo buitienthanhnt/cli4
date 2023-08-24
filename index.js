@@ -4,6 +4,23 @@ import {name as appName} from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
 
+// https://viblo.asia/p/deep-linking-voi-react-native-GrLZDXGVZk0
+// https://reactnative.dev/docs/linking
+let scheme = 'exampleapp';
+const handleOpenURL = (event) => {
+	console.log("===---------=>", "handleOpenURL");
+	console.log(event);
+    if (event.url && event.url.indexOf(scheme + '://') === 0) {
+        crossroads.parse(event.url.slice(scheme.length + 3));
+		console.log('<------------');
+    }
+}
+
+// Dùng linking lắng nghe khi người dùng clich vào 1 url app link nào đó: ví dụ: url = 'myapp://app/WebInApp/www.topsy-fashion.nl' (không dùng được dạng: http://google.com mà chỉ dùng cho app link schema) .
+// Linking.getInitialURL().then(url => handleOpenURL({ url })).catch(console.error);
+Linking.addEventListener('url', handleOpenURL);
+
+
 AppRegistry.registerComponent(appName, () => App);
 
 

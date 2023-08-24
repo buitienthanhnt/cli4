@@ -1,5 +1,5 @@
 const linking = {
-    prefixes: ['myapp://app'],
+    prefixes: ['myapp://app', 'https://google.com'],
     config: {
       screens: {
         BottomTabs: {
@@ -36,3 +36,5 @@ const linking = {
 
 export default linking;
 // https://reactnavigation.org/docs/configuring-links/
+// https://viblo.asia/p/deep-linking-voi-react-native-GrLZDXGVZk0
+// https://viblo.asia/p/cach-su-dung-deep-linking-trong-react-native-Qbq5QEBL5D8

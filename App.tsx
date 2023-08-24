@@ -36,6 +36,8 @@ import BottomTabs from './bottoms/Bottom';
 import { requestUserPermission } from './src/utils/notificationHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import linking from './linking';
+import { QueryClient, QueryClientProvider } from 'react-query'  // dùng cho getdata api
+const queryClient = new QueryClient()
 
 const Stack = createNativeStackNavigator();
 
@@ -92,12 +94,15 @@ function App(): JSX.Element {
   };
 
   return (
-    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
-      <Stack.Navigator>
-        <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
-      </Stack.Navigator>
-      <StatusBar backgroundColor="#61dafb" animated={true} />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+        <Stack.Navigator>
+          <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
+        </Stack.Navigator>
+        <StatusBar backgroundColor="#61dafb" animated={true} />
+      </NavigationContainer>
+    </QueryClientProvider>
+
   );
 }
 
