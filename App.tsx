@@ -30,7 +30,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './bottoms/Bottom';
 import { requestUserPermission } from './src/utils/notificationHelper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import linking from './linking';
 
 const Stack = createNativeStackNavigator();
@@ -70,17 +69,10 @@ function App(): JSX.Element {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    requestUserPermission();
-    getFcmToken();
+   
   }, []);
 
-  const getFcmToken = async () => {
-    const token = await AsyncStorage.getItem("fcmToken");
-    console.log("token in app: ", token);
-    if (token) {
-      setToken(token);
-    }
-  };
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
