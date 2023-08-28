@@ -22,15 +22,17 @@ $RNFirebaseAsStaticFramework = true
 #   dependencies: {
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
-flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
+# flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled   <-- bỏ dòng này
 
-linkage = ENV['USE_FRAMEWORKS']
-if linkage != nil
-  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
-  use_frameworks! :linkage => linkage.to_sym
-end
+# bỏ phần này:  ===>
+# linkage = ENV['USE_FRAMEWORKS']
+# if linkage != nil
+#   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+#   use_frameworks! :linkage => linkage.to_sym
+# end
+#   <===== bỏ phần này
 
-target 'cli4' do
+target 'cli2' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -45,12 +47,12 @@ target 'cli4' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    # :flipper_configuration => flipper_config,        <==== bỏ dòng này
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'cli4Tests' do
+  target 'cli2Tests' do
     inherit! :complete
     # Pods for testing
   end
