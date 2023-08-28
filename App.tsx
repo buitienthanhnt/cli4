@@ -30,6 +30,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './bottoms/Bottom';
@@ -75,10 +76,17 @@ function App(): JSX.Element {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-   
+    requestUserPermission();
+    getFcmToken();
   }, []);
 
-
+  const getFcmToken = async () => {
+    const token = await AsyncStorage.getItem("fcmToken");
+    console.log("token in app: ", token);
+    if (token) {
+      setToken(token);
+    }
+  };
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -94,7 +102,6 @@ function App(): JSX.Element {
         <StatusBar backgroundColor="#61dafb" animated={true} />
       </NavigationContainer>
     </QueryClientProvider>
-
   );
 }
 

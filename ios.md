@@ -7,6 +7,17 @@ rm -rf ~/Library/Developer/Xcode/DerivedData/*
 pod deintegrate
 pod setup
 
+INFO
+If you are having trouble with iOS, try to reinstall the dependencies by running:
+
+cd ios to navigate to the ios folder.
+   bundle install 
+to install Bundler
+   bundle exec pod install 
+to install the iOS dependencies managed by CocoaPods.
+
+
+
 Và xóa Podsthư mục của dự án. Vị trí của nó là project directory > ios > Pods.
 
 Sau đó, tại project directory > ios vị trí, cài đặt nhóm với: 
