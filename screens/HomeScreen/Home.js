@@ -16,9 +16,9 @@ const Home = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={{flexDirection: "row", justifyContent: "center", backgroundColor: "green" }}>
-                <Text style={{fontSize: 18, fontWeight: "700", color: "violet"}}>
+                {/* <Text style={{fontSize: 18, fontWeight: "700", color: "violet"}}>
                     home screen
-                </Text>
+                </Text> */}
             </View>
             <View style={{ flex: 8 }}>
                 <FlatList

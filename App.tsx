@@ -96,10 +96,12 @@ function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+        <SafeAreaView>
+          <StatusBar backgroundColor="#61dafb" animated={true} networkActivityIndicatorVisible={true} />
+        </SafeAreaView>
         <Stack.Navigator>
           <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
         </Stack.Navigator>
-        <StatusBar backgroundColor="#61dafb" animated={true} />
       </NavigationContainer>
     </QueryClientProvider>
   );
