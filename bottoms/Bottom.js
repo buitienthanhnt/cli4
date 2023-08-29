@@ -53,6 +53,7 @@ const BottomTabs = ({props, route})=>{
             <Tab.Screen name="CodeScreen" component={CodeScreen} tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'code',
+                    tabBarShowLabel: false,     // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={'code'} size={26} color={color}/>)
                 }} 
             />
