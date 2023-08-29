@@ -7,13 +7,14 @@ import AccountScreen from "./tabs/AccountScreen";
 import HomeScreen    from "./tabs/HomeScreen";
 import PaperScreen   from "./tabs/PaperScreen";
 import MoreScreen from "./tabs/MoreScreen";
+import CodeScreen from "./tabs/CodeScreen";
 
 const Tab = createBottomTabNavigator();
 const BottomTabs = ({props, route})=>{
     return(
         <Tab.Navigator screenOptions={
             ({ route }) => ({
-                tabBarActiveTintColor: 'tomato', // màu icon mặc định là xanh, dùng như này sẽ là màu cà chua.
+                tabBarActiveTintColor: '#669ddd', // màu icon mặc định là xanh, dùng như này sẽ là màu cà chua.
                 tabBarInactiveTintColor: 'gray', // gray cũng là màu mặc định luôn.
                 headerShown: false               // ẩn phần tiêu đề bên trên của: Tab.Navigator
             })}
@@ -40,13 +41,21 @@ const BottomTabs = ({props, route})=>{
                 options={{
                     tabBarLabel: 'User',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"bug"} size={26} color={color} />)
-                }} />
+                }} 
+            />
 
             <Tab.Screen name="MoreScreen" component={MoreScreen} tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'More',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"windows"} size={26} color={color} />)
                 }} />
+            
+            <Tab.Screen name="CodeScreen" component={CodeScreen} tabBarOptions={{ showLabel: false }}
+                options={{
+                    tabBarLabel: 'code',
+                    tabBarIcon: ({ focused, color, size }) => (<Icon name={'code'} size={26} color={color}/>)
+                }} 
+            />
 
         </Tab.Navigator>
     );
