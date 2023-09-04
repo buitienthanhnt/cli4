@@ -52,6 +52,11 @@ const Code = (props) => {
             }}></Button>
             <Text> {"\n"}</Text>
 
+            <Button title="to Animate1" onPress={() => {
+                props?.navigation.navigate("Animate1");
+            }}></Button>
+            <Text> {"\n"}</Text>
+
             <Button title="to ScrollViews" onPress={() => {
                 props?.navigation.navigate("ScrollViews");
             }}></Button>

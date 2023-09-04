@@ -4,6 +4,7 @@ import Code from "../../screens/CodeScreen/Code";
 import PanResponders from "../../screens/CodeScreen/PanResponders";
 import FadeInView from "../../screens/CodeScreen/FadeInView";
 import ScrollViews from "../../screens/CodeScreen/ScrollViews";
+import Animate1 from "../../screens/CodeScreen/Animate1";
 
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
@@ -13,8 +14,9 @@ const CodeScreen = ()=>{
             <Stack.Screen name="PanResponders" component={PanResponders} options={{ headerShown: false }} />
             <Stack.Screen name="FadeInView" component={FadeInView} options={{ headerShown: false }} />
             <Stack.Screen name="ScrollViews" component={ScrollViews} options={{ headerShown: false }} />
+            <Stack.Screen name="Animate1" component={Animate1} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
 
-export default CodeScreen;
+export default CodeScreen;  

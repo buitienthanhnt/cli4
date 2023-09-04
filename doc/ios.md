@@ -23,6 +23,7 @@ Và xóa Podsthư mục của dự án. Vị trí của nó là project director
 Sau đó, tại project directory > ios vị trí, cài đặt nhóm với: 
 
 pod install
+lưu ý trước khi build lại thì vào xcode -> mở project -> tab product -> clean build để  làm sạch project
 
 Và react-native run-ios trong thư mục dự án.
 Sau khi gặp sự cố, tôi cố gắng xây dựng dự án trên một máy Mac khác và hoạt động tốt. Và tôi thấy mọi lỗi đều xuất phát follyvà nó nằm ở Pods. Sau đó, tôi so sánh Podsthư mục giữa tôi và môi trường Mac khác. Trong trường hợp của tôi, có những tập tin bị thiếu. Vì vậy, tôi tham khảo nhận xét được viết bởi kelset trong tệp 'folly/folly-config.h' không tìm thấy , cho biết "Điều này xảy ra khi bộ đệm nhóm của bạn bị hỏng.". Vì vậy, tôi kiểm tra cách xóa bộ nhớ cache của pod và nó đã hoạt động.
