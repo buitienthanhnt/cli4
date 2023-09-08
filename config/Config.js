@@ -3,13 +3,13 @@ const Config = (path = "", params = null) => {
         domain: "",
         http: "http://",
         https: "https://",
-        ip: "192.168.1.150/",                    // 192.168.1.153(m4700-mochi)
-        uri: "laravel1/public/index.php/",       // laravel1/public/index.php(m4700-mochi)
-        // ip: "192.168.4.113/",                       // 192.168.100.210(jm-destop)
-        // uri: "newpaper/public/index.php/",          // newpaper/public/index.php(jm-destop)
-        // ip: "192.168.1.214/",                    // 192.168.100.210(m6800)
-        // uri: "caycanh5/public/index.php/",       // newpaper/public/index.php(m6800)
-        // ip: "192.168.99.103/",                    // 192.168.1.153(home 4700)
+        // ip: "192.168.1.150/",                    // 192.168.1.153(m4700-mochi)
+        // uri: "laravel1/public/index.php/",       // laravel1/public/index.php(m4700-mochi)
+        // ip: "192.168.4.113/",                    // 192.168.100.210(jm-destop)
+        // uri: "newpaper/public/index.php/",       // newpaper/public/index.php(jm-destop)
+        ip: "192.168.1.214/",                    // 192.168.100.210(m6800)
+        uri: "caycanh5/public/index.php/",       // newpaper/public/index.php(m6800)
+        // ip: "192.168.99.103/",                   // 192.168.1.153(home 4700)
         // uri: "laravel1/public/index.php/",       // laravel1/public/index.php(m4700-mochi)// 
         api_request: {
             getpapers:          "api/getpapers/",
