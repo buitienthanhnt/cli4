@@ -53,86 +53,9 @@ export default function Animate1() {
         </View>
 
       </View>
-      <Rgba></Rgba>
-      {/* <View style={{ width: 200, height: 160, backgroundColor: 'red' }}></View> */}
-      {/* <View style={{ padding: 30, width: '100%' }}>
-        <Slider
-          value={0}
-          minimumValue={0}
-          maximumValue={10}
-          onValueChange={() => console.log('value changed')}
-        />
-      </View> */}
-
-
+      
     </View>
   );
-}
-
-const Rgba = () => {
-  const [r, setR] = useState(0);
-  const [g, setG] = useState(0);
-  const [b, setB] = useState(0);
-  const [a, setA] = useState(0);
-  return (
-    <View>
-      <View style={{ width: 180, height: 180, borderRadius: 90, backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{fontSize: 20, fontWeight: 'bold', color: 'black'}}>{`rgba(${r}, ${g}, ${b}, ${a})`}</Text>
-      </View>
-      <View style={{ flexDirection: 'row', width: '80%' }}>
-        <View>
-          <Text style={{ marginHorizontal: 10, fontSize: 18, fontWeight: 'bold' }}>R: </Text>
-        </View>
-        <View style={{ width: '60%', }}>
-          <Slider
-            value={0}
-            minimumValue={0}
-            maximumValue={255}
-            onValueChange={(value) => setR(Math.round(value))}
-          />
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', width: '80%' }}>
-        <View>
-          <Text style={{ marginHorizontal: 10, fontSize: 18, fontWeight: 'bold' }}>G: </Text>
-        </View>
-        <View style={{ width: '60%', }}>
-          <Slider
-            value={0}
-            minimumValue={0}
-            maximumValue={255}
-            onValueChange={(value) => setG(Math.round(value))}
-          />
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', width: '80%' }}>
-        <View>
-          <Text style={{ marginHorizontal: 10, fontSize: 18, fontWeight: 'bold' }}>B: </Text>
-        </View>
-        <View style={{ width: '60%', }}>
-          <Slider
-            value={0}
-            minimumValue={0}
-            maximumValue={255}
-            onValueChange={(value) => setB(Math.round(value))}
-          />
-        </View>
-      </View>
-      <View style={{ flexDirection: 'row', width: '80%' }}>
-        <View>
-          <Text style={{ marginHorizontal: 10, fontSize: 18, fontWeight: 'bold' }}>A: </Text>
-        </View>
-        <View style={{ width: '60%', }}>
-          <Slider
-            value={0}
-            minimumValue={0}
-            maximumValue={1}
-            onValueChange={(value) => setA(value.toFixed(1))}
-          />
-        </View>
-      </View>
-    </View>
-  )
 }
 
 const Rediredct = () => {

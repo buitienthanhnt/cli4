@@ -57,6 +57,11 @@ const Code = (props) => {
             }}></Button>
             <Text> {"\n"}</Text>
 
+            <Button title="to RgbaColor" onPress={() => {
+                props?.navigation.navigate("RgbaColor");
+            }}></Button>
+            <Text> {"\n"}</Text>
+
             <Button title="to ScrollViews" onPress={() => {
                 props?.navigation.navigate("ScrollViews");
             }}></Button>
