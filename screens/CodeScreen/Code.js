@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Clipboard, TouchableOpacity, View, Button } from "react-native";
-import { Text } from "react-native-ui-lib";
-import AsyncStorage, { AsyncStorageStatic } from "@react-native-async-storage/async-storage";
+import { Clipboard, View, Button, Text, ScrollView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
+import BoxShow from "../components/BoxShow";
 
 const Code = (props) => {
     const [fcmtoken, setFcmtoken] = useState("");
@@ -24,7 +24,7 @@ const Code = (props) => {
         // console.log(tk);
     }, [])
     return (
-        <View>
+        <ScrollView style={{flex: 1,}}>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                 <Text>(click to coppy)</Text>
@@ -66,8 +66,28 @@ const Code = (props) => {
                 props?.navigation.navigate("ScrollViews");
             }}></Button>
 
-        </View>
+            <ShowDemo></ShowDemo>
+            <BoxShow></BoxShow>
+            <BoxShow></BoxShow>
+        </ScrollView>
     )
 }
 
+const ShowDemo = () => {
+    return (
+        <View style={{
+            width: 320,
+            height: 120,
+            backgroundColor: 'white',
+            left: 60,
+            shadowColor: 'red',
+            padding: 10,
+            elevation: 20,
+        }}>
+            <Text>
+                poipoipoi
+            </Text>
+        </View>
+    );
+}
 export default Code;
