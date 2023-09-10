@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Clipboard } from "react-native";
 import { Slider } from 'react-native-ui-lib';
-import { Tooltip } from 'react-native-elements';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const RgbaColor = (props) => {
