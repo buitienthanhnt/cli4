@@ -3,19 +3,21 @@ import {View, StyleSheet, Text } from "react-native";
 
 const BoxShow = (props) => {
     return (
-        <View style={[styles.card, styles.elevation]}>
-            <View>
-                <Text style={styles.heading}>
-                    React Native Box Shadow (Elevation)
+        <View style={{margin: 5, paddingHorizontal: 4}}>
+            <View style={[styles.card, styles.elevation]}>
+                <View>
+                    <Text style={styles.heading}>
+                        React Native Box Shadow (Elevation)
+                    </Text>
+                </View>
+                <Text>
+                    By using the elevation style props to apply box-shadow for Android devices
+                    {'\n'}
+                    {<Break></Break>}
+                    <Break></Break>
+                    https://www.javatpoint.com/box-shadow-in-react-native
                 </Text>
             </View>
-            <Text>
-                By using the elevation style props to apply box-shadow for Android devices
-                {'\n'}
-                {<Break></Break>}
-                <Break></Break>
-                https://www.javatpoint.com/box-shadow-in-react-native
-            </Text>
         </View>
     );
 };
@@ -38,7 +40,6 @@ const styles = StyleSheet.create({
         paddingVertical: 45,
         paddingHorizontal: 25,
         width: '100%',
-        marginVertical: 10,
     },
     elevation: {
         shadowColor: '#52006A',

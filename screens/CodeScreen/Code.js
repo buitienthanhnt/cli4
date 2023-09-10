@@ -24,7 +24,7 @@ const Code = (props) => {
         // console.log(tk);
     }, [])
     return (
-        <ScrollView style={{flex: 1,}}>
+        <ScrollView style={{flex: 1, padding: 5}}>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                 <Text>(click to coppy)</Text>
@@ -67,6 +67,7 @@ const Code = (props) => {
             }}></Button>
 
             <ShowDemo></ShowDemo>
+            <BoxShow></BoxShow>
             <BoxShow></BoxShow>
             <BoxShow></BoxShow>
         </ScrollView>
