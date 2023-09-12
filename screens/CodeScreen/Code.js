@@ -62,6 +62,11 @@ const Code = (props) => {
             }}></Button>
             <Text> {"\n"}</Text>
 
+            <Button title="to Webview" onPress={() => {
+                props?.navigation.navigate("WebviewApp");
+            }}></Button>
+            <Text> {"\n"}</Text>
+
             <Button title="to ScrollViews" onPress={() => {
                 props?.navigation.navigate("ScrollViews");
             }}></Button>
