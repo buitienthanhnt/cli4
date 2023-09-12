@@ -13,9 +13,9 @@ const WebviewApp = ()=>{
                 //     }
                 // }}
 
-                onShouldStartLoadWithRequest={(request) => { // gọi khi nhấn vào 1 link trong webview
+                onShouldStartLoadWithRequest={(request) => {
                     console.log('====<<<', request);
-                    if(request.url !== "about:blank") {
+                    if(request.url !== "about:blank" && request.navigationType == "click") { // gọi khi nhấn vào 1 link trong webview
                         console.log(request.url);
                         Linking.openURL(`myapp://app/PaperDetail/12`);
                         //   Linking.openURL(request.url)
