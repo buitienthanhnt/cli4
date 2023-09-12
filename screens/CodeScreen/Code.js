@@ -67,6 +67,11 @@ const Code = (props) => {
             }}></Button>
             <Text> {"\n"}</Text>
 
+            <Button title="to ScanScreen" onPress={() => {
+                props?.navigation.navigate("ScanScreen");
+            }}></Button>
+            <Text> {"\n"}</Text>
+
             <Button title="to ScrollViews" onPress={() => {
                 props?.navigation.navigate("ScrollViews");
             }}></Button>

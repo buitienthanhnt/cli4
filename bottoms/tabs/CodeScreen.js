@@ -8,6 +8,7 @@ import Animate1 from "../../screens/CodeScreen/Animate1";
 import RgbaColor from "../../screens/components/RgbaColor";
 import ScanScreen from "../../screens/CodeScreen/ScanScreen";
 import WebviewApp from "../../screens/components/WebviewApp";
+import ScanScreen from "../../screens/CodeScreen/ScanScreen";
 
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
@@ -21,6 +22,7 @@ const CodeScreen = ()=>{
             <Stack.Screen name="RgbaColor" component={RgbaColor} options={{ headerShown: true }} />
             <Stack.Screen name="ScanScreen" component={ScanScreen} options={{ headerShown: true }} />
             <Stack.Screen name="WebviewApp" component={WebviewApp} options={{ headerShown: true }} />
+            <Stack.Screen name="ScanScreen" component={ScanScreen} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }
