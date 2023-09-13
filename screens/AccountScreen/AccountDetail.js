@@ -11,6 +11,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 
 import { BasicTable, TopTable } from "../components/Table";
 import { BasicSlider } from "../components/Slider";
+import ImageDefault from "../../assets/Ripple-1s-200px.gif";
 
 Colors.loadColors({
     error: '#ff2442',
@@ -31,6 +32,7 @@ const AccountDetail = (props) => {
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
     const { width, height } = Dimensions.get("screen");
+    const [loadimage, setLoadimage] = useState(true);
     // DeviceInfo.getAndroidId().then((androidId) => {console.log(androidId);}); // https://www.npmjs.com/package/react-native-device-info#getandroidid
     DeviceInfo.getUniqueId().then((uniqueId) => {
         // console.log(uniqueId);
@@ -44,6 +46,20 @@ const AccountDetail = (props) => {
     // console.log(width, height);
     return (
         <ScrollView>
+            {/* {loadimage && <View 
+            style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height,
+             opacity: 0.5, backgroundColor: 'red', position: 'absolute'}}></View>} */}
+            <Image
+                source={{uri: 'https://cdn.pixabay.com/photo/2022/10/20/19/31/dog-7535633_1280.jpg'}}
+                style={{ 
+                    width: Dimensions.get('screen').width, 
+                    height: Dimensions.get('screen').height, resizeMode: 'cover' }}
+                // onLoadEnd={()=>{
+                //     setLoadimage(false)
+                // }}
+                defaultSource={ImageDefault}
+            ></Image>
+
             <Text></Text>
             <Button title="show bottom" onPress={() => {
                 refRBSheet.current.open();
@@ -165,7 +181,7 @@ const AccountDetail = (props) => {
 
             <Text style={{ color: Colors.error }}>Error Message</Text>
             <BasicSlider></BasicSlider>
-            
+
             <BasicTable></BasicTable>
             <TopTable></TopTable>
 
