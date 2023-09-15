@@ -5,7 +5,7 @@ const Loading = (props)=>{
 	if (props?.loading) {
 		return(
 			<View style={{
-				backgroundColor: 'rgba(26, 136, 53, 0.1)', position: 'absolute',
+				backgroundColor: 'rgba(255, 255, 255, 0.4)', position: 'absolute',
 				width: Dimensions.get('screen').width, height: Dimensions.get('screen').height, zIndex: 1,
 				justifyContent: 'center', alignItems: 'center'
 			}}>

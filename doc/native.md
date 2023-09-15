@@ -9,3 +9,13 @@ https://medium.com/react-native-training/react-native-animations-using-the-anima
 https://wanago.io/2022/04/11/abort-controller-race-conditions-react/ 
 về việc fecth data từ api nhiều lần 1 api trong thời gian ngắn có thể bị sai lệch khi api gọi sau kết thúc trước api gọi trước 
 giải pháp dùng: const abortController = new AbortController(); để theo dõi trạng thái
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 2m 16s
+info Run CLI with --verbose flag for more details.

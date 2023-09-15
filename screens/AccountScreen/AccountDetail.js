@@ -45,11 +45,11 @@ const AccountDetail = (props) => {
     // console.log(neetInfo);
     // console.log(width, height);
     return (
-        <ScrollView>
+        <ScrollView style={{paddingHorizontal: 8}}>
             {/* {loadimage && <View 
             style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height,
              opacity: 0.5, backgroundColor: 'red', position: 'absolute'}}></View>} */}
-            <Image
+            {/* <Image
                 source={{uri: 'https://cdn.pixabay.com/photo/2022/10/20/19/31/dog-7535633_1280.jpg'}}
                 style={{ 
                     width: Dimensions.get('screen').width, 
@@ -58,7 +58,7 @@ const AccountDetail = (props) => {
                 //     setLoadimage(false)
                 // }}
                 defaultSource={ImageDefault}
-            ></Image>
+            ></Image> */}
 
             <Text></Text>
             <Button title="show bottom" onPress={() => {
@@ -73,6 +73,11 @@ const AccountDetail = (props) => {
 
             <Button title="to Wishlist" onPress={() => {
                 props.navigation.navigate("Wishlist");
+            }}></Button>
+            <Text>{"\n"}</Text>
+
+            <Button title="to test" onPress={() => {
+                props.navigation.navigate("Test");
             }}></Button>
             <Text>{"\n"}</Text>
 
