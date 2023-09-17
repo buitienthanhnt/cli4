@@ -17,6 +17,8 @@ import {
   View,
 } from 'react-native';
 
+import {navigationRef} from './src/hooks/Navigate';
+
 // https://viblo.asia/p/webpack-5-babel-plugin-module-resolver-djeZ1EN8ZWz tạo Alias trong webpack
 // https://viblo.asia/p/webpack-5-webpack-resolve-alias-extensions-naQZRL4Q5vx
 // https://nguyenvanphuoc.com/bai-viet/cau-hinh-path-alias-voi-react-typescript-craco
@@ -95,7 +97,8 @@ function App(): JSX.Element {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+      {/* linking dùng cho chuyển màn với schema hoặc Linking; ref dùng cho chuyển màn với hook(điều hướng ngoài component)  */}
+      <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>} ref={navigationRef}>
         <SafeAreaView>
           <StatusBar backgroundColor="#61dafb" animated={true} networkActivityIndicatorVisible={true} />
         </SafeAreaView>

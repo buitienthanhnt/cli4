@@ -165,10 +165,10 @@ class ProductItem extends Component {
                         <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }}></Image>
                     </View>
                     <View style={css.pro_item_title}>
-                        <Text style={{ color: "green", fontSize: 16 }}>{this.props.data.title}</Text>
-                        {/* <View style={{ paddingLeft: 5 }}>
-                            <Text>{this.props.data.short_conten ? this.props.data.short_conten : ""}</Text>
-                        </View> */}
+                        <Text style={{ color: "green", fontSize: 16 }} ellipsizeMode='tail' numberOfLines={2}>{this.props.data.title}</Text>
+                        <View style={{ paddingLeft: 5 }}>
+                            <Text ellipsizeMode='tail' numberOfLines={3}>{this.props.data.short_conten ? this.props.data.short_conten : ""}</Text>
+                        </View>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -188,9 +188,9 @@ class ProductItemHost extends Component {
             }}>
                 <View style={css.pro_item_host}>
                     <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }} resizeMode="cover"></Image>
-                    <Text style={css.pro_item_host_title}>{this.props.data.title}</Text>
+                    <Text style={css.pro_item_host_title} ellipsizeMode='tail' numberOfLines={2}>{this.props.data.title}</Text>
                     <View style={{ paddingLeft: 8 }}>
-                        <Text>{this.props.data.short_conten}</Text>
+                        <Text ellipsizeMode='tail' numberOfLines={2}>{this.props.data.short_conten}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

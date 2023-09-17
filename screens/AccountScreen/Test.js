@@ -1,12 +1,13 @@
 import React, { useState, useReducer, useEffect, useRef } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Image } from "react-native";
 
 import axios from 'react-native-axios';
 import Config from "../../config/Config";
 
 import { fechData, getAxios, anyAxios } from "../../src/hooks/NetWorking";
-import { navigate } from "../../src/hooks/Navigate";
+import * as RootNavigation from "../../src/hooks/Navigate";
 import { useNavigation } from '@react-navigation/native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 // https://www.youtube.com/watch?v=LlvBzyy-558
 const reducer = (state, action) => {
@@ -37,21 +38,21 @@ const Test = () => {
 		// fetch('https://jsonplaceholder.typicode.com/todos/1')
 		// 	.then(response => response.json())
 		// 	.then(json => console.log(json));
-		
-		axios({method: "get", url: 'https://jsonplaceholder.typicode.com/posts/1/comments'}).then((response)=>{
+
+		axios({ method: "get", url: 'https://jsonplaceholder.typicode.com/posts/1/comments' }).then((response) => {
 			// setEmail(response?.data[1].email || 'email not found');
 			// console.log('+++++');
 			// console.log(response.data[0]); 
-			
 
-		}).catch((error)=>{
+
+		}).catch((error) => {
 			console.log(error);
 		})
 
 	}, [email, value])
 
 
-	const fetchData = async ()=>{
+	const fetchData = async () => {
 
 		// let url = Config.custom_url() + Config.api_request.testData; // test Get api
 		let url = Config.custom_url() + Config.api_request.testData;
@@ -60,10 +61,10 @@ const Test = () => {
 	}
 
 	// demo: https://www.thunderclient.com/welcome
-	const fetchAxios = async ()=>{
+	const fetchAxios = async () => {
 		// anyAxios
 		let url = Config.custom_url() + Config.api_request.testPost; 	// testPost test Post api with param
-		const value = await anyAxios(url, {a: 1, b: 2}, "POST");   		// dùng cho method post
+		const value = await anyAxios(url, { a: 1, b: 2 }, "POST");   		// dùng cho method post
 		console.log(value);
 	}
 
@@ -75,8 +76,9 @@ const Test = () => {
 		setValue(_setData);
 	}
 
-	const toHome = ()=>{
-		navigate("Code");
+	const toScreen = (name, params = {}) => {
+		RootNavigation.navigate(name, params); // to paper detail
+		// RootNavigation.LinkingNavigate('Code');
 	}
 
 	// setValue nhuw nay dusng hon(bat gia tri thuc te gan nhat) la gan vowi gia tri truc tiesp
@@ -100,20 +102,57 @@ const Test = () => {
 			}}></Button>
 			<Text>{'\n'}</Text>
 
-			<Button title="fetch data api" onPress={()=>{
+			<Button title="fetch data api" onPress={() => {
 				fetchData()
 			}}></Button>
 			<Text>{'\n'}</Text>
 
-			<Button title="to CodeScreen by Hook" onPress={()=>{
-				toHome()
+			<Button title="to CodeScreen by Hook" onPress={() => {
+				toScreen('CodeScreen')
 			}}></Button>
 			<Text>{'\n'}</Text>
 
-			<Button title="fetch data api axios" onPress={()=>{
+			<Button title="fetch data api axios" onPress={() => {
 				fetchAxios()
 			}}></Button>
 			<Text>{'\n'}</Text>
+
+			<View style={{ marginVertical: 10 }}>
+				<SkeletonPlaceholder borderRadius={4} speed={0} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
+					<SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
+						<SkeletonPlaceholder.Item width={60} height={60} borderRadius={50} />
+						<SkeletonPlaceholder.Item marginLeft={20} width={'100%'} paddingRight={20}>
+							<SkeletonPlaceholder.Item width={'50%'} height={20} />
+							<SkeletonPlaceholder.Item marginTop={6} width={'70%'} height={20} />
+							<SkeletonPlaceholder.Item marginTop={6} height={20} width={'70%'} />
+						</SkeletonPlaceholder.Item>
+					</SkeletonPlaceholder.Item>
+				</SkeletonPlaceholder>
+			</View>
+
+			<View style={{ marginVertical: 10 }}>
+				<SkeletonPlaceholder borderRadius={4} speed={0} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
+					<SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
+						<SkeletonPlaceholder.Item width={60} height={60} borderRadius={50} />
+						<SkeletonPlaceholder.Item marginLeft={20} width={'100%'} paddingRight={20}>
+							<SkeletonPlaceholder.Item width={'50%'} height={20} />
+							<SkeletonPlaceholder.Item marginTop={6} width={'70%'} height={20} />
+							<SkeletonPlaceholder.Item marginTop={6} height={20} width={'70%'} />
+						</SkeletonPlaceholder.Item>
+					</SkeletonPlaceholder.Item>
+				</SkeletonPlaceholder>
+			</View>
+
+
+			{/* <SkeletonPlaceholder borderRadius={4} speed={1250}>
+				<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+					<View style={{ width: 60, height: 60, borderRadius: 50 }} />
+					<View style={{ marginLeft: 20 }}>
+						<Image style={{ width: '100%', height: 20 }} src={require('../../assets/Ripple-1s-200px.gif')} />
+						<Text style={{ marginTop: 6, fontSize: 14, lineHeight: 18 }}>Hello world</Text>
+					</View>
+				</View>
+			</SkeletonPlaceholder> */}
 		</View>
 	);
 }

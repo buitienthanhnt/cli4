@@ -1,17 +1,16 @@
-import {Linking} from 'react-native';
-// import {Layout, LayoutRoot, Navigation, Options} from 'react-native-navigation'; // https://wix.github.io/react-native-navigation/docs/installing
+import { createNavigationContainerRef } from '@react-navigation/native';
+import { Linking } from 'react-native';
 
+export const navigationRef = createNavigationContainerRef();
 
-const navigate = (homeScreen = '', options = {})=>{
-	Linking.openURL(`myapp://app/${homeScreen}`);
+// https://reactnavigation.org/docs/navigating-without-navigation-prop/
+export function navigate(name, params) {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name, params);
+  }
 }
 
-const compId = (selfOrCompId) => {
-	// return get(selfOrCompId, 'props.componentId') || (selfOrCompId);
-  };
-
-// const pushScreen = (homeScreen = '', options = {})=>{
-// 	Navigation.push(homeScreen);
-// }
-
-export {navigate}
+// redirect with Linking
+export const LinkingNavigate = (homeScreen = '', options = {})=>{
+	Linking.openURL(`myapp://app/${homeScreen}`);
+}
