@@ -17,7 +17,9 @@ const Config = (path = "", params = null) => {
             getCategoryTop:     "api/getcategorytop/",
             getPaperCategory:   "api/papercategory/",
             getRelatedPaper:    "api/getRelatedPaper",
-            getCategoryTree:    "api/getcategorytree"
+            getCategoryTree:    "api/getcategorytree",
+            testData:           "api/testJson",
+            testPost:           "api/testPost"
         },
         buy_params: function (params) {
             var values = "?";

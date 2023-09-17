@@ -184,7 +184,7 @@ const AccountDetail = (props) => {
                 }}
             />
 
-            <Text style={{ color: Colors.error }}>Error Message</Text>
+            <Text style={{ color: 'red' }}>Error Message</Text>
             <BasicSlider></BasicSlider>
 
             <BasicTable></BasicTable>

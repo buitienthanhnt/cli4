@@ -47,3 +47,9 @@ https://viblo.asia/p/tim-hieu-ve-html-table-class-trong-ci-AQrMJVmdM40E
 https://viblo.asia/p/magic-method-trong-php-63vKjAPM52R
 ===============================================================================
 https://getcomposer.org/doc/
+
+
+==============================js network=================================================
+https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
+===============================================================================
