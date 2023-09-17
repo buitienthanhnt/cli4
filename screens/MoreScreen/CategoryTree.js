@@ -11,13 +11,19 @@ const CategoryTree = (props) => {
     const [category_id, setCategoryId] = useState(0);
     const [tree, setTree] = useState(null);
     const [refresh, setRefresh] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const getCategoryTree = useCallback(async () => {
-        let request = Config.custom_url() + Config.api_request.getCategoryTree + Config.buy_params({ category_id: category_id });
-        const detail = await fetch(request);
-        var result = await detail.json();
-        setTree(result);
-        setRefresh(false)
+        try {
+            let request = Config.custom_url() + Config.api_request.getCategoryTree + Config.buy_params({ category_id: category_id });
+            const detail = await fetch(request);
+            var result = await detail.json();
+            setTree(result);
+            setRefresh(false)
+        } catch (error) { // goi request ban loi khong co mang kha lau
+            console.log(error);
+            setLoading(false)
+        }
     }, [category_id])
 
     useEffect(() => {
@@ -27,13 +33,30 @@ const CategoryTree = (props) => {
     if (!tree) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>
+                {loading && <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>}
+                <Button title="to suport" onPress={() => {
+                    props.navigation.navigate("ColorIcon")
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to navigation" onPress={() => {
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to SwiperComponent" onPress={() => {
+                    props.navigation.navigate("SwiperComponent")
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to SwipeListViews" onPress={() => {
+                    props.navigation.navigate("SwipeListViews")
+                }}></Button>
             </View>);
     } else {
         return (
             <ImageBackground style={css.backGroundView} source={require("../../assets/pexels-brakou-abdelghani-1723637.jpg")}>
                 <FlatList
-                    data={tree?.items}
+                    data={tree?.items || []}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => {
                         return <CategoryItem data={item} navigation={props.navigation}></CategoryItem>
