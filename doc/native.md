@@ -4,6 +4,8 @@ https://reactnative.dev/docs/animated
 
 https://reactnative.dev/docs/animations
 
+https://viblo.asia/p/tim-hieu-ve-kien-truc-cua-react-native-GrLZDJRg5k0
+
 https://medium.com/react-native-training/react-native-animations-using-the-animated-api-ebe8e0669fae
 
 https://wanago.io/2022/04/11/abort-controller-race-conditions-react/ 
