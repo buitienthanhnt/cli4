@@ -97,7 +97,7 @@ class PaperList extends Component {
                                                     this.props.navigation.navigate("PaperListCategory", {category_id: item.id})
                                                 }}>
                                                     <View style={{ flexDirection: "row", justifyContent: "center" }}><Text style={{ fontSize: 18, fontWeight: "600" }}>{item.name}</Text></View>
-                                                    <Image source={{ uri: item.image_path }} style={css.top_image} resizeMode="cover"></Image>
+                                                    <Image source={{ uri: item.image_path }} style={css.top_image} resizeMode="cover" defaultSource={require('../../assets/favicon.png')}></Image>
                                                 </TouchableOpacity>
                                             </View>
                                         )

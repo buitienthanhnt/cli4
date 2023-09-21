@@ -12,6 +12,12 @@ https://wanago.io/2022/04/11/abort-controller-race-conditions-react/
 về việc fecth data từ api nhiều lần 1 api trong thời gian ngắn có thể bị sai lệch khi api gọi sau kết thúc trước api gọi trước 
 giải pháp dùng: const abortController = new AbortController(); để theo dõi trạng thái
 
+react-native run-android --variant=release
+
+cd android && ./gradlew installRelease
+
+cd android && ./gradlew clean && ./gradlew :app:bundleRelease
+
 * Try:
 > Run with --stacktrace option to get the stack trace.
 > Run with --info or --debug option to get more log output.

@@ -4,6 +4,21 @@ import {name as appName} from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
 
+// import perf from '@react-native-firebase/perf';
+// async function customTrace() {
+//   // Define & start a trace
+//   const trace = await perf().startTrace('custom_trace');
+
+//   // Define trace meta details
+//   trace.putAttribute('user', 'abcd');
+//   trace.putMetric('credits', 30);
+
+//   // Stop the trace
+//   await trace.stop();
+// }
+
+
+
 // https://viblo.asia/p/deep-linking-voi-react-native-GrLZDXGVZk0
 // https://reactnative.dev/docs/linking
 let scheme = 'exampleapp';
