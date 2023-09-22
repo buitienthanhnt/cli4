@@ -118,7 +118,7 @@ const Test = () => {
 			<Text>{'\n'}</Text>
 
 			<View style={{ marginVertical: 10 }}>
-				<SkeletonPlaceholder borderRadius={4} speed={0} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
+				<SkeletonPlaceholder borderRadius={4} speed={1200} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
 					<SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
 						<SkeletonPlaceholder.Item width={60} height={60} borderRadius={50} />
 						<SkeletonPlaceholder.Item marginLeft={20} width={'100%'} paddingRight={20}>
@@ -131,7 +131,7 @@ const Test = () => {
 			</View>
 
 			<View style={{ marginVertical: 10 }}>
-				<SkeletonPlaceholder borderRadius={4} speed={0} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
+				<SkeletonPlaceholder borderRadius={4} speed={1500} backgroundColor={'rgba(0, 0, 167, 0.4)'}>
 					<SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
 						<SkeletonPlaceholder.Item width={60} height={60} borderRadius={50} />
 						<SkeletonPlaceholder.Item marginLeft={20} width={'100%'} paddingRight={20}>

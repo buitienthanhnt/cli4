@@ -25,6 +25,7 @@ class PaperListCategory extends Component {
     getSourceData = async function (paper = false, refresh = false) {
         if (!this.state.refreshing) {
             this.setState({ refreshing: true, category_id: this.props.route.params.category_id });
+            console.log(Config.url + Config.api_request.getPaperCategory + this.props.route.params.category_id + Config.buy_params({ page: paper !== false ? paper : this.state.page }));
             // console.log(Config.url + Config.api_request.getPaperCategory + this.props.route.params.category_id + Config.buy_params({ page: paper !== false ? paper : this.state.page }));
             const data = await fetch(Config.url + Config.api_request.getPaperCategory + this.props.route.params.category_id + Config.buy_params({ page: paper !== false ? paper : this.state.page }));
             const result = await data.json();
@@ -116,7 +117,7 @@ class ProductItem extends Component {
             >
                 <View style={css.pro_item}>
                     <View style={{ width: "40%" }}>
-                        <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }}></Image>
+                        <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }} defaultSource={require('../../assets/favicon.png')}></Image>
                     </View>
                     <View style={css.pro_item_title}>
                         <Text style={{ color: "green", fontSize: 16 }}>{this.props.data.title}</Text>
@@ -141,7 +142,7 @@ class ProductItemHost extends Component {
                 this.props.navigation.navigate("PaperDetail", { data: this.props.data });
             }}>
                 <View style={css.pro_item_host}>
-                    <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }} resizeMode="cover"></Image>
+                    <Image source={{ uri: this.props.data.image_path }} style={{ flex: 1, borderRadius: 6 }} resizeMode="cover" defaultSource={require('../../assets/favicon.png')}></Image>
                     <Text style={css.pro_item_host_title}>{this.props.data.title}</Text>
                     <View style={{ paddingLeft: 8 }}>
                         <Text>{this.props.data.short_conten}</Text>
