@@ -1,8 +1,9 @@
-import {AppRegistry, Linking} from 'react-native';
+import { AppRegistry, Linking } from 'react-native';
 import App from './App';
-import {name as appName} from './app.json';
+import { name as appName } from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
+import Config from './config/Config';
 
 // import perf from '@react-native-firebase/perf';
 // async function customTrace() {
@@ -21,14 +22,35 @@ import './src/utils/inAppMessage';
 
 // https://viblo.asia/p/deep-linking-voi-react-native-GrLZDXGVZk0
 // https://reactnative.dev/docs/linking
+
+const redireactUrl = async (_url) => {
+	// var myRe = /product_url=[a-z].*/g; // or: (product_url|category_url)=[a-z].*
+	var myRe = /(product_url|category_url)=[a-z].*/g;
+	var myArray = myRe.exec(_url);
+	console.log(myArray);
+	if (myArray) {
+		let value = myArray[0].replace(/(product_url|category_url)=/g, "");
+		let paper_data = await fetch(Config.custom_url()+Config.api_request.parseUrl+Config.buy_params({url: value}));
+		let data = await paper_data.json();
+		console.log(data);
+		Linking.openURL(`myapp://app/PaperDetail/${data.id}`);
+
+	}
+};
+
 let scheme = 'exampleapp';
 const handleOpenURL = (event) => {
-	console.log("===---------=>", "handleOpenURL");
-	console.log(event);
-    if (event.url && event.url.indexOf(scheme + '://') === 0) {
-        crossroads.parse(event.url.slice(scheme.length + 3));
-		console.log('<------------');
-    }
+	console.log("===---------=>", "handleOpenURL", event.url);
+	if (event.url) {
+		redireactUrl(event.url);
+	}
+
+
+	// Linking.openURL(event.url);
+	// if (event.url && event.url.indexOf(scheme + '://') === 0) {
+	//     crossroads.parse(event.url.slice(scheme.length + 3));clearImmediate
+	// 	console.log('<------------');
+	// }
 }
 
 // Dùng linking lắng nghe khi người dùng clich vào 1 url app link nào đó: ví dụ: url = 'myapp://app/WebInApp/www.topsy-fashion.nl' (không dùng được dạng: http://google.com mà chỉ dùng cho app link schema) .
@@ -39,18 +61,17 @@ Linking.addEventListener('url', handleOpenURL);
 AppRegistry.registerComponent(appName, () => App);
 
 
-								// =============================== //
+// =============================== //
 // npx uri-scheme open myapp://app/MoreScreen --android (mở app và điều hướng tới 1 màn hình nào đó)
 
 // chạy app trên thiết bị thật:
 // b1: Bật gỡ lỗi qua USB:-> bật menu "Tùy chọn nhà phát triển" bằng cách: Cài đặt → Giới thiệu về điện thoại → Thông tin phần mềm rồi nhấn Build number bảy lần vào hàng ở dưới cùng
 // b2:  Cắm thiết bị của bạn qua USB(xem kết nối bằng cách chạy cmd: adb devices)
-	// $ adb devices
-	// List of devices attached
-	// emulator-5554 offline   # Google emulator
-	// 14ed2fcc device         # Physical  (thiết bị vật lý)
+// $ adb devices
+// List of devices attached
+// emulator-5554 offline   # Google emulator
+// 14ed2fcc device         # Physical  (thiết bị vật lý)
 // b3: chạy app: npx react-native run-android
-
 
 // trên ubuntu khi kết nối usb và xem adb devices nếu thấy lỗi sau:
 // thanhnt@thanhnt-M4700:~/Desktop/native/cli4$ adb devices
@@ -63,16 +84,16 @@ AppRegistry.registerComponent(appName, () => App);
 // để xem các devicde kết nối với máy tính, xác định device điện thoại:
 
 // ví dụ 1:
-// Bus 001 Device 002: ID 8087:8000 Intel Corp. 
+// Bus 001 Device 002: ID 8087:8000 Intel Corp.
 // Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 // Bus 003 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
 // Bus 002 Device 078: ID 138a:0011 Validity Sensors, Inc. VFS5011 Fingerprint Reader
-// Bus 002 Device 003: ID 8087:07dc Intel Corp. 
-// Bus 002 Device 002: ID 5986:0652 Acer, Inc 
+// Bus 002 Device 003: ID 8087:07dc Intel Corp.
+// Bus 002 Device 002: ID 5986:0652 Acer, Inc
 // Bus 002 Device 081: ID 22b8:2e81 Motorola PCS   || máy Motorola
 // Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
-// ví dụ 2: 
+// ví dụ 2:
 // Bus 001 Device 003: ID 413c:2513 Dell Computer Corp. internal USB Hub of E-Port Replicator
 // Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
 // Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
