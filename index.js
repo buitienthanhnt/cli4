@@ -40,6 +40,7 @@ const redireactUrl = async (_url) => {
 
 let scheme = 'exampleapp';
 const handleOpenURL = (event) => {
+	console.log(event.url);
 	console.log("===---------=>", "handleOpenURL", event.url);
 	if (event.url) {
 		redireactUrl(event.url);
@@ -127,3 +128,7 @@ AppRegistry.registerComponent(appName, () => App);
 // hãy rút/cắm lại thiết bị.
 // adb devices
 // 								// =============================== //
+
+// lỗi android build: Unable to delete file 'android\app\build\intermediates\compile_and_runtime_not_namespaced_r_class_jar\debug\R.jar'
+// chạy:
+// taskkill /im java.exe /f
