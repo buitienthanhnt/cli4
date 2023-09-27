@@ -107,7 +107,7 @@ class FindIcon extends Component {
                 </View>
 
                 <View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 5 }}>
                         {/* // copyToClipboard */}
                         <TouchableOpacity onPress={() => {
                             copyToClipboard("import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';");
@@ -144,7 +144,7 @@ class FindIcon extends Component {
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
 
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 5 }}>
                         <TouchableOpacity onPress={() => {
                             copyToClipboard("import Icon from 'react-native-vector-icons/FontAwesome';");
                             alert('coppied!!');
@@ -258,7 +258,6 @@ class FindColor extends Component {
                 showsVerticalScrollIndicator={false}  // ẩn thanh trượt
                 showsHorizontalScrollIndicator={false}
                 style={{ marginTop: 6, padding: 6, flex: 1 }}>
-                <Text>123 color find</Text>
                 <View style={{ alignItems: "center" }}>
                     <SketchPicker
                         width={"100%"}
