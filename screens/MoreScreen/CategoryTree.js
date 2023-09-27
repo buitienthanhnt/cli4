@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { View, Text, FlatList, StyleSheet, Button, Image, TouchableOpacity, ImageBackground } from "react-native";
 import Config from "../../config/Config";
-import axios from 'react-native-axios'; // npm i react-native-axios
+import axios from 'react-native-axios';                                // npm i react-native-axios
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'; // https://fontawesome.com/v5/search?q=right&o=r
-import Collapsible from 'react-native-collapsible';  // npm install --save react-native-collapsible
-import CustomNavigation from "../CustomNavigation";
-import { useNavigation } from '@react-navigation/native';
+import Collapsible from 'react-native-collapsible';                    // npm install --save react-native-collapsible
 
 const CategoryTree = (props) => {
     const [category_id, setCategoryId] = useState(0);
@@ -34,8 +32,13 @@ const CategoryTree = (props) => {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                 {loading && <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>}
-                <Button title="to suport" onPress={() => {
+                <Button title="to Color&Icon" onPress={() => {
                     props.navigation.navigate("ColorIcon")
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to RgbaColor" onPress={() => {
+                    props.navigation.navigate("RgbaColor")
                 }}></Button>
                 <Text>{"\n"}</Text>
 
@@ -70,8 +73,13 @@ const CategoryTree = (props) => {
                     }}
                 ></FlatList>
 
-                <Button title="to suport" onPress={() => {
+                <Button title="to Color&Icon" onPress={() => {
                     props.navigation.navigate("ColorIcon")
+                }}></Button>
+                <Text>{"\n"}</Text>
+
+                <Button title="to RgbaColor" onPress={() => {
+                    props.navigation.navigate("RgbaColor")
                 }}></Button>
                 <Text>{"\n"}</Text>
 
