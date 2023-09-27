@@ -69,10 +69,11 @@ class PaperListCategory extends Component {
     render() { // https://viblo.asia/p/react-native-lifecycle-gAm5yXY8ldb
         if (!this.state.items.length) {
             return (
-                <View style={{ alignItems: "center" }}>
-                    <Text>!!! not has data !!!</Text>
-                </View>
-            )
+                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    {/* <ActivityIndicator size="small" color="#0000ff" /> */}
+                    <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>
+                </View>);
+
         }
         return (
             <View style={css.container}>

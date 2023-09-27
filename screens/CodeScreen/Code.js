@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
 import BoxShow from "../components/BoxShow";
 import Loading from "../components/Loading";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Code = (props) => {
     const [fcmtoken, setFcmtoken] = useState("");
@@ -26,9 +27,9 @@ const Code = (props) => {
         // console.log(tk);
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (loadding) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 console.log(loadding);
                 setLoaddding(false);
             }, 3000)
@@ -36,7 +37,7 @@ const Code = (props) => {
     }, [loadding])
     return (
         <View style={{ flex: 1, padding: 5 }}>
-            <Loading loading = {loadding}></Loading>
+            <Loading loading={loadding}></Loading>
             <ScrollView style={{ flex: 1, padding: 5 }}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
@@ -50,7 +51,7 @@ const Code = (props) => {
                         copyToClipboard(`${fcmtoken}`);
                     }}
                 >
-                    <Text>{fcmtoken}</Text>
+                    <Text><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
                 </Tooltip>
 
                 <View style={{ marginVertical: 8, height: 1, backgroundColor: "black" }}></View>
@@ -88,7 +89,7 @@ const Code = (props) => {
                 <Button title="to ScrollViews" onPress={() => {
                     props?.navigation.navigate("ScrollViews");
                 }}></Button>
-                  <Text> {"\n"}</Text>
+                <Text> {"\n"}</Text>
 
                 <Button title="open loadding screen" onPress={() => {
                     setLoaddding(true);

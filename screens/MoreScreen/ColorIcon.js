@@ -9,7 +9,7 @@ import { SketchPicker, SwatchesPicker, PhotoshopPicker } from 'react-color';    
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';                            // // xem icon https://oblador.github.io/react-native-vector-icons/
 //import { Ionicons } from '@expo/vector-icons';                  // chạy được cả trên web và android. xem icon: https://icons.expo.fyi || install: npm i @expo/vector-icons
-import ColorPickerWheel from 'react-native-wheel-color-picker'; // npm install react-native-wheel-color-picker
+import ColorPickerWheel from 'react-native-wheel-color-picker';   // npm install react-native-wheel-color-picker
 
 // Ignore log notification by message
 // LogBox.ignoreLogs(['Warning: ...']); // ẩn các lỗi có dạng:
@@ -107,6 +107,16 @@ class FindIcon extends Component {
                 </View>
 
                 <View>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+                        {/* // copyToClipboard */}
+                        <TouchableOpacity onPress={() => {
+                            copyToClipboard("import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';");
+                            alert('coppied!!')
+                        }}>
+                            <FontAwesome5Icon name='copy' size={16} color='tomato' />
+                        </TouchableOpacity>
+                        <Text style={{ color: '#c500ff' }}> import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';</Text>
+                    </ScrollView>
                     <View >
                         <View style={css.icon}>
                             <Tooltip popover={<Text>coppied to Clipboard</Text>}
@@ -116,7 +126,7 @@ class FindIcon extends Component {
                                     copyToClipboard(`<FontAwesome5Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`);
                                 }}
                             >
-                                <Text style={{ fontSize: 18 }}>FontAwesome5Icon(size={this.state.size}): </Text>
+                                <Text style={{ fontSize: 18 }}>FontAwesome5Icon(size={this.state.size}): <FontAwesome5Icon name='copy' size={16} color='tomato' /></Text>
                             </Tooltip>
                             {(() => {
                                 if (this.state.use_find_icon) {
@@ -126,12 +136,23 @@ class FindIcon extends Component {
                                 }
                             })()}
                         </View>
-                        <Text>
-                            {`<FontAwesome5Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
-                        </Text>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                            <Text style={{}}>
+                                {`<FontAwesome5Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
+                            </Text>
+                        </ScrollView>
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
 
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginTop: 10 }}>
+                        <TouchableOpacity onPress={() => {
+                            copyToClipboard("import Icon from 'react-native-vector-icons/FontAwesome';");
+                            alert('coppied!!');
+                        }}>
+                            <FontAwesome5Icon name='copy' size={16} color='tomato' />
+                        </TouchableOpacity>
+                        <Text style={{ color: '#0089ff' }}> import Icon from 'react-native-vector-icons/FontAwesome';</Text>
+                    </ScrollView>
                     <View >
                         <View style={css.icon}>
                             <Tooltip popover={<Text>coppied to Clipboard</Text>}
@@ -141,7 +162,7 @@ class FindIcon extends Component {
                                     copyToClipboard(`<Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`);
                                 }}
                             >
-                                <Text style={{ fontSize: 18 }}>Icon(size={this.state.size}): </Text>
+                                <Text style={{ fontSize: 18 }}>Icon(size={this.state.size}): <FontAwesome5Icon name='copy' size={16} color='tomato' /></Text>
                             </Tooltip>
                             {(() => {
                                 if (this.state.use_find_icon) {
@@ -151,9 +172,11 @@ class FindIcon extends Component {
                                 }
                             })()}
                         </View>
-                        <Text>
-                            {`<Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
-                        </Text>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                            <Text>
+                                {`<Icon name='${this.state.icon_name}' size={${this.state.size}} color='${this.state.color}'/>`}
+                            </Text>
+                        </ScrollView>
                         <View style={{ backgroundColor: "black", height: 1 }}></View>
                     </View>
                 </View>
