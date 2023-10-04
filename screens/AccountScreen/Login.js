@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Dimensions, Image, Text, View } from "react-native";
+import crashlytics from '@react-native-firebase/crashlytics';
 
 const Login = (props) => {
 
@@ -12,7 +13,8 @@ const Login = (props) => {
     // nếu là 1 value đơn thì sẽ thay đổi khi value thực thay đổi cho nên sẽ gọi useEffect khi giá trị thực thay đổi. 
     // nếu để  dependence là: [] sẽ chỉ gọi 1 lần duy nhất.
     useEffect(() => {
-        console.log("=======>", title);
+        // console.log("=======>", title);
+        crashlytics().log('App mounted.');
         // setFullName({name:'TrungHC',familyName: 'HCT'});
         // setValue(value+1);
         // setTitle({value: "bbbbbbbbbbbbb"});
@@ -33,16 +35,24 @@ const Login = (props) => {
 
     return (
         <View>
-            <Image
-                source={require("../../assets/trail-5yOnGsKUNGw-unsplash.jpg")}
+            {/* <Image
+                // source={require("../../assets/trail-5yOnGsKUNGw-unsplash.jpg")}
                 style={{ width: Dimensions.get('screen').width, height: Dimensions.get('screen').height, resizeMode: 'cover' }}
-            ></Image>
+                defaultSource={require("../../assets/trail-5yOnGsKUNGw-unsplash.jpg")}
+            ></Image> */}
             <Text>
                 login screen 1
             </Text>
 
             <Button title="add value" onPress={() => {
                 setValue(value + 1);
+            }}></Button>
+
+            <Text></Text>
+
+            <Button title="call crashlytics" onPress={()=>{
+                console.log('crashlytics');
+                crashlytics().crash();
             }}></Button>
 
 

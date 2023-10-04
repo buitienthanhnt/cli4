@@ -1,9 +1,10 @@
 import { AppRegistry, Linking } from 'react-native';
+import Config from './config/Config';
 import App from './App';
 import { name as appName } from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
-import Config from './config/Config';
+import './src/utils/crashlytics';
 
 // import perf from '@react-native-firebase/perf';
 // async function customTrace() {
