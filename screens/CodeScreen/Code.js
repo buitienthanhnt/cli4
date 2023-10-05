@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Clipboard, View, Button, Text, ScrollView, Dimensions, Image } from "react-native";
+import { Clipboard, View, Button, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
 import BoxShow from "../components/BoxShow";
 import Loading from "../components/Loading";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Code = (props) => {
     const [fcmtoken, setFcmtoken] = useState("");
@@ -38,7 +39,7 @@ const Code = (props) => {
     return (
         <View style={{ flex: 1, padding: 5 }}>
             <Loading loading={loadding}></Loading>
-            <ScrollView style={{ flex: 1, padding: 5 }}>
+            <ScrollView style={css.container}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                     <Text>(click to coppy)</Text>
@@ -51,45 +52,105 @@ const Code = (props) => {
                         copyToClipboard(`${fcmtoken}`);
                     }}
                 >
-                    <Text><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
+                    <Text style={{color: '#dd5fc0'}}><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
                 </Tooltip>
 
                 <View style={{ marginVertical: 8, height: 1, backgroundColor: "black" }}></View>
 
-                <Button title="to FadeInView" onPress={() => {
+                <View style={css.functionItem}>
+                    <Icon name='qrcode' size={30} color='black' />
+                    <Text style={{ fontSize: 18 }}> scan QRCode </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("ScanScreen");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='layer-group' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> RgbaColor </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("RgbaColor");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='icons' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> Color&Icon </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("ColorIcon");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='images' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> Slide Image </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("ScrollViews");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='firefox-browser' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> WebView </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("WebviewApp");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='squarespace' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> SwipeListViews </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("SwipeListViews");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='photo-video' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> Swiper Pages </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("SwiperComponent");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='page4' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> test Animate1 </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("Animate1");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='hand-paper' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> pull handle </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("PanResponders");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                {/* <Button title="to FadeInView" onPress={() => {
                     props?.navigation.navigate("FadeInView");
                 }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to PanResponders" onPress={() => {
-                    props?.navigation.navigate("PanResponders");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to Animate1" onPress={() => {
-                    props?.navigation.navigate("Animate1");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to RgbaColor" onPress={() => {
-                    props?.navigation.navigate("RgbaColor");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to Webview" onPress={() => {
-                    props?.navigation.navigate("WebviewApp");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to ScanScreen" onPress={() => {
-                    props?.navigation.navigate("ScanScreen");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                <Button title="to ScrollViews" onPress={() => {
-                    props?.navigation.navigate("ScrollViews");
-                }}></Button>
-                <Text> {"\n"}</Text>
+                <Text> {"\n"}</Text> */}
 
                 <Button title="open loadding screen" onPress={() => {
                     setLoaddding(true);
@@ -122,4 +183,16 @@ const ShowDemo = () => {
         </View>
     );
 }
+
+const css = StyleSheet.create({
+    container: { flex: 1, padding: 5, backgroundColor: '#c9dd9d' },
+    functionItem: {
+        backgroundColor: 'rgba(25, 109, 238, 0.6)', 
+        marginVertical: 5, 
+        padding: 10, 
+        borderRadius: 10, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+    }
+});
 export default Code;

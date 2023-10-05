@@ -32,28 +32,6 @@ const CategoryTree = (props) => {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
                 {loading && <Image source={require("../../assets/Ripple-1s-200px.gif")} style={{ width: 60, height: 60 }}></Image>}
-                <Button title="to Color&Icon" onPress={() => {
-                    props.navigation.navigate("ColorIcon")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to RgbaColor" onPress={() => {
-                    props.navigation.navigate("RgbaColor")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to navigation" onPress={() => {
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to SwiperComponent" onPress={() => {
-                    props.navigation.navigate("SwiperComponent")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to SwipeListViews" onPress={() => {
-                    props.navigation.navigate("SwipeListViews")
-                }}></Button>
             </View>);
     } else {
         return (
@@ -72,29 +50,6 @@ const CategoryTree = (props) => {
                         }
                     }}
                 ></FlatList>
-
-                <Button title="to Color&Icon" onPress={() => {
-                    props.navigation.navigate("ColorIcon")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to RgbaColor" onPress={() => {
-                    props.navigation.navigate("RgbaColor")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to navigation" onPress={() => {
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to SwiperComponent" onPress={() => {
-                    props.navigation.navigate("SwiperComponent")
-                }}></Button>
-                <Text>{"\n"}</Text>
-
-                <Button title="to SwipeListViews" onPress={() => {
-                    props.navigation.navigate("SwipeListViews")
-                }}></Button>
             </ImageBackground>
         )
     }
