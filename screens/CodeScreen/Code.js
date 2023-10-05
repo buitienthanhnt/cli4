@@ -39,7 +39,7 @@ const Code = (props) => {
     return (
         <View style={{ flex: 1, padding: 5 }}>
             <Loading loading={loadding}></Loading>
-            <ScrollView style={css.container}>
+            <ScrollView style={css.container} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
                 <View style={{ flexDirection: 'row' }}>
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                     <Text>(click to coppy)</Text>
@@ -58,10 +58,24 @@ const Code = (props) => {
                 <View style={{ marginVertical: 8, height: 1, backgroundColor: "black" }}></View>
 
                 <View style={css.functionItem}>
+                    <View style={{flexDirection: 'row'}}>
+                    <Icon name='search' size={30} color='black' />
+                    <Text> </Text>
                     <Icon name='qrcode' size={30} color='black' />
+                    </View>
                     <Text style={{ fontSize: 18 }}> scan QRCode </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("ScanScreen");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={css.functionItem}>
+                    <Icon name='qrcode' size={30} color='black' />
+                    <Text style={{ fontSize: 18 }}> QrGenerator </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("QrGenerator");
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>
@@ -81,7 +95,7 @@ const Code = (props) => {
                     <FontAwesome5Icon name='icons' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> Color&Icon </Text>
                     <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("ColorIcon");
+                        props?.navigation.navigate('MoreScreen', {screen: "ColorIcon"});
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>
@@ -157,9 +171,9 @@ const Code = (props) => {
                 }}></Button>
 
                 {/* <ShowDemo></ShowDemo> */}
+                {/* <BoxShow></BoxShow>
                 <BoxShow></BoxShow>
-                <BoxShow></BoxShow>
-                <BoxShow></BoxShow>
+                <BoxShow></BoxShow> */}
             </ScrollView>
         </View>
 
