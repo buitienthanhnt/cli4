@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   TouchableOpacity,
-  Linking,
   View,
   Clipboard,
 } from 'react-native';
@@ -13,6 +11,8 @@ import {
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
+import { Navigate } from '../../src/hooks/Navigate';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class ScanScreen extends Component {
   constructor(props) {
@@ -22,26 +22,39 @@ class ScanScreen extends Component {
     }
   }
   onSuccess = e => {
-    // console.log(e);
     this.setState({ value: e.data });
-    // Linking.openURL(e.data).catch(err =>
-    //   console.error('An error occured', err)
-    // );
   };
 
-  saveQrValue = async ()=>{
+  saveQrValue = async () => {
     await Clipboard.setString(this.state.value);
     alert("coppied value: " + this.state.value);
+  }
+
+  checkHttp = () => {
+    if (this.state.value) {
+      var myRe = /^(http|https):\/\/.*/g;
+      if (myRe.exec(this.state.value)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   render() {
     if (this.state.value) {
       return (
-        <View style={{flexDirection: 'row', padding: 10}}>
-          <Text  style={{ marginRight: 10 }}>Qr value: {this.state.value}</Text>
-          <TouchableOpacity onPress={this.saveQrValue}>
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <Text style={{ marginRight: 10 }}>Qr value: {this.state.value}</Text>
+          <TouchableOpacity onPress={this.saveQrValue} style={{ marginHorizontal: 10 }}>
             <FontAwesome5Icon name='copy' size={28} color='tomato' />
           </TouchableOpacity>
+          {
+            this.checkHttp() && <TouchableOpacity onPress={() => {
+              Navigate('CodeScreen', { screen: "WebviewApp" })
+            }}>
+              <Icon name='arrow-circle-right' size={28} color='blue' />
+            </TouchableOpacity>
+          }
         </View>
       )
     }

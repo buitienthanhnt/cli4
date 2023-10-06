@@ -4,7 +4,7 @@ import { Linking } from 'react-native';
 export const navigationRef = createNavigationContainerRef();
 
 // https://reactnavigation.org/docs/navigating-without-navigation-prop/
-export function navigate(name, params) {
+export function Navigate(name, params) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name, params);
   }
