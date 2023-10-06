@@ -1,64 +1,15 @@
-import { AppRegistry, Linking } from 'react-native';
-import Config from './config/Config';
+import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
 import './src/utils/crashlytics';
+// import { firebase } from '@react-native-firebase/perf';
 
-// import perf from '@react-native-firebase/perf';
-// async function customTrace() {
-//   // Define & start a trace
-//   const trace = await perf().startTrace('custom_trace');
-
-//   // Define trace meta details
-//   trace.putAttribute('user', 'abcd');
-//   trace.putMetric('credits', 30);
-
-//   // Stop the trace
-//   await trace.stop();
+// const perfCollect = async ()=>{
+// 	await firebase.perf().setPerformanceCollectionEnabled(true);
 // }
-
-
-
-// https://viblo.asia/p/deep-linking-voi-react-native-GrLZDXGVZk0
-// https://reactnative.dev/docs/linking
-
-const redireactUrl = async (_url) => {
-	// var myRe = /product_url=[a-z].*/g; // or: (product_url|category_url)=[a-z].*
-	var myRe = /(product_url|category_url)=[a-z].*/g;
-	var myArray = myRe.exec(_url);
-	console.log(myArray);
-	if (myArray) {
-		let value = myArray[0].replace(/(product_url|category_url)=/g, "");
-		let paper_data = await fetch(Config.custom_url()+Config.api_request.parseUrl+Config.buy_params({url: value}));
-		let data = await paper_data.json();
-		console.log(data);
-		Linking.openURL(`myapp://app/PaperDetail/${data.id}`);
-
-	}
-};
-
-let scheme = 'exampleapp';
-const handleOpenURL = (event) => {
-	console.log(event.url);
-	console.log("===---------=>", "handleOpenURL", event.url);
-	if (event.url) {
-		redireactUrl(event.url);
-	}
-
-
-	// Linking.openURL(event.url);
-	// if (event.url && event.url.indexOf(scheme + '://') === 0) {
-	//     crossroads.parse(event.url.slice(scheme.length + 3));clearImmediate
-	// 	console.log('<------------');
-	// }
-}
-
-// Dùng linking lắng nghe khi người dùng clich vào 1 url app link nào đó: ví dụ: url = 'myapp://app/WebInApp/www.topsy-fashion.nl' (không dùng được dạng: http://google.com mà chỉ dùng cho app link schema) .
-// Linking.getInitialURL().then(url => handleOpenURL({ url })).catch(console.error);
-Linking.addEventListener('url', handleOpenURL);
-
+// perfCollect();
 
 AppRegistry.registerComponent(appName, () => App);
 

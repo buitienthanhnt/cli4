@@ -1,6 +1,7 @@
 import react, { Component, useCallback } from "react";
 import { FlatList, StyleSheet, View, Dimensions, Image, Text, TouchableOpacity, LogBox, ScrollView, RefreshControl } from "react-native";
 import Config from "../../config/Config";
+import perf from "@react-native-firebase/perf";
 
 class PaperList extends Component {
     constructor(props) { // https://viblo.asia/p/superprops-trong-constructor-cua-react-component-gGJ59eA15X2
@@ -24,6 +25,8 @@ class PaperList extends Component {
     }
 
     getSourceData = async function (paper = false, refresh = false) {
+        const listTrace = await perf().startTrace('paper_list_trace');
+        listTrace.putMetric("hits", 1);
         if (!this.state.refreshing) {
             this.setState({ refreshing: true });
             // console.log(Config.url + Config.api_request.getpapers + Config.buy_params({ page: this.state.page }));
@@ -48,6 +51,7 @@ class PaperList extends Component {
                 });
             }
         }
+        await listTrace.stop();
     }
 
     getCategoryTop = async () => {

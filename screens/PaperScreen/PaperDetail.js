@@ -6,6 +6,7 @@ import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';   // n
 import RenderHTML from 'react-native-render-html';                          // npm install react-native-render-html
 import WebView from 'react-native-webview';                                 // npm install react-native-webview
 import Wishlist from "../AccountScreen/Wishlist";
+import perf from "@react-native-firebase/perf";
 
 const renderers = {
     iframe: IframeRenderer
@@ -23,7 +24,7 @@ const PaperDetail = ({ navigation, route }) => {
     const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
-        console.log(route.params);
+        // console.log(route.params);
         if (route.params.paper_id != undefined) {
             getDetailPaper(route.params.paper_id);
         }else{
@@ -33,6 +34,8 @@ const PaperDetail = ({ navigation, route }) => {
     );
 
     const getDetailPaper = async (paper_id = 0) => {
+        const traceInitScreen = await perf().startTrace('detail_trace');
+        traceInitScreen.putMetric("hits", 1);
         if (paper_id) {
             try {
                 setRefreshing(true);
@@ -47,8 +50,9 @@ const PaperDetail = ({ navigation, route }) => {
             } catch (error) {
                 navigation.goBack();
             }
-
         }
+        console.log(traceInitScreen);
+        await traceInitScreen.stop()
     };
 
     const onRefresh = () => {
