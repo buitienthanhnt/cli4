@@ -4,12 +4,12 @@ import { name as appName } from './app.json';
 import './src/utils/messaging';
 import './src/utils/inAppMessage';
 import './src/utils/crashlytics';
-// import { firebase } from '@react-native-firebase/perf';
+import perf from "@react-native-firebase/perf";
 
-// const perfCollect = async ()=>{
-// 	await firebase.perf().setPerformanceCollectionEnabled(true);
-// }
-// perfCollect();
+const perfCollect = async ()=>{
+	perf().setPerformanceCollectionEnabled(true);
+}
+perfCollect();
 
 AppRegistry.registerComponent(appName, () => App);
 

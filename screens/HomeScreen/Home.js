@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, FlatList, TouchableOpacity, Image } from "react-native";
+import FastImage from 'react-native-fast-image'
 
 import PageList from "../../config/PageList";
 
@@ -15,7 +16,7 @@ const Home = (props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{flexDirection: "row", justifyContent: "center", backgroundColor: "green" }}>
+            <View style={{ flexDirection: "row", justifyContent: "center", backgroundColor: "green" }}>
                 {/* <Text style={{fontSize: 18, fontWeight: "700", color: "violet"}}>
                     home screen
                 </Text> */}
@@ -34,7 +35,16 @@ const Home = (props) => {
                             }}>
                                 <View style={{ width: "100%", height: 120, borderWidth: 1 }}>
                                     {/* <View style={{justifyContent: "center", flexDirection: "row"}}><Text>qwe</Text></View> */}
-                                    <Image source={{ uri: item.img_path }} style={{ flex: 1 }} resizeMode="cover"></Image>
+                                    {/* <Image source={{ uri: item.img_path }} style={{ flex: 1 }} resizeMode="cover"></Image> */}
+                                    <FastImage
+                                        style={{ flex: 1 }}
+                                        defaultSource={require('../../assets/splash.png')}
+                                        resizeMode="cover"
+                                        source={{
+                                            uri: item.img_path,
+                                            priority: FastImage.priority.normal,
+                                        }}
+                                    />
                                 </View>
                             </TouchableOpacity>
                         );

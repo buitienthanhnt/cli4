@@ -21,6 +21,7 @@ const Config = (path = "", params = null) => {
             testData:           "api/testJson",
             testPost:           "api/testPost",
             parseUrl:           "api/parseUrl",
+            registerFcm:        "api/registerFcm",
         },
         buy_params: function (params) {
             var values = "?";
@@ -35,7 +36,6 @@ const Config = (path = "", params = null) => {
     };
 
     let url = "";
-
     if (Config.domain) {
         url = Config.domain;
     } else {
