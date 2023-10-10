@@ -7,7 +7,8 @@ import Loading from "../components/Loading";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Config from "../../config/Config";
-
+import { anyAxios } from "../../src/hooks/NetWorking";
+import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
 
 const NotificationRegister = () => {
     const [fcmtoken, setFcmtoken] = useState("");
@@ -19,10 +20,16 @@ const NotificationRegister = () => {
         return token;
     }
 
-    const registerNotification = async ()=>{
+    const registerNotification = async () => {
         const token = await AsyncStorage.getItem("fcmToken");
         if (token) {
-            let url = Config.custom_url()+Config.api_request.registerFcm;
+            let url = Config.custom_url() + Config.api_request.registerFcm;
+            const response = await anyAxios(url, {
+                fcmToken: token,
+                deviceId: DeviceInfo.getDeviceId(),
+                active: true
+            }, "POST");
+            console.log(response);
         }
     }
 
@@ -36,6 +43,7 @@ const NotificationRegister = () => {
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                 <Text>(click to coppy)</Text>
+                <Text>{DeviceInfo.getDeviceId()}</Text>
             </View>
 
             <Tooltip popover={<Text>coppied to Clipboard: </Text>}
