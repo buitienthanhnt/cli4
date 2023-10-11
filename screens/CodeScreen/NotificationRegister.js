@@ -12,6 +12,8 @@ import DeviceInfo from 'react-native-device-info';    // npm install --save reac
 
 const NotificationRegister = () => {
     const [fcmtoken, setFcmtoken] = useState("");
+    const [deviceId, setDeviceid] = useState("");
+
     const getFcmtoken = async () => {
         const token = await AsyncStorage.getItem("fcmToken")
         if (token) {
@@ -26,15 +28,28 @@ const NotificationRegister = () => {
             let url = Config.custom_url() + Config.api_request.registerFcm;
             const response = await anyAxios(url, {
                 fcmToken: token,
-                deviceId: DeviceInfo.getDeviceId(),
+                deviceId: deviceId,
                 active: true
             }, "POST");
             console.log(response);
         }
     }
 
+    const implementDevice = async () => {
+        let uniqueId = await DeviceInfo.getUniqueId().then((uniqueId) => {
+            console.log(uniqueId);
+            return uniqueId;
+            // iOS: "FCDBD8EF-62FC-4ECB-B2F5-92C9E79AC7F9"
+            // Android: "dd96dec43fb81c97"
+            // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
+        });
+        // console.log();
+        setDeviceid(uniqueId);
+    }
+
     useEffect(() => {
         const tk = getFcmtoken();
+        implementDevice();
         // console.log(tk);
     }, [])
 
@@ -43,7 +58,6 @@ const NotificationRegister = () => {
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                 <Text>(click to coppy)</Text>
-                <Text>{DeviceInfo.getDeviceId()}</Text>
             </View>
 
             <Tooltip popover={<Text>coppied to Clipboard: </Text>}
@@ -55,10 +69,13 @@ const NotificationRegister = () => {
             >
                 <Text style={{ color: '#dd5fc0' }}><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
             </Tooltip>
-            <Text></Text>
+            <View>
+                <Text>deviceId: {DeviceInfo.getDeviceId()}</Text>
+                <Text>uniqueId(check fcmToken in server): {deviceId}</Text>
+            </View>
 
             <TouchableOpacity style={{ alignItems: 'center', backgroundColor: 'rgba(53, 102, 142, 0.4)', borderRadius: 6, padding: 6, }} onPress={registerNotification}>
-                <Icon name='plane' size={36} color='black' />
+                <Icon name='plane' size={36} color='black' />  
                 <Text>recived notification for device</Text>
             </TouchableOpacity>
         </ScrollView>
