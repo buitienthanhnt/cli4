@@ -171,6 +171,16 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={css.functionItem}>
+                <FontAwesome5Icon name='video' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> VideoPlay </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("VideoPlay");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
                 {/* <Button title="to FadeInView" onPress={() => {
                     props?.navigation.navigate("FadeInView");
                 }}></Button>
