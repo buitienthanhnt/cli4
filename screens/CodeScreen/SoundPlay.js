@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import dings from '../../assets/titanium-170190.mp3';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Text } from 'react-native-ui-lib';
+import Config from '../../config/Config';
 var Sound = require('react-native-sound'); // https://blog.logrocket.com/how-to-play-sounds-in-react-native-using-react-native-sound/#adding-sounds-to-your-react-native-app
 
 Sound.setCategory('Playback');
@@ -78,7 +79,7 @@ const RemoteLink = () => {
   const [volume, setVolume] = useState(0.5);
   const [time, setTime] = useState(0);
   var audio = new Sound(
-    'http://192.168.100.156/newpaper/public/Hinh_Bong_Que_Nha.mp3',
+    `${Config.public_url()}Hinh_Bong_Que_Nha.mp3`,
     null,
     error => {
       if (error) {
@@ -97,18 +98,19 @@ const RemoteLink = () => {
 
   const changeVolume = (type = "add") => {
     let volume = audio.getVolume();
-    switch (type) {
-      case "sub":
-        volume = volume - 0.1;
-        audio.setVolume(volume);
-        break;
+    console.log(volume);
+    // switch (type) {
+    //   case "sub":
+    //     volume = volume - 0.1;
+    //     audio.setVolume(volume);
+    //     break;
 
-      default:
-        volume = volume + 0.1;
-        audio.setVolume(volume);
-        break;
-    }
-    setVolume(audio.getVolume());
+    //   default:
+    //     volume = volume + 0.1;
+    //     audio.setVolume(volume);
+    //     break;
+    // }
+    // setVolume(audio.getVolume());
   }
 
   useEffect(()=>{
