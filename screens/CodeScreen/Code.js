@@ -40,22 +40,6 @@ const Code = (props) => {
         <View style={{ flex: 1, padding: 5 }}>
             <Loading loading={loadding}></Loading>
             <ScrollView style={css.container} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
-                    <Text>(click to coppy)</Text>
-                </View>
-
-                <Tooltip popover={<Text>coppied to Clipboard: </Text>}
-                    withOverlay={false}
-                    skipAndroidStatusBar={true}
-                    onOpen={() => {
-                        copyToClipboard(`${fcmtoken}`);
-                    }}
-                >
-                    <Text style={{color: '#dd5fc0'}}><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
-                </Tooltip>
-
-                <View style={{ marginVertical: 8, height: 1, backgroundColor: "black" }}></View>
 
                 <View style={css.functionItem}>
                     <View style={{flexDirection: 'row'}}>
