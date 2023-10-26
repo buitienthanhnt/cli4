@@ -47,6 +47,10 @@ const NotificationRegister = () => {
         setDeviceid(uniqueId);
     }
 
+    const copyToClipboard = (text) => {
+        Clipboard.setString(text);
+    };
+
     useEffect(() => {
         const tk = getFcmtoken();
         implementDevice();
