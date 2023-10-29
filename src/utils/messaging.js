@@ -1,16 +1,61 @@
 import messaging from "@react-native-firebase/messaging"; // lưu ý cần bật tính năng firebase push notification trên firebase. test in: https://testfcm.com/
 import { Linking } from 'react-native';
 import notifee, {AndroidStyle, EventType} from '@notifee/react-native'; // https://notifee.app/react-native/docs/installation
-
-// import inAppMessaging from '@react-native-firebase/in-app-messaging';
+import remoteConfig from '@react-native-firebase/remote-config';
 // import analytics from '@react-native-firebase/analytics';
 
+
+//---------------------- firebase messaging ----------------------//
 // khi có tin nhắn tới khi app chạy nền.
 messaging().setBackgroundMessageHandler(async message => {
 	// navigation to screen
 	console.log('_____', message);
 });
 
+// chạy khi có thông báo gửi tới, kể  cả đang trong app(thường dùng cho: Notifee - React Native)
+messaging().onMessage((message) => {
+	// setdefault(Một ví dụ về điều này là không có mạng hoặc bạn chưa tìm nạp chúng trong mã của riêng bạn.)
+	remoteConfig()
+      .setDefaults({
+        show_message: true,
+      })
+      .then((response) => {
+        console.log('Default values set.', response);
+      });
+	  
+	const show_message = remoteConfig().getValue('show_message'); // get remote config firebase setting
+	if (show_message) {
+		console.log(message);
+	}
+	onDisplayNotification(message); // push notification by: notifee
+});
+
+messaging().onNotificationOpenedApp(messaging => {
+	// mở app và điều hướng vào screen nào đó
+	// {
+	// 	"collapseKey": "com.cli4",
+	// 	"data": {
+	// 		"pid": "123"
+	// 	},
+	// 	"from": "515691323092",
+	// 	"messageId": "0:1696262980305161%d89f2361d89f2361",
+	// 	"notification": {
+	// 		"android": {
+	// 			"imageUrl": "https://cdnstoremedia.com/adt/adn/2017/01/anh2-adx5886b6d7ca7ac.jpg"
+	// 		},
+	// 		"body": "ooo",
+	// 		"title": "ppp"
+	// 	},
+	// 	"sentTime": 1696262728039,
+	// 	"ttl": 2419200
+	// }
+	console.log(messaging.data.screen, `myapp://app/${messaging.data.screen}`);
+	Linking.openURL(`myapp://app/${messaging.data.screen}`);
+});
+//---------------------- firebase messaging ----------------------//
+
+
+//---------------------- notifee ----------------------//
 // khi có tin nhắn tới app chạy nền
 notifee.onBackgroundEvent(async event => {
 	// hành động khi mở tin nhắn
@@ -25,11 +70,6 @@ notifee.onForegroundEvent((event)=>{
 	if (event.type == EventType.PRESS) {
 		Linking.openURL(`myapp://app/${event.detail.notification.data.screen}`);
 	}
-});
-
-// chạy khi có thông báo gửi tới, kể  cả đang trong app(thường dùng cho: Notifee - React Native)
-messaging().onMessage((message) => {
-	onDisplayNotification(message); // push notification by: notifee
 });
 
 async function onDisplayNotification(message) {
@@ -61,26 +101,4 @@ async function onDisplayNotification(message) {
 		data: data
 	});
 }
-
-messaging().onNotificationOpenedApp(messaging => {
-	// mở app và điều hướng vào screen nào đó
-	// {
-	// 	"collapseKey": "com.cli4",
-	// 	"data": {
-	// 		"pid": "123"
-	// 	},
-	// 	"from": "515691323092",
-	// 	"messageId": "0:1696262980305161%d89f2361d89f2361",
-	// 	"notification": {
-	// 		"android": {
-	// 			"imageUrl": "https://cdnstoremedia.com/adt/adn/2017/01/anh2-adx5886b6d7ca7ac.jpg"
-	// 		},
-	// 		"body": "ooo",
-	// 		"title": "ppp"
-	// 	},
-	// 	"sentTime": 1696262728039,
-	// 	"ttl": 2419200
-	// }
-	console.log(messaging.data.screen, `myapp://app/${messaging.data.screen}`);
-	Linking.openURL(`myapp://app/${messaging.data.screen}`);
-})
+//---------------------- notifee ----------------------//
