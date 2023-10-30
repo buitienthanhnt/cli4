@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Button, Dimensions, Image, Text, TextInput, View, TouchableOpacity } from "react-native";
 import crashlytics from '@react-native-firebase/crashlytics';
-import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';  // https://rnfirebase.io/reference/auth/user
 
 const Login = (props) => {
 
@@ -12,12 +12,10 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
 
     // Set an initializing state whilst Firebase connects
-    const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
 
     function onAuthStateChanged(user) {
         setUser(user);
-        if (initializing) setInitializing(false);
     }
 
     // useEffect gọi khi có sư thay đổi trong component
@@ -32,29 +30,33 @@ const Login = (props) => {
         // setTitle({value: "bbbbbbbbbbbbb"});
 
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
+        // return subscriber; // unsubscribe on unmount
 
     }, []) // dependence phải lắng nghe giá trị cụ thể còn dạng object: {} sẽ không được vì 1 object có thể có nhiều thuộc tính và nó không liên quan. 
 
     // hàm tính: trả về giá trị cụ thể dựa vào lần tính trước đó.
     // nó sẽ lắng nghe có sự thay đổi để xác định xem có thực hiện tính toán lại hay không. Nếu không sẽ trả về  value luôn mà không cần tính toán lại. 
-    useMemo(() => {
-        // các phần xử lý trước để trả về giá trị.
-        return {
-            value: "opopopo"
-        };
-    }, [value]);
-
-    useCallback(() => {
-
-    }, []);
-
-    if (initializing) return null;
+    // useMemo(() => {
+    //     // các phần xử lý trước để trả về giá trị.
+    //     return {
+    //         value: "opopopo"
+    //     };
+    // }, [value]);
 
     if (user) {
+        console.log(user);
         return (
-            <View>
-                <Text>Login</Text>
+            <View style={{padding: 12}}>
+                <Text>Logined</Text>
+                <Text style={{fontSize: 18, fontWeight: 'bold'}}>user: {user.email}</Text>
+                <Text></Text>
+                <TouchableOpacity style={{backgroundColor: 'rgba(119, 193, 145, 0.8)', borderRadius: 18, height: 36, justifyContent: "center", alignItems: 'center'}} onPress={()=>{
+                    auth()
+                    .signOut()
+                    .then(() => console.log('User signed out!'));
+                }}>
+                    <Text>LogOut</Text>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -76,13 +78,29 @@ const Login = (props) => {
             <View style={{ height: 12 }}></View>
             <TouchableOpacity style={{ backgroundColor: 'rgba(119, 193, 145, 0.8)', borderRadius: 18, height: 36, justifyContent: "center", alignItems: 'center' }}
                 onPress={() => {
+                    console.log(email);
                     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-                    if (reg.test(user) === false) {
+                    if (reg.test(email) === false) {
                         console.log("Email is Not Correct");
                         return false;
                     }
                     else {
-                        console.log("Email is Correct");
+                        auth()
+                            .signInWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
+                            .then(() => {
+                                console.log('User account created & signed in!');
+                            })
+                            .catch(error => {
+                                if (error.code === 'auth/email-already-in-use') {
+                                    console.log('That email address is already in use!');
+                                }
+
+                                if (error.code === 'auth/invalid-email') {
+                                    console.log('That email address is invalid!');
+                                }
+
+                                console.error(error);
+                            });
                     }
                     console.log(user, password);
                 }}
@@ -126,3 +144,30 @@ const Login = (props) => {
 }
 
 export default Login;
+
+// currentUser
+// {
+//     "displayName":null,
+//     "email":"jane.doe@example.com",
+//     "emailVerified":false,
+//     "isAnonymous":false,
+//     "metadata":{
+//        "creationTime":1698676501083,
+//        "lastSignInTime":1698676501083
+//     },
+//     "multiFactor":{
+//        "enrolledFactors":[
+//           "Array"
+//        ]
+//     },
+//     "phoneNumber":null,
+//     "photoURL":null,
+//     "providerData":[
+//        [
+//           "Object"
+//        ]
+//     ],
+//     "providerId":"firebase",
+//     "tenantId":null,
+//     "uid":"wnwXEnEIPFMAjOCYbZq38Yuss532"
+//  }

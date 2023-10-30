@@ -12,6 +12,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import { BasicTable, TopTable } from "../components/Table";
 import { BasicSlider } from "../components/Slider";
 import ImageDefault from "../../assets/Ripple-1s-200px.gif";
+import { firebase } from "@react-native-firebase/auth";
 
 Colors.loadColors({
     error: '#ff2442',
@@ -20,7 +21,7 @@ Colors.loadColors({
 });
 
 const AccountDetail = (props) => {
-
+    const user = firebase.auth().currentUser; // get: currentUser
     useEffect(
         () => {
             console.log(props.route.params);
@@ -45,7 +46,7 @@ const AccountDetail = (props) => {
     // console.log(neetInfo);
     // console.log(width, height);
     return (
-        <ScrollView style={{paddingHorizontal: 8}}>
+        <ScrollView style={{ paddingHorizontal: 8 }}>
             {/* {loadimage && <View 
             style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height,
              opacity: 0.5, backgroundColor: 'red', position: 'absolute'}}></View>} */}
@@ -81,10 +82,20 @@ const AccountDetail = (props) => {
             }}></Button>
             <Text>{"\n"}</Text>
 
-            <Button title="to Login" onPress={() => {
-                props.navigation.navigate("Login");
+            <Button title="to cloud function" onPress={() => {
+                props.navigation.navigate("CloudFun");
             }}></Button>
             <Text>{"\n"}</Text>
+
+            <Button title="to cloud DataBase" onPress={() => {
+                props.navigation.navigate("DataBase");
+            }}></Button>
+            <Text>{"\n"}</Text>
+
+            {!user && <Button title="to Login" onPress={() => {
+                props.navigation.navigate("Login");
+            }}></Button>
+            && <Text>{"\n"}</Text>}
 
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal

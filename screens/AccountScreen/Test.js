@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useEffect, useRef } from "react";
-import { Button, Text, View, Image } from "react-native";
+import React, { useState, useReducer, useEffect, useRef, useCallback } from "react";
+import { Button, Text, View, Image, TouchableOpacity } from "react-native";
 
 import axios from 'react-native-axios';
 import Config from "../../config/Config";
@@ -8,6 +8,12 @@ import { fechData, getAxios, anyAxios } from "../../src/hooks/NetWorking";
 import * as RootNavigation from "../../src/hooks/Navigate";
 import { useNavigation } from '@react-navigation/native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
+import functions from '@react-native-firebase/functions';
+import { firebase } from "@react-native-firebase/functions";
+
+import database from '@react-native-firebase/database'; // https://rnfirebase.io/reference/database/reference
+import { firebase as databaseF } from '@react-native-firebase/database';
 
 // https://www.youtube.com/watch?v=LlvBzyy-558
 const reducer = (state, action) => {
@@ -77,7 +83,7 @@ const Test = () => {
 	}
 
 	const toScreen = (name, params = {}) => {
-		RootNavigation.navigate(name, params); // to paper detail
+		RootNavigation.Navigate(name, params); // to paper detail
 		// RootNavigation.LinkingNavigate('Code');
 	}
 
@@ -157,4 +163,70 @@ const Test = () => {
 	);
 }
 
-export { Test };
+const CloudFun = () => {
+	const [loading, setLoading] = useState(true);
+	const [products, setProducts] = useState([]);
+
+	useEffect(() => {
+		firebase.functions().useEmulator('localhost', 5001);
+		// trên máy ảo dùng localhost; khi dùng máy thật thì dùng qua ip.
+		// firebase.functions().useEmulator('localhost', 5001);
+	}, []);
+
+	const callCloudFunction = useCallback(() => {
+		functions()
+			.httpsCallable('listProducts')({ abc: 123 })
+			.then(response => {
+				console.log(response.data);
+				setProducts(response.data);
+				setLoading(false);
+			});
+	});
+
+	// if (loading) {
+	// 	return null;
+	// }
+
+	return (
+		<View style={{ padding: 10 }}>
+			<Text>
+				CloudFun demo
+			</Text>
+			<TouchableOpacity style={{ backgroundColor: 'rgba(62, 234, 78, 0.9)', justifyContent: 'center', alignItems: 'center', borderRadius: 12, padding: 8 }}
+				onPress={callCloudFunction}
+			>
+				<Text style={{ fontSize: 18, fontWeight: 500 }}>call to server cloud funvtion</Text>
+			</TouchableOpacity>
+		</View>
+	)
+};
+
+const DataBase = () => {
+	useEffect(() => {
+		databaseF
+			.app()
+			.database(' https://react-cli4-default-rtdb.firebaseio.com/')
+			.ref('a');
+	}, []);
+
+	const getDb = () => {
+		// const scores = database().ref('a').orderByValue().once('value');
+		const x = databaseF
+			.app()
+			.database(' https://react-cli4-default-rtdb.firebaseio.com')
+			.ref('/demo1');
+
+		console.log('123123', x);
+	};
+
+	return (
+		<View style={{ flex: 1, padding: 10 }}>
+			<Text>new databases screen</Text>
+			<TouchableOpacity onPress={() => {getDb()}}>
+				<Text>get database</Text>
+			</TouchableOpacity>
+		</View>
+	);
+};
+
+export { Test, CloudFun, DataBase };
