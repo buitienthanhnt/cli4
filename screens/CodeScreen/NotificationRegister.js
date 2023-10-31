@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Clipboard, View, Button, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
@@ -9,10 +9,16 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Config from "../../config/Config";
 import { anyAxios } from "../../src/hooks/NetWorking";
 import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
+import { withExpoSnack } from 'nativewind';
+import { styled, useColorScheme } from "nativewind";
+
+const StyledView = styled(View);
+const StyledText = styled(Text);
 
 const NotificationRegister = () => {
     const [fcmtoken, setFcmtoken] = useState("");
     const [deviceId, setDeviceid] = useState("");
+    const { colorScheme, toggleColorScheme, setColorScheme } = useColorScheme();
 
     const getFcmtoken = async () => {
         const token = await AsyncStorage.getItem("fcmToken")
@@ -55,7 +61,11 @@ const NotificationRegister = () => {
         const tk = getFcmtoken();
         implementDevice();
         // console.log(tk);
-    }, [])
+    }, []);
+
+    const changeTheme = ()=>{
+        setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+    };
 
     return (
         <ScrollView style={{ padding: 6, backgroundColor: 'rgba(0, 114, 0, 0.5)' }}>
@@ -82,8 +92,18 @@ const NotificationRegister = () => {
                 <Icon name='plane' size={36} color='black' />  
                 <Text>recived notification for device</Text>
             </TouchableOpacity>
+
+            <Text>{'\n'}</Text>
+
+            <TouchableOpacity style={{ alignItems: 'center', backgroundColor: 'rgba(53, 102, 142, 0.4)', borderRadius: 6, padding: 6, }} onPress={changeTheme}> 
+                <Text>change theme</Text>
+            </TouchableOpacity>
+
+            <StyledView>
+                <StyledText className="dark:text-white">popopopopopo</StyledText>
+            </StyledView>
         </ScrollView>
     )
 }
 
-export default NotificationRegister;
+export default withExpoSnack(NotificationRegister);
