@@ -14,11 +14,13 @@ import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-componen
 import functions from '@react-native-firebase/functions';
 import { firebase } from "@react-native-firebase/functions";
 
+// https://firebase.google.com/docs/database/web/lists-of-data?authuser=0#filtering_data
 import database from '@react-native-firebase/database'; // https://rnfirebase.io/reference/database/reference
-import { firebase as firebaseData } from '@react-native-firebase/database'; // https://www.youtube.com/watch?v=bpI3Bbhlcas
+ // https://www.youtube.com/watch?v=bpI3Bbhlcas
 // https://rnfirebase.io/firestore/pagination
-
 // https://www.youtube.com/watch?v=LlvBzyy-558
+// https://firebase.google.com/docs/database/extend-with-functions?gen=1st
+
 const reducer = (state, action) => {
 	switch (action.type) {
 		case 'ADD':
@@ -51,7 +53,7 @@ const Test = () => {
 		axios({ method: "get", url: 'https://jsonplaceholder.typicode.com/posts/1/comments' }).then((response) => {
 			// setEmail(response?.data[1].email || 'email not found');
 			// console.log('+++++');
-			// console.log(response.data[0]); 
+			// console.log(response.data[0]);
 
 
 		}).catch((error) => {
@@ -186,10 +188,6 @@ const CloudFun = () => {
 			});
 	});
 
-	// if (loading) {
-	// 	return null;
-	// }
-
 	return (
 		<View style={{ padding: 10 }}>
 			<Text>
@@ -205,68 +203,75 @@ const CloudFun = () => {
 };
 
 const DataBase = () => {
-	// lắng nghe thay đổi database trên firebase theo thời gian thực.  
-
+	// lắng nghe thay đổi database trên firebase theo thời gian thực dung ham: on()
 	const [data, setData] = useState([]);
+	const orderType = "email"
+	const [lastEmail, setLastEmail] = useState('');
+	const page_size = 4;
 	useEffect(() => {
 		// const _database = database().ref('/user').limitToFirst(1).once() || tren xuong
 		// const _database = database().ref('/user').limitToLast(3).once() ||duoi len
-		// orderByChild sap xep theo: 'id'(to len truoc). 
+		// orderByChild sap xep theo: 'id'(to len truoc).
 		// .orderByChild("id").startAt(15) || orderByChild("name").startAt("nan") sau khi sap xep bat dau voi gia tri id=15(neu khong co tra ve null)
 		// orderByValue sap xep theo gia tri: https://firebase.google.com/docs/reference/js/v8/firebase.database.Query#orderbyvalue
-		// database().ref('/user').orderByChild("id").limitToFirst(3) : sap xep theo id 
+		// database().ref('/user').orderByChild("id").limitToFirst(3) : sap xep theo id
 		// database().ref('/user').orderByChild("id").equalTo(7): id co gia tri bang 7
-		const _database = database().ref('/user').on('value', snapshot => { // .limitToFirst(10) orderByValue() // startAt orderByKey()
+		const _database = database().ref('/user').orderByChild(orderType).limitToFirst(page_size - 1).on('value', snapshot => { // .limitToFirst(10) orderByValue() // startAt orderByKey()
 			if (snapshot) {
-				console.log('User data: ', snapshot.val());
 				const value = snapshot.val();
 				if (value) {
-					var result = Object.keys(value).map((key) => {
-						let _value = value[key];
-						_value.key = key;
-						return _value;
+					// var result = Object.keys(value).map((key) => {
+					// 	let _value = value[key];
+					// 	_value.key = key;
+					// 	return _value;
+					// });
+
+					var result = [];
+					let lastIndex = null;
+					snapshot.forEach((snapshot, index) => { // phai dung qua forEach.
+						result.push(snapshot.val());
+						lastIndex = snapshot.val().email;
 					});
 					if (result) {
 						setData(result);
+						setLastEmail(lastIndex);
 					}
 				} else {
 					console.log('not has data value');
 				}
-
 			}
 		});
-
-		return _database;
+		return () => database().ref('/user').off('value', _database);
 	}, []);
 
-	const BasicTable = () => {
-		const table = {
-			tableHead: ['id', 'name', 'edit', 'delete'],
-			tableData: [
-				['1', '2', '3', '4'],
-				['a', 'b', 'c', 'd'],
-				['1', '2', '3', '456\n789'],
-				['a', 'b', 'c', 'd']
-			]
-		};
+	const loadUser = () => {
+		var ref = database.database().ref("user");
+		ref.orderByChild(orderType).startAt(lastEmail).limitToFirst(page_size).once("value", function (snapshot) {
+			let result = []; let _lastEmail = null;
+			if (snapshot.numChildren() > 1) {
 
-		return (
-			<View style={styles.container}>
-				<Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-					<Row data={table.tableHead} style={styles.head} textStyle={styles.text} />
-					<Rows data={table.tableData} textStyle={styles.text} />
-				</Table>
-			</View>
-		);
-	}
+				snapshot.forEach((snap) => {
+					if (snap.val().email !== lastEmail) {
+						result.push(snap.val());
+						_lastEmail = snap.val().email;
+					}
+				});
 
-	const getDb = () => {
+				if (result && _lastEmail) {
+					setLastEmail(email => _lastEmail);
+					setData(old => [...old, ...result]);
+				}
+			}
+		});
+	};
+
+	const getDb = (type) => {
 		// const scores = database().ref('a').orderByValue().once('value');
 		database()
-			.ref('/user')
+			.ref(type || '/user').orderByValue()
 			.once('value')
 			.then(snapshot => {
-				console.log('User data: ', snapshot);
+				console.log('User datas: ', snapshot);
 			});
 	};
 
@@ -303,6 +308,44 @@ const DataBase = () => {
 		await database().ref(`/user/${id}`).remove();
 	}
 
+	const checkData = async (ref) => {
+		// nhat dinh phai co: orderByKey
+		// orderByChild('id').startAt(12).limitToFirst(2) // bat dau 12 lay tiep 2 phan tu
+		// .orderByChild('id').startAt(12).endAt(16) // bat dau voi gia tri id 12 ket thuc voi 16
+		// .orderByChild('id').equalTo(23) // sap xep theo id va id bang voi 23
+		// .orderByKey().equalTo('-Ni3sDqBQZz5e1BkuweW') // sap xep theo key va bang: -Ni3sDqBQZz5e1BkuweW
+
+
+		//
+		// var commentsRef = await database.database().ref('device').orderByKey().startAt(0).endAt(16).once('value', (snapshot)=>{
+		// 	console.log('_____+', snapshot.val());
+		// 	return snapshot.val();
+		// });
+		// const element = database.database().ref('device').child('0'); // lay con
+		// const element = database.database().ref('device').root; // lay toan bo database.(cha cua root la null)
+		// const element = database.database().ref('device/0').parent; // lay phan tu cha cua: device/0 chinh la device.
+
+		// console.log('key: ', element);
+		// element.once('value', (snapshot)=>{
+		// 		console.log(snapshot);
+		// 	});
+
+		// so sanh 2 phan tu
+		// const ref1 = firebase.database().ref('user').orderByKey().endAt('xJ0kjSGheMMn');
+		// const ref2 = firebase.database().ref('user').endAt('3voY2xJ0kjSGheMMn').orderByKey();
+		// console.log('ref log ', ref1.isEqual(ref2)); // true || false
+
+
+		// get and order by key(key phai chinh xac)
+		firebase.database().ref('user').orderByChild('email').startAt('e@gmail').limitToFirst(4).once('value', (snapshot) => {
+			let result = [];
+			snapshot.forEach((snapshot) => { // phai dung qua forEach.
+				result.push(snapshot.val());
+			});
+			console.log(result);
+		});
+	}
+
 	return (
 		<View style={{ flex: 1, padding: 10 }}>
 			<Text>new databases screen</Text>
@@ -313,6 +356,13 @@ const DataBase = () => {
 				<Text>get database from realtime firebase</Text>
 			</TouchableOpacity>
 			<AddDb></AddDb>
+
+			<TouchableOpacity
+				style={{ padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10 }}
+				onPress={() => { getDb('device') }}
+			>
+				<Text>get device</Text>
+			</TouchableOpacity>
 
 			<FlatList data={data}
 				ListHeaderComponent={() => {
@@ -327,7 +377,7 @@ const DataBase = () => {
 					)
 				}}
 				keyExtractor={(item) => item.key}
-				renderItem={({ item, index }) => {
+				renderItem={({ item }) => {
 					return (
 						<View style={{ flexDirection: 'row', paddingVertical: 2 }}>
 							<Text style={{ flex: 10 }}> {item.id} </Text>
@@ -356,15 +406,32 @@ const DataBase = () => {
 							<View style={{ height: 1, backgroundColor: 'black' }}></View>
 						</View>)
 				}}></FlatList>
-			{/* <BasicTable></BasicTable> */}
 
 			<TouchableOpacity
 				style={{ padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10 }}
 				onPress={() => {
-					var ref = firebaseData.database().ref("user/9"); // firebaseData.database().ref("user/9"):  {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+					loadUser()
+				}}
+			>
+				<Text>load more</Text>
+			</TouchableOpacity>
+			<Text>{'\n'}</Text>
 
-					ref.orderByChild("id").on("value", function (snapshot) {
-						console.log(snapshot); // getChild key=9: {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+
+
+			<TouchableOpacity
+				style={{ padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10 }}
+				onPress={() => {
+					// checkData("user");
+
+					// var ref = database.database().ref("user/9"); // database.database().ref("user/9"):  {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+					// ref.orderByChild("id").on("value", function (snapshot) {
+					// 	console.log(snapshot); // getChild key=9: {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+					// })
+
+					var ref = database.database().ref("user/-Ni3sDqBQZz5e1BkuweW/active");
+					ref.orderByValue().once("value", function (snapshot) {
+						console.log('_____', snapshot); // getChild key=9: {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
 					})
 				}}
 			>
