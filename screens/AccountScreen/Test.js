@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect, useRef, useCallback } from "react";
-import { Button, Text, View, Image, TouchableOpacity } from "react-native";
+import { Button, Text, View, Image, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 
 import axios from 'react-native-axios';
 import Config from "../../config/Config";
@@ -8,12 +8,15 @@ import { fechData, getAxios, anyAxios } from "../../src/hooks/NetWorking";
 import * as RootNavigation from "../../src/hooks/Navigate";
 import { useNavigation } from '@react-navigation/native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+// import { BasicTable, TopTable } from "../components/Table";
+import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
 
 import functions from '@react-native-firebase/functions';
 import { firebase } from "@react-native-firebase/functions";
 
 import database from '@react-native-firebase/database'; // https://rnfirebase.io/reference/database/reference
-import { firebase as databaseF } from '@react-native-firebase/database';
+import { firebase as firebaseData } from '@react-native-firebase/database'; // https://www.youtube.com/watch?v=bpI3Bbhlcas
+// https://rnfirebase.io/firestore/pagination
 
 // https://www.youtube.com/watch?v=LlvBzyy-558
 const reducer = (state, action) => {
@@ -202,31 +205,188 @@ const CloudFun = () => {
 };
 
 const DataBase = () => {
+	// lắng nghe thay đổi database trên firebase theo thời gian thực.  
+
+	const [data, setData] = useState([]);
 	useEffect(() => {
-		databaseF
-			.app()
-			.database(' https://react-cli4-default-rtdb.firebaseio.com/')
-			.ref('a');
+		// const _database = database().ref('/user').limitToFirst(1).once() || tren xuong
+		// const _database = database().ref('/user').limitToLast(3).once() ||duoi len
+		// orderByChild sap xep theo: 'id'(to len truoc). 
+		// .orderByChild("id").startAt(15) || orderByChild("name").startAt("nan") sau khi sap xep bat dau voi gia tri id=15(neu khong co tra ve null)
+		// orderByValue sap xep theo gia tri: https://firebase.google.com/docs/reference/js/v8/firebase.database.Query#orderbyvalue
+		// database().ref('/user').orderByChild("id").limitToFirst(3) : sap xep theo id 
+		// database().ref('/user').orderByChild("id").equalTo(7): id co gia tri bang 7
+		const _database = database().ref('/user').on('value', snapshot => { // .limitToFirst(10) orderByValue() // startAt orderByKey()
+			if (snapshot) {
+				console.log('User data: ', snapshot.val());
+				const value = snapshot.val();
+				if (value) {
+					var result = Object.keys(value).map((key) => {
+						let _value = value[key];
+						_value.key = key;
+						return _value;
+					});
+					if (result) {
+						setData(result);
+					}
+				} else {
+					console.log('not has data value');
+				}
+
+			}
+		});
+
+		return _database;
 	}, []);
+
+	const BasicTable = () => {
+		const table = {
+			tableHead: ['id', 'name', 'edit', 'delete'],
+			tableData: [
+				['1', '2', '3', '4'],
+				['a', 'b', 'c', 'd'],
+				['1', '2', '3', '456\n789'],
+				['a', 'b', 'c', 'd']
+			]
+		};
+
+		return (
+			<View style={styles.container}>
+				<Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+					<Row data={table.tableHead} style={styles.head} textStyle={styles.text} />
+					<Rows data={table.tableData} textStyle={styles.text} />
+				</Table>
+			</View>
+		);
+	}
 
 	const getDb = () => {
 		// const scores = database().ref('a').orderByValue().once('value');
-		const x = databaseF
-			.app()
-			.database(' https://react-cli4-default-rtdb.firebaseio.com')
-			.ref('/demo1');
-
-		console.log('123123', x);
+		database()
+			.ref('/user')
+			.once('value')
+			.then(snapshot => {
+				console.log('User data: ', snapshot);
+			});
 	};
+
+	const AddDb = () => {
+		const addNewDb = () => {
+			console.log('addNewDb');
+			const newReference = database().ref('/user').push();
+			console.log('Auto generated key: ', newReference.key);
+			newReference
+				.set({ "active": true, "id": 15, "name": "nan 2", "phone": "2345567", email: 'e@gmail.com' })
+				.then(() => console.log('Data updated.'));
+		};
+
+		return (
+			<View style={{ paddingVertical: 8 }}>
+				<TouchableOpacity style={css.btn} onPress={addNewDb}>
+					<Text>add new databases</Text>
+				</TouchableOpacity>
+			</View>
+		)
+	}
+
+	const UpdateDB = async (id) => {
+		database()
+			.ref(`/user/${id}`)
+			.update({
+				name: 'name after update',
+				address: "21b"
+			})
+			.then(() => console.log('Data updated.'));
+	};
+
+	const deleteDB = async (id) => {
+		await database().ref(`/user/${id}`).remove();
+	}
 
 	return (
 		<View style={{ flex: 1, padding: 10 }}>
 			<Text>new databases screen</Text>
-			<TouchableOpacity onPress={() => {getDb()}}>
-				<Text>get database</Text>
+			<TouchableOpacity
+				style={{ padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10 }}
+				onPress={() => { getDb() }}
+			>
+				<Text>get database from realtime firebase</Text>
+			</TouchableOpacity>
+			<AddDb></AddDb>
+
+			<FlatList data={data}
+				ListHeaderComponent={() => {
+					return (
+						<View style={{ flexDirection: 'row' }}>
+							<Text style={{ flex: 10 }}> id </Text>
+							<Text style={{ flex: 50 }}> name </Text>
+							<Text style={{ flex: 50 }}> email </Text>
+							<Text style={{ flex: 20 }}> edit </Text>
+							<Text style={{ flex: 20 }}> delete </Text>
+						</View>
+					)
+				}}
+				keyExtractor={(item) => item.key}
+				renderItem={({ item, index }) => {
+					return (
+						<View style={{ flexDirection: 'row', paddingVertical: 2 }}>
+							<Text style={{ flex: 10 }}> {item.id} </Text>
+							<Text style={{ flex: 50 }}> {item.name} </Text>
+							<Text style={{ flex: 50 }}> {item.email} </Text>
+							<View style={{ paddingVertical: 1, flex: 20, justifyContent: 'center', alignItems: 'center' }}>
+								<TouchableOpacity
+									style={{ flex: 20, backgroundColor: 'rgba(150, 1, 215, 0.5)', borderRadius: 6, }}
+									onPress={() => {
+										UpdateDB(item.key);
+									}}
+								>
+									<Text> edit </Text>
+								</TouchableOpacity>
+							</View>
+							<View style={{ paddingVertical: 1, flex: 20, justifyContent: 'center', alignItems: 'center' }}>
+								<TouchableOpacity
+									style={{ backgroundColor: 'rgba(0, 208, 86, 0.7)', borderRadius: 6, }}
+									onPress={() => {
+										deleteDB(item.key)
+									}}
+								>
+									<Text> delete </Text>
+								</TouchableOpacity>
+							</View>
+							<View style={{ height: 1, backgroundColor: 'black' }}></View>
+						</View>)
+				}}></FlatList>
+			{/* <BasicTable></BasicTable> */}
+
+			<TouchableOpacity
+				style={{ padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10 }}
+				onPress={() => {
+					var ref = firebaseData.database().ref("user/9"); // firebaseData.database().ref("user/9"):  {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+
+					ref.orderByChild("id").on("value", function (snapshot) {
+						console.log(snapshot); // getChild key=9: {"active": true, "email": "e9@gmail.com", "id": 9, "name": "nan 9", "phone": "9999"}
+					})
+				}}
+			>
+				<Text>check</Text>
 			</TouchableOpacity>
 		</View>
 	);
 };
+
+const css = StyleSheet.create({
+	btn: {
+		padding: 10, justifyContent: "center", alignItems: 'center', backgroundColor: 'rgba(25, 190, 116, 0.7)', borderRadius: 10
+	}
+});
+
+const styles = StyleSheet.create({
+	container: { padding: 5, paddingTop: 30, backgroundColor: '#fff' },
+	head: { height: 40, backgroundColor: '#f1f8ff' },
+	wrapper: { flexDirection: 'row' },
+	title: { flex: 1, backgroundColor: '#f6f8fa' },
+	row: { height: 28 },
+	text: { textAlign: 'center' }
+});
 
 export { Test, CloudFun, DataBase };

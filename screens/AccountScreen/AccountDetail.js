@@ -25,6 +25,8 @@ const AccountDetail = (props) => {
     useEffect(
         () => {
             console.log(props.route.params);
+            const user = firebase.auth().currentUser;
+            console.log('______', user);
         }, [props]
     )
 
@@ -94,8 +96,8 @@ const AccountDetail = (props) => {
 
             {!user && <Button title="to Login" onPress={() => {
                 props.navigation.navigate("Login");
-            }}></Button>
-            && <Text>{"\n"}</Text>}
+            }}></Button>}
+            <Text>{"\n"}</Text>
 
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal
