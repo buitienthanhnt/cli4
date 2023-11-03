@@ -99,6 +99,11 @@ const AccountDetail = (props) => {
             }}></Button>}
             <Text>{"\n"}</Text>
 
+            <Button title="to cloud FireStore" onPress={() => {
+                props.navigation.navigate("FireStore");
+            }}></Button>
+            <Text>{"\n"}</Text>
+
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal
                 closeOnDragDown={true} // kéo xuống để ẩn popup modal
