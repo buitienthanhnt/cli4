@@ -16,7 +16,7 @@ import { firebase } from "@react-native-firebase/functions";
 
 // https://firebase.google.com/docs/database/web/lists-of-data?authuser=0#filtering_data
 import database from '@react-native-firebase/database'; // https://rnfirebase.io/reference/database/reference
- // https://www.youtube.com/watch?v=bpI3Bbhlcas
+// https://www.youtube.com/watch?v=bpI3Bbhlcas
 // https://rnfirebase.io/firestore/pagination
 // https://www.youtube.com/watch?v=LlvBzyy-558
 // https://firebase.google.com/docs/database/extend-with-functions?gen=1st
@@ -275,6 +275,16 @@ const DataBase = () => {
 			});
 	};
 
+	// ghi de toan bo data cua nut tham chieu
+	const setDb = () => {
+		database()
+			.ref('/user/123')
+			.update({
+				age: 32,
+			})
+			.then(() => console.log('Data updated.'));
+	}
+
 	const AddDb = () => {
 		const addNewDb = () => {
 			console.log('addNewDb');
@@ -287,7 +297,7 @@ const DataBase = () => {
 
 		return (
 			<View style={{ paddingVertical: 8 }}>
-				<TouchableOpacity style={css.btn} onPress={addNewDb}>
+				<TouchableOpacity style={css.btn} onPress={setDb}>
 					<Text>add new databases</Text>
 				</TouchableOpacity>
 			</View>
