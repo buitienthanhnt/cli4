@@ -1,10 +1,11 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
-import './src/utils/messaging';
-import './src/utils/inAppMessage';
-import './src/utils/crashlytics';
+
 import perf from "@react-native-firebase/perf";
+import '@utils/messaging';
+import '@utils/inAppMessage';
+import '@utils/crashlytics';
 
 const perfCollect = async ()=>{
 	perf().setPerformanceCollectionEnabled(true);

@@ -1,6 +1,6 @@
 import {Linking } from 'react-native';
 import inAppMessaging from '@react-native-firebase/in-app-messaging';
-import Config from '../../config/Config';
+import Config from '../config/Config';
 
 let scheme = 'exampleapp';
 const handleOpenURL = (event) => {
