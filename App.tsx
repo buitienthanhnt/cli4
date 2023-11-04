@@ -9,7 +9,6 @@ import React, { useEffect, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -17,7 +16,7 @@ import {
   View,
 } from 'react-native';
 
-import {navigationRef} from './src/hooks/Navigate';
+import {navigationRef} from '@hooks/Navigate'; // để di chuyển qua các màn hình
 
 // https://viblo.asia/p/webpack-5-babel-plugin-module-resolver-djeZ1EN8ZWz tạo Alias trong webpack
 // https://viblo.asia/p/webpack-5-webpack-resolve-alias-extensions-naQZRL4Q5vx
@@ -35,8 +34,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BottomTabs from './bottoms/Bottom';
-import { requestUserPermission } from './src/utils/notificationHelper';
+import BottomTabs from '@bottoms/Bottom';
+import { requestUserPermission } from '@utils/notificationHelper';
 import linking from './linking';
 import { QueryClient, QueryClientProvider } from 'react-query'  // dùng cho getdata api
 const queryClient = new QueryClient()
