@@ -53,3 +53,17 @@ https://getcomposer.org/doc/
 https://developer.mozilla.org/en-US/docs/Web/API/WebSocket
 https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 ===============================================================================
+
+trong react 1 component bị Rerender khi props trong component cha truyền vào bị thay đổi hoặc state nội tại của nó bị thay đổi.
+
+
+React.memo(): để bọc 1 component(con) và sẽ làm cho các component đó không bị reRender khi nhận vào prop giống nhau từ component cha(bình thường component cha reRender thì component con cũng bị reRender theo). Tuy nhiên nếu truyền vào 1 object, array, function thì chúng cần được bọc trong useCallback(cho biến là function) 
+
+
+khi 1 componet reRender thì toàn bộ code bên trong cũng sẽ bị thực thi lại.
+
+useCallback: chỉ ghi nhớ định nghĩa(khai báo) 1 function mà không thực thi để tiết kiệm bộ nhớ mỗi khi reRender(nó sẽ tham trị vào chính vùng nhớ đã tạo trước đó). Thường dùng khi function được dùng làm biến truyền vào cho component con.
+
+useMemo: Ghi nhớ giá trị trả về của 1 function sau khi đã thực thi. lần sau dùng sẽ không cần tính lại nữa.
+
+https://www.youtube.com/watch?v=SjoWgz0x15s

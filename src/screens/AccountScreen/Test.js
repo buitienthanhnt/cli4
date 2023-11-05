@@ -43,8 +43,9 @@ const Test = () => {
 	const navigation = useNavigation();
 
 	// goi 1 lan dau tien, sau do goi theo thay doi cua tham so lang nghe neu tham so do thay doi. can dat sau tham so lang nghe
+	// các hook có thể được đặt trong if(){} ví dụ: if(a ==1){useEffect(()=>{})} nhưng không nên làm như này có thể gây ra lỗi.
 	useEffect(() => {
-		// console.log('noi dung nam trong ham useeffect');
+		console.log('noi dung nam trong ham useeffect');
 
 		// fetch('https://jsonplaceholder.typicode.com/todos/1')
 		// 	.then(response => response.json())
@@ -58,7 +59,12 @@ const Test = () => {
 
 		}).catch((error) => {
 			console.log(error);
-		})
+		});
+
+		// hàm được return sẽ chỉ chạy khi element bị xóa hoặc bị thoát(ví dụ như khi back khỏi màn hình này)  
+		return ()=>{
+			console.log('call in function return from ussect___');
+		}
 
 	}, [email, value])
 
