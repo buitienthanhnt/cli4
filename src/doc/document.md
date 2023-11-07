@@ -66,4 +66,6 @@ useCallback: chỉ ghi nhớ định nghĩa(khai báo) 1 function mà không th�
 
 useMemo: Ghi nhớ giá trị trả về của 1 function sau khi đã thực thi. lần sau dùng sẽ không cần tính lại nữa.
 
+useRef: trả về 1 object với 1 thuộc tính curent theo đó, sau mỗi lần reRender thì giá trị đó không bị thay đổi(chỉ thay đổi giá trị khi nó được gán bằng .curent = new value), thường thì sau mỗi lần reRender các biến khai báo trực tiếp cũng bị reRender lại giá trị nên cần dùng useRef để giữ giá trị cho các obj đó
+useRef giống với useState ở chỗ là cả 2 đều giữ được giá trị hiện thời sau mỗi lần reRender còn khác nhau là useRef không gây ra reRender còn useState thì có 
 https://www.youtube.com/watch?v=SjoWgz0x15s
