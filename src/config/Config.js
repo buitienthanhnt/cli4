@@ -25,6 +25,8 @@ const Config = (path = "", params = null) => {
             registerFcm:        "api/notification/registerFcm",
         },
         buy_params: function (params) {
+            // this không dùng được trong: arrow function vì bản thân this lúc đó sẽ la windown.
+            // nên để dùng this thì cần dùng: function để khai báo, qua đó nó sẽ kế thừa ngữ cảnh object cha
             var values = "?";
             for (const key in params) {
                 values += key + "=" + params[key] + "&";
