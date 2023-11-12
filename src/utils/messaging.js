@@ -2,6 +2,7 @@ import messaging from "@react-native-firebase/messaging"; // lưu ý cần bật
 import { Linking } from 'react-native';
 import notifee, {AndroidStyle, EventType} from '@notifee/react-native'; // https://notifee.app/react-native/docs/installation
 import remoteConfig from '@react-native-firebase/remote-config';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import analytics from '@react-native-firebase/analytics';
 
 
@@ -9,11 +10,28 @@ import remoteConfig from '@react-native-firebase/remote-config';
 // khi có tin nhắn tới khi app chạy nền.
 messaging().setBackgroundMessageHandler(async message => {
 	// navigation to screen
-	console.log('_____', message);
+	console.log('__setBackgroundMessageHandler___', message);
+	addListNoti(message);
 });
+
+const addListNoti = async (message)=>{
+	// console.log('^^^^^^^^^', message);
+
+	let listNoti = await AsyncStorage.getItem('listNotifi');
+	if (!listNoti) {
+		listNoti = [];
+	}else{
+		listNoti = JSON.parse(listNoti);
+	}
+
+	listNoti.push(message);
+	AsyncStorage.setItem('listNotifi', JSON.stringify(listNoti));
+
+};
 
 // chạy khi có thông báo gửi tới, kể  cả đang trong app(thường dùng cho: Notifee - React Native)
 messaging().onMessage((message) => {
+	addListNoti(message);
 	// setdefault(Một ví dụ về điều này là không có mạng hoặc bạn chưa tìm nạp chúng trong mã của riêng bạn.)
 	remoteConfig()
       .setDefaults({

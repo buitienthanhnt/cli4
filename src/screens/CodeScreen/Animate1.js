@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Animated, { useSharedValue, withSpring } from 'react-native-reanimated'; // hiệu ứng thay đổi hình ảnh
 import LinearGradient from 'react-native-linear-gradient'; // (thay đổi dải màu mờ hoặc đậm dần) npm i react-native-linear-gradient
@@ -9,7 +9,7 @@ import { Slider } from 'react-native-ui-lib';
 export default function Animate1() {
   const width = useSharedValue(100);
   const height = useSharedValue(40);
-
+  const [value, setValue] = useState(1);
   const handlePress = () => {
     if (width.value + 50 <= Dimensions.get('screen').width) {
       width.value = withSpring(width.value + 50);
@@ -17,8 +17,14 @@ export default function Animate1() {
     }
   };
 
+  useEffect(()=>{
+    console.log('___________');
+  }, [value]);
+
+
   return (
     <View style={styles.container}>
+      <Text>----{value}----</Text>
       <Animated.View style={{ ...styles.box, width, height }} />
       <Button onPress={handlePress} title="Click me" />
       <Button title='reset' onPress={() => {
@@ -30,7 +36,10 @@ export default function Animate1() {
       <Rediredct></Rediredct>
 
       <View style={{ backgroundColor: 'green' }}>
-        <TouchableOpacity onPress={() => { }}>
+        <TouchableOpacity onPress={() => { 
+          let val = value;
+          setValue(val+1);
+        }}>
           <LinearGradient colors={['#4c669f', '#ffffff']} style={styles.linearGradient}>
             <Text style={styles.buttonText}>
               zxczczxc

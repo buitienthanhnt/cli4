@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Clipboard, View, Button, Text, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Clipboard, View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
-import BoxShow from "@screens/components/BoxShow";
-import Loading from "@screens/components/Loading";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Config from "@config/Config";
 import { anyAxios } from "@hooks/NetWorking";
 import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
@@ -63,12 +60,12 @@ const NotificationRegister = () => {
         // console.log(tk);
     }, []);
 
-    const changeTheme = ()=>{
+    const changeTheme = () => {
         setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
     };
 
     return (
-        <ScrollView style={{ padding: 6, backgroundColor: 'rgba(0, 114, 0, 0.5)' }}>
+        <ScrollView style={{ flex: 1, padding: 6, backgroundColor: 'rgba(0, 114, 0, 0.5)' }}>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ fontSize: 18, fontWeight: "bold" }}>fcmToken: </Text>
                 <Text>(click to coppy)</Text>
@@ -89,21 +86,81 @@ const NotificationRegister = () => {
             </View>
 
             <TouchableOpacity style={{ alignItems: 'center', backgroundColor: 'rgba(53, 102, 142, 0.4)', borderRadius: 6, padding: 6, }} onPress={registerNotification}>
-                <Icon name='plane' size={36} color='black' />  
+                <Icon name='plane' size={36} color='black' />
                 <Text>recived notification for device</Text>
             </TouchableOpacity>
 
-            <Text>{'\n'}</Text>
+            <View style={{height:2, backgroundColor: 'black', marginVertical: 4}}></View>
 
-            <TouchableOpacity style={{ alignItems: 'center', backgroundColor: 'rgba(53, 102, 142, 0.4)', borderRadius: 6, padding: 6, }} onPress={changeTheme}> 
-                <Text>change theme</Text>
-            </TouchableOpacity>
-
-            <StyledView>
-                <StyledText className="dark:text-white">popopopopopo</StyledText>
-            </StyledView>
+            <ListNoti></ListNoti>
         </ScrollView>
     )
+}
+
+const ListNoti = () => {
+    const [data, setData] = useState([]);
+
+    const getNoti = async () => {
+        let noti = await AsyncStorage.getItem('listNotifi');
+        setData(JSON.parse(noti));
+    }
+
+    const deleteItem = async (index) => {
+        let noti = await AsyncStorage.getItem('listNotifi');
+        if (noti) {
+            noti = JSON.parse(noti);
+            noti.splice(index, 1);
+            await AsyncStorage.setItem('listNotifi', JSON.stringify(noti));
+            getNoti();
+        }
+    };
+
+    useEffect(() => {
+        getNoti();
+    }, []);
+
+    return (
+        <StyledView style={{ paddingBottom: 10 }}>
+            <StyledText className="dark:text-white text-white" style={{ textAlign: 'center', fontSize: 20, fontWeight: '500' }}>list notification</StyledText>
+            <FlatList
+                data={data}
+                keyExtractor={(item) => item.messageId}
+                renderItem={({ item, index }) => {
+                    return (
+                        <View style={{ flexDirection: 'row', marginVertical: 4, justifyContent: 'space-between' }}>
+                            <Image
+                                source={{ uri: item?.notification?.android?.imageUrl }}
+                                width={120} height={120} r
+                                esizeMode="cover"
+                                style={{ borderRadius: 20, flex: 30 }}>
+                            </Image>
+
+                            <View style={{ marginLeft: 10,flex: 70 }}>
+                                <Text 
+                                    style={{ color: 'rgba(125, 0, 203, 0.5)', fontSize: 16, fontWeight: '500',}}
+                                >
+                                    {item['notification']['title']}
+                                </Text>
+                                <Text numberOfLines={3}>{item.notification.body}</Text>
+                            </View>
+
+
+                            <TouchableOpacity
+                                onPress={() => {
+                                    deleteItem(index)
+                                }}
+                                style={{
+                                    backgroundColor: 'rgba(255, 203, 0, 0.6)', justifyContent: 'center',
+                                    alignItems: 'center', paddingHorizontal: 4, borderRadius: 6
+                                }}>
+                                <Text>delete</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    )
+                }}></FlatList>
+        </StyledView>
+    );
 }
 
 export default withExpoSnack(NotificationRegister);

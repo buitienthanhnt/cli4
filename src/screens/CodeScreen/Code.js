@@ -167,7 +167,7 @@ const Code = (props) => {
 
                 <View style={css.functionItem}>
                 <FontAwesome5Icon name='mail-bulk' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> register notification </Text>
+                    <Text style={{ fontSize: 18 }}> Notification </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("NotificationRegister");
                     }}>
@@ -196,6 +196,7 @@ const Code = (props) => {
                 }}></Button>
 
                 {/* <ShowDemo></ShowDemo> */}
+
                 {/* <BoxShow></BoxShow>
                 <BoxShow></BoxShow>
                 <BoxShow></BoxShow> */}
