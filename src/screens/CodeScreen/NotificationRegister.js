@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Clipboard, View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tooltip } from 'react-native-elements';
@@ -8,6 +8,7 @@ import { anyAxios } from "@hooks/NetWorking";
 import DeviceInfo from 'react-native-device-info';    // npm install --save react-native-device-info  && react-native link react-native-device-info
 import { withExpoSnack } from 'nativewind';
 import { styled, useColorScheme } from "nativewind";
+import { Navigate } from "@hooks/Navigate";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
@@ -90,7 +91,7 @@ const NotificationRegister = () => {
                 <Text>recived notification for device</Text>
             </TouchableOpacity>
 
-            <View style={{height:2, backgroundColor: 'black', marginVertical: 4}}></View>
+            <View style={{ height: 2, backgroundColor: 'black', marginVertical: 4 }}></View>
 
             <ListNoti></ListNoti>
         </ScrollView>
@@ -115,6 +116,10 @@ const ListNoti = () => {
         }
     };
 
+    const openDetail = useCallback((paper_id) => {
+        Navigate('PaperScreen', {screen: 'PaperDetail', params: {paper_id: paper_id} })
+    }, [])
+
     useEffect(() => {
         getNoti();
     }, []);
@@ -127,23 +132,25 @@ const ListNoti = () => {
                 keyExtractor={(item) => item.messageId}
                 renderItem={({ item, index }) => {
                     return (
-                        <View style={{ flexDirection: 'row', marginVertical: 4, justifyContent: 'space-between' }}>
-                            <Image
-                                source={{ uri: item?.notification?.android?.imageUrl }}
-                                width={120} height={120} r
-                                esizeMode="cover"
-                                style={{ borderRadius: 20, flex: 30 }}>
-                            </Image>
+                        <View style={{ flexDirection: 'row', marginVertical: 4}}>
+                            <TouchableOpacity style={{flexDirection: 'row', flex: 1,}} onPress={()=>{
+                                openDetail(item?.data?.id);
+                            }}>
+                                <Image
+                                    source={{ uri: item?.notification?.android?.imageUrl }}
+                                    width={80} height={80} resizeMode="cover"
+                                    style={{ borderRadius: 20, }}>
+                                </Image>
 
-                            <View style={{ marginLeft: 10,flex: 70 }}>
-                                <Text 
-                                    style={{ color: 'rgba(125, 0, 203, 0.5)', fontSize: 16, fontWeight: '500',}}
-                                >
-                                    {item['notification']['title']}
-                                </Text>
-                                <Text numberOfLines={3}>{item.notification.body}</Text>
-                            </View>
-
+                                <View style={{ marginLeft: 10, flex: 1}}>
+                                    <Text numberOfLines={2}
+                                        style={{ color: 'rgba(125, 0, 203, 0.5)', fontSize: 16, fontWeight: '500', }}
+                                    >
+                                        {item['notification']['title']}
+                                    </Text>
+                                    <Text numberOfLines={3}>{item.notification.body}</Text>
+                                </View>
+                            </TouchableOpacity>
 
                             <TouchableOpacity
                                 onPress={() => {
@@ -151,7 +158,7 @@ const ListNoti = () => {
                                 }}
                                 style={{
                                     backgroundColor: 'rgba(255, 203, 0, 0.6)', justifyContent: 'center',
-                                    alignItems: 'center', paddingHorizontal: 4, borderRadius: 6
+                                    alignItems: 'center', paddingHorizontal: 4, borderRadius: 6,
                                 }}>
                                 <Text>delete</Text>
                             </TouchableOpacity>
