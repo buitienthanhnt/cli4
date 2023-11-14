@@ -16,7 +16,7 @@ import {
   View,
 } from 'react-native';
 
-import {navigationRef} from '@hooks/Navigate'; // để di chuyển qua các màn hình
+import { navigationRef } from '@hooks/Navigate'; // để di chuyển qua các màn hình
 
 // https://viblo.asia/p/webpack-5-babel-plugin-module-resolver-djeZ1EN8ZWz tạo Alias trong webpack
 // https://viblo.asia/p/webpack-5-webpack-resolve-alias-extensions-naQZRL4Q5vx
@@ -38,6 +38,8 @@ import BottomTabs from '@bottoms/Bottom';
 import { requestUserPermission } from '@utils/notificationHelper';
 import linking from './linking';
 import { QueryClient, QueryClientProvider } from 'react-query'  // dùng cho getdata api
+import { Provider } from 'react-redux'; // npm install react-redux --save :tạo cầu nối giữa redux vào react 
+import AppStore from '@redux/AppStore';
 const queryClient = new QueryClient()
 
 const Stack = createNativeStackNavigator();
@@ -95,17 +97,19 @@ function App(): JSX.Element {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* linking dùng cho chuyển màn với schema hoặc Linking; ref dùng cho chuyển màn với hook(điều hướng ngoài component)  */}
-      <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>} ref={navigationRef}>
-        <SafeAreaView>
-          <StatusBar backgroundColor="#61dafb" animated={true} networkActivityIndicatorVisible={true} />
-        </SafeAreaView>
-        <Stack.Navigator>
-          <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+    <Provider store={AppStore}>
+      <QueryClientProvider client={queryClient}>
+        {/* linking dùng cho chuyển màn với schema hoặc Linking; ref dùng cho chuyển màn với hook(điều hướng ngoài component)  */}
+        <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>} ref={navigationRef}>
+          <SafeAreaView>
+            <StatusBar backgroundColor="#61dafb" animated={true} networkActivityIndicatorVisible={true} />
+          </SafeAreaView>
+          <Stack.Navigator>
+            <Stack.Screen name="BottomTabs" component={BottomTabs} options={{ headerShown: false }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 
