@@ -13,6 +13,7 @@ import NotificationRegister from "@screens/CodeScreen/NotificationRegister";
 import SoundPlay from "@screens/CodeScreen/SoundPlay";
 import VideoPlay from "@screens/CodeScreen/VideoPlay";
 import Dark from "@screens/CodeScreen/Dark";
+import TestRedux from "@screens/CodeScreen/TestRedux";
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
     return(
@@ -29,6 +30,7 @@ const CodeScreen = ()=>{
             <Stack.Screen name="SoundPlay" component={SoundPlay} options={{ headerShown: true }} />
             <Stack.Screen name="VideoPlay" component={VideoPlay} options={{ headerShown: true }} />
             <Stack.Screen name="Dark" component={Dark} options={{ headerShown: true }} />
+            <Stack.Screen name="TestRedux" component={TestRedux} options={{ headerShown: true }} />
             <Stack.Screen name="NotificationRegister" component={NotificationRegister} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
