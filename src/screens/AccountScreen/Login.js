@@ -73,6 +73,7 @@ const Login = (props) => {
     // }, [value]);
 
     useEffect(()=>{
+        console.log(message);
         if (message) {
             setTimeout(() => {
                 setMessage(null);
@@ -174,14 +175,17 @@ const Login = (props) => {
                     justifyContent: "center", alignItems: 'center' }}
                 onPress={() => {
                     if (!email || !password) {
-                        Alert.alert('email or passsword is required!');
-                    }
-                    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-                    if (reg.test(email) === false) {
-                        console.log("Email is Not Correct");
-                        return false;
+                        setMessage({
+                            type: 'error',
+                            value: 'email & password is required!',
+                        });
                     }
                     else {
+                        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+                        if (reg.test(email) === false) {
+                            console.log("Email is Not Correct");
+                            return false;
+                        }
                         auth()
                             .signInWithEmailAndPassword(email, password)
                             .then(() => {
