@@ -4,6 +4,7 @@ import AccountDetail from '@screens/AccountScreen/AccountDetail';
 import Wishlist from '@screens/AccountScreen/Wishlist';
 import { Test, CloudFun, DataBase } from '@screens/AccountScreen/Test';
 import FireStore from '@screens/AccountScreen/FireStore';
+import { UserDetail } from '@screens/AccountScreen/Authen/UserDetail';
 
 const Stack = createNativeStackNavigator();
 const AccountScreen = ()=>{
@@ -16,6 +17,7 @@ const AccountScreen = ()=>{
             <Stack.Screen name="CloudFun" component={CloudFun} options={{ headerShown: false }} />
             <Stack.Screen name="DataBase" component={DataBase} options={{ headerShown: false }} />
             <Stack.Screen name="FireStore" component={FireStore} options={{ headerShown: true }} />
+            <Stack.Screen name="UserDetail" component={UserDetail} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 };

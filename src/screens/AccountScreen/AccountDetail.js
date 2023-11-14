@@ -11,9 +11,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 
 import { BasicTable, TopTable } from "@screens/components/Table";
 import { BasicSlider } from "@screens/components/Slider";
-import ImageDefault from "@assets/Ripple-1s-200px.gif";
 import { firebase } from "@react-native-firebase/auth";
-import { AccountScreen } from '@bottoms/tabs/AccountScreen';
 
 Colors.loadColors({
     error: '#ff2442',
@@ -22,21 +20,12 @@ Colors.loadColors({
 });
 
 const AccountDetail = (props) => {
-    const user = firebase.auth().currentUser; // get: currentUser
-    useEffect(
-        () => {
-            console.log(props.route.params);
-            const user = firebase.auth().currentUser;
-            console.log('______', user);
-        }, [props]
-    )
-
     const refRBSheet = useRef();
-    const [state, setState] = useState(0.1);
+    const netInfo = useNetInfo();
+    const [user, setUser] = useState(null);
     const [date, setDate] = useState(new Date());
     const [open, setOpen] = useState(false);
-    const { width, height } = Dimensions.get("screen");
-    const [loadimage, setLoadimage] = useState(true);
+    // const { width, height } = Dimensions.get("screen");
     // DeviceInfo.getAndroidId().then((androidId) => {console.log(androidId);}); // https://www.npmjs.com/package/react-native-device-info#getandroidid
     DeviceInfo.getUniqueId().then((uniqueId) => {
         // console.log(uniqueId);
@@ -45,30 +34,25 @@ const AccountDetail = (props) => {
         // Windows: "{2cf7cb3c-da7a-d508-0d7f-696bb51185b4}"
     });
 
-    const netInfo = useNetInfo();
-    // console.log(neetInfo);
-    // console.log(width, height);
+    function onAuthStateChanged(user) {
+        if (user) {
+            setUser(user);
+        }else{
+            setUser(null);
+        }
+    }
+
+    useEffect(()=>{
+        firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    }, []);
+
     return (
         <ScrollView style={{ paddingHorizontal: 8 }}>
-            {/* {loadimage && <View 
-            style={{width: Dimensions.get('screen').width, height: Dimensions.get('screen').height,
-             opacity: 0.5, backgroundColor: 'red', position: 'absolute'}}></View>} */}
-            {/* <Image
-                source={{uri: 'https://cdn.pixabay.com/photo/2022/10/20/19/31/dog-7535633_1280.jpg'}}
-                style={{ 
-                    width: Dimensions.get('screen').width, 
-                    height: Dimensions.get('screen').height, resizeMode: 'cover' }}
-                // onLoadEnd={()=>{
-                //     setLoadimage(false)
-                // }}
-                defaultSource={ImageDefault}
-            ></Image> */}
-
             <Text></Text>
             <Button title="show bottom" onPress={() => {
                 refRBSheet.current.open();
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             <View>
                 <Text>Type: {netInfo.type}</Text>
@@ -78,32 +62,44 @@ const AccountDetail = (props) => {
             <Button title="to Wishlist" onPress={() => {
                 props.navigation.navigate("Wishlist");
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             <Button title="to test" onPress={() => {
                 props.navigation.navigate("Test");
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             <Button title="to cloud function" onPress={() => {
                 props.navigation.navigate("CloudFun");
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             <Button title="to cloud DataBase" onPress={() => {
                 props.navigation.navigate("DataBase");
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             {!user && <Button title="to Login" onPress={() => {
                 props.navigation.navigate("Login");
             }}></Button>}
-            <Text>{"\n"}</Text>
+            <Text></Text>
 
             <Button title="to cloud FireStore" onPress={() => {
                 props.navigation.navigate("FireStore");
             }}></Button>
-            <Text>{"\n"}</Text>
+            <Text></Text>
+
+            {firebase.auth().currentUser && <Button title="to userDetail" onPress={() => {
+                console.log(user);
+                props.navigation.navigate("UserDetail");
+            }}></Button>
+            }
+            
+            <Text></Text>
+            <Button title="log user" onPress={()=>{
+                console.log(user, '======', firebase.auth().currentUser);
+            }}></Button>
+            <Text></Text>
 
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal
