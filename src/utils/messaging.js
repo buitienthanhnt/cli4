@@ -15,6 +15,7 @@ messaging().setBackgroundMessageHandler(async message => {
 });
 
 const addListNoti = async (message)=>{
+	console.log('addListNoti++++');
 	listNoti = [];
 	let listNotiData = await AsyncStorage.getItem('listNotifi');
 	if (listNotiData) {

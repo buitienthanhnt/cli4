@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"; // npm install react-native-screens react-native-safe-area-context @react-native-community/masked-view @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs @react-navigation/drawer @react-navigation/native-stack
 // import { Icon } from '@expo/vector-icons';                             // chạy được cả trên web và android. xem icon: https://icons.expo.fyi || install: npm i @expo/vector-icons
@@ -8,9 +8,25 @@ import HomeScreen    from "@bottoms/tabs/HomeScreen";
 import PaperScreen   from "@bottoms/tabs/PaperScreen";
 import MoreScreen    from "@bottoms/tabs/MoreScreen";
 import CodeScreen    from "@bottoms/tabs/CodeScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { connect } from "react-redux";
 
 const Tab = createBottomTabNavigator();
-const BottomTabs = ({props, route})=>{
+const BottomTabs = ({navigation, route})=>{
+    const [count, setCount] = useState(null);
+
+    const count_message = async ()=>{
+        console.log("___count_message");
+        let noti = await AsyncStorage.getItem('listNotifi');
+        if(noti){
+            setCount(JSON.parse(noti).length);
+        }
+    };
+
+    useEffect(()=>{
+        count_message();
+    }, []);
+
     return(
         <Tab.Navigator screenOptions={
             ({ route }) => ({
@@ -19,8 +35,11 @@ const BottomTabs = ({props, route})=>{
                 headerShown: false               // ẩn phần tiêu đề bên trên của: Tab.Navigator
             })}
             // tabBarOptions={{ showLabel: false }} // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
+            
         >
-            <Tab.Screen name="HomeScreen" component={HomeScreen}
+            <Tab.Screen 
+                name="HomeScreen" 
+                component={HomeScreen}
                 options={{
                     tabBarLabel: 'Home',
                     tabBarShowLabel: false,     // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
@@ -30,29 +49,41 @@ const BottomTabs = ({props, route})=>{
                 }}
             />
 
-            <Tab.Screen name="PaperScreen" component={PaperScreen}
+            <Tab.Screen 
+                name="PaperScreen" 
+                component={PaperScreen}
                 options={{
                     tabBarLabel: 'Papers',              
                     tabBarIcon: ({ focused, color, size }) => <Icon name={focused ? 'truck' : 'list'} size={26} color={color} />
                 }}
             />
 
-            <Tab.Screen name="AccountScreen" component={AccountScreen} tabBarOptions={{ showLabel: false }}
+            <Tab.Screen 
+                name="AccountScreen" 
+                component={AccountScreen} 
+                tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'User',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"bug"} size={26} color={color} />)
                 }} 
             />
 
-            <Tab.Screen name="MoreScreen" component={MoreScreen} tabBarOptions={{ showLabel: false }}
+            <Tab.Screen 
+                name="MoreScreen" 
+                component={MoreScreen} 
+                tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'More',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"windows"} size={26} color={color} />)
                 }} />
             
-            <Tab.Screen name="CodeScreen" component={CodeScreen} tabBarOptions={{ showLabel: false }}
+            <Tab.Screen 
+                name="CodeScreen" 
+                component={CodeScreen} 
+                tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'code',
+                    tabBarBadge: count,
                     tabBarShowLabel: false,     // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={'code'} size={26} color={color}/>)
                 }} 
@@ -62,4 +93,17 @@ const BottomTabs = ({props, route})=>{
     );
 }
 
-export default BottomTabs;
+export default connect(
+    state => {
+        return{
+            g_data: state.paperRe
+        }
+    },
+    dispatch =>{
+        return{
+            update_message: ()=>{
+                dispatch({type: "ON_MESSAGE",});
+            }
+        };
+    }
+)(BottomTabs);

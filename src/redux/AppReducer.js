@@ -62,4 +62,16 @@ const NumberReducer = (state = AppState, action) => {
     return state;
 };
 
-export { Reducer, NumberReducer };
+const PaperReducer = (state = AppState, action)=>{
+    switch (action.type) {
+        case "ON_MESSAGE":
+            return {...state, message_count: state.message_count + 1} 
+            break;
+    
+        default:
+            break;
+    }
+    return state;
+}
+
+export { Reducer, NumberReducer, PaperReducer};
