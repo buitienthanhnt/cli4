@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FontAwesome5Icon  from 'react-native-vector-icons/FontAwesome5';
 import Paper             from '@screens/PaperScreen/Paper';
 import Detail            from '@screens/PaperScreen/Detail';
 import { Sdetail }       from '@screens/PaperScreen/Sdetail';
-import PaperList         from '@screens/PaperScreen/PaperList';
 import WebInApp          from '@screens/PaperScreen/WebInApp';
+import PaperList         from '@screens/PaperScreen/PaperList';
 import PaperDetail       from '@screens/PaperScreen/PaperDetail';
-import FontAwesome5Icon  from 'react-native-vector-icons/FontAwesome5';
 import PaperListCategory from '@screens/PaperScreen/PaperListCategory';
 
 const Stack = createNativeStackNavigator();
