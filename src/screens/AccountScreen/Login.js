@@ -127,7 +127,6 @@ const Login = (props) => {
         }else{
             setError(true);
         }
-        
     }
 
     const verifyPhoneNumber = ()=>{

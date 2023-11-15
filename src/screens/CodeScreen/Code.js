@@ -146,7 +146,7 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.functionItem}>
-                <FontAwesome5Icon name='music' size={28} color='black'/>
+                    <FontAwesome5Icon name='music' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> SoundPlay </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("SoundPlay");
@@ -156,7 +156,7 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.functionItem}>
-                <FontAwesome5Icon name='video' size={28} color='black'/>
+                    <FontAwesome5Icon name='video' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> VideoPlay </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("VideoPlay");
@@ -166,7 +166,7 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.functionItem}>
-                <FontAwesome5Icon name='mail-bulk' size={28} color='black'/>
+                    <FontAwesome5Icon name='mail-bulk' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> register notification </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("NotificationRegister");
@@ -175,9 +175,8 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
-
                 <View style={css.functionItem}>
-                <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> change theme </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("Dark");
@@ -186,16 +185,25 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={css.btn}>
+                    <Button title="open TestRedux" onPress={() => {
+                        props?.navigation.navigate("TestRedux");
+                    }}></Button>
+                </View>
+
+                <View style={css.btn}>
+                    <Button title="open loadding screen" onPress={() => {
+                        setLoaddding(true);
+                    }}></Button>
+                </View>
+
                 {/* <Button title="to FadeInView" onPress={() => {
                     props?.navigation.navigate("FadeInView");
                 }}></Button>
                 <Text> {"\n"}</Text> */}
 
-                <Button title="open loadding screen" onPress={() => {
-                    setLoaddding(true);
-                }}></Button>
-
                 {/* <ShowDemo></ShowDemo> */}
+
                 {/* <BoxShow></BoxShow>
                 <BoxShow></BoxShow>
                 <BoxShow></BoxShow> */}
@@ -224,7 +232,7 @@ const ShowDemo = () => {
 }
 
 const css = StyleSheet.create({
-    container: { flex: 1, padding: 5, backgroundColor: '#c9dd9d' },
+    container: { flex: 1, padding: 5, backgroundColor: '#c9dd9d',},
     functionItem: {
         backgroundColor: 'rgba(25, 109, 238, 0.6)', 
         marginVertical: 5, 
@@ -232,6 +240,9 @@ const css = StyleSheet.create({
         borderRadius: 10, 
         flexDirection: 'row', 
         justifyContent: 'space-between',
-    }
+    },
+    btn: {
+        marginBottom: 10,
+    },
 });
 export default Code;

@@ -9,11 +9,13 @@ import DeviceInfo from 'react-native-device-info';    // npm install --save reac
 import { withExpoSnack } from 'nativewind';
 import { styled, useColorScheme } from "nativewind";
 import { Navigate } from "@hooks/Navigate";
+import { connect } from "react-redux";
 
 const StyledView = styled(View);
 const StyledText = styled(Text);
 
-const NotificationRegister = () => {
+const NotificationRegister = (props) => {
+    console.log('render: NotificationRegister');
     const [fcmtoken, setFcmtoken] = useState("");
     const [deviceId, setDeviceid] = useState("");
     const { colorScheme, toggleColorScheme, setColorScheme } = useColorScheme();
@@ -82,7 +84,7 @@ const NotificationRegister = () => {
                 <Text style={{ color: '#dd5fc0' }}><Icon name='copy' size={18} color='tomato' /> {fcmtoken}</Text>
             </Tooltip>
             <View>
-                <Text>deviceId: {DeviceInfo.getDeviceId()}</Text>
+                <Text>deviceId: {DeviceInfo.getDeviceId()} {props.g_data.number}</Text>
                 <Text>uniqueId(check fcmToken in server): {deviceId}</Text>
             </View>
 
@@ -93,12 +95,12 @@ const NotificationRegister = () => {
 
             <View style={{ height: 2, backgroundColor: 'black', marginVertical: 4 }}></View>
 
-            <ListNoti></ListNoti>
+            <ListNoti g_data = {props.g_data}></ListNoti>
         </ScrollView>
     )
 }
 
-const ListNoti = () => {
+const ListNoti = (props) => {
     const [data, setData] = useState([]);
 
     const getNoti = async () => {
@@ -126,7 +128,7 @@ const ListNoti = () => {
 
     return (
         <StyledView style={{ paddingBottom: 10 }}>
-            <StyledText className="dark:text-white text-white" style={{ textAlign: 'center', fontSize: 20, fontWeight: '500' }}>list notification</StyledText>
+            <StyledText className="dark:text-white text-white" style={{ textAlign: 'center', fontSize: 20, fontWeight: '500' }}>list notification: {props.g_data.number}g</StyledText>
             <FlatList
                 data={data}
                 keyExtractor={(item) => item.messageId}
@@ -165,9 +167,33 @@ const ListNoti = () => {
 
                         </View>
                     )
-                }}></FlatList>
+                }}
+                refreshing={false}
+                onRefresh={()=>{
+                    getNoti();
+                }}
+            ></FlatList>
         </StyledView>
     );
 }
-
-export default withExpoSnack(NotificationRegister);
+export default withExpoSnack(connect(
+	state => {
+		return {g_data: state.numberRe}
+	},
+	dispatch =>{
+		return{
+			add_value: (value)=>{
+				dispatch({
+					type: 'ADD_NUMBER',
+					value: value,
+				})
+			},
+			sub_value: ()=>{
+				dispatch({
+					type: 'SUB_NUMBER',
+				})
+			},
+		}
+	}
+)(NotificationRegister));
+// export default withExpoSnack(NotificationRegister);

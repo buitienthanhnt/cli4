@@ -1,19 +1,20 @@
 import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Code from "@screens/CodeScreen/Code";
-import PanResponders from "@screens/CodeScreen/PanResponders";
-import FadeInView from "@screens/CodeScreen/FadeInView";
-import ScrollViews from "@screens/CodeScreen/ScrollViews";
-import Animate1 from "@screens/CodeScreen/Animate1";
-import RgbaColor from "@screens/components/RgbaColor";
-import ScanScreen from "@screens/CodeScreen/ScanScreen";
-import WebviewApp from "@screens/components/WebviewApp";
-import QrGenerator from "@screens/CodeScreen/QrGenerator";
+import Code                 from "@screens/CodeScreen/Code";
+import Dark                 from "@screens/CodeScreen/Dark";
+import Animate1             from "@screens/CodeScreen/Animate1";
+import TestRedux            from "@screens/CodeScreen/TestRedux";
+import RgbaColor            from "@screens/components/RgbaColor";
+import SoundPlay            from "@screens/CodeScreen/SoundPlay";
+import VideoPlay            from "@screens/CodeScreen/VideoPlay";
+import ScanScreen           from "@screens/CodeScreen/ScanScreen";
+import WebviewApp           from "@screens/components/WebviewApp";
+import FadeInView           from "@screens/CodeScreen/FadeInView";
+import ScrollViews          from "@screens/CodeScreen/ScrollViews";
+import QrGenerator          from "@screens/CodeScreen/QrGenerator";
+import PanResponders        from "@screens/CodeScreen/PanResponders";
 import NotificationRegister from "@screens/CodeScreen/NotificationRegister";
-import SoundPlay from "@screens/CodeScreen/SoundPlay";
-import VideoPlay from "@screens/CodeScreen/VideoPlay";
-import Dark from "@screens/CodeScreen/Dark";
-import TestRedux from "@screens/CodeScreen/TestRedux";
+
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
     return(
@@ -36,4 +37,4 @@ const CodeScreen = ()=>{
     );
 }
 
-export default CodeScreen;  
+export default CodeScreen;

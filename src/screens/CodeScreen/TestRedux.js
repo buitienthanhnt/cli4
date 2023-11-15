@@ -4,6 +4,7 @@ import { View, Text, Image, Button, Dimensions, FlatList, TouchableOpacity, Styl
 import { connect } from "react-redux";
 
 const TestRedux = (props)=>{
+	console.log('123');
 	return(
 		<View style={{flex: 1, padding: 10}}>
 			<Text>{props.g_data.number}</Text>

@@ -1,9 +1,9 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ColorIcon from '@screens/MoreScreen/ColorIcon';
-import { CategoryTree } from '@screens/MoreScreen/CategoryTree';
-import SwipeListViews from '@screens/MoreScreen/SwipeListViews';
-import SwiperComponent from '@screens/MoreScreen/SwiperComponent';
 import { Platform } from 'react-native';
+import ColorIcon    from '@screens/MoreScreen/ColorIcon';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { CategoryTree } from '@screens/MoreScreen/CategoryTree';
+import SwipeListViews   from '@screens/MoreScreen/SwipeListViews';
+import SwiperComponent  from '@screens/MoreScreen/SwiperComponent';
 
 const Stack = createNativeStackNavigator();
 const MoreScreen = ()=>{
