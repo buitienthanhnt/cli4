@@ -15,18 +15,13 @@ messaging().setBackgroundMessageHandler(async message => {
 });
 
 const addListNoti = async (message)=>{
-	// console.log('^^^^^^^^^', message);
-
-	let listNoti = await AsyncStorage.getItem('listNotifi');
-	if (!listNoti) {
-		listNoti = [];
-	}else{
-		listNoti = JSON.parse(listNoti);
+	listNoti = [];
+	let listNotiData = await AsyncStorage.getItem('listNotifi');
+	if (listNotiData) {
+		listNoti = JSON.parse(listNotiData);
 	}
-
 	listNoti.push(message);
 	AsyncStorage.setItem('listNotifi', JSON.stringify(listNoti));
-
 };
 
 // chạy khi có thông báo gửi tới, kể  cả đang trong app(thường dùng cho: Notifee - React Native)
