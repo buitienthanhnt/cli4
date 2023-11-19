@@ -205,6 +205,38 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> DemoUseCallBack </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("DemoUseCallBack");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                {/* // DemoMemo */}
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> DemoMemo </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("DemoMemo");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                {/* // DemouseReduce */}
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> DemouseReduce </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("DemouseReduce");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
                 <View style={css.btn}>
                     <Button title="open TestRedux" onPress={() => {
                         props?.navigation.navigate("TestRedux");

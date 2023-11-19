@@ -16,6 +16,9 @@ import PanResponders        from "@screens/CodeScreen/PanResponders";
 import NotificationRegister from "@screens/CodeScreen/NotificationRegister";
 import SwipeBtn             from "@screens/CodeScreen/SwipeBtn";
 import TabViewExample       from "@screens/CodeScreen/TabViewExample";
+import DemoUseCallBack      from "@screens/CodeScreen/components/test/DemoUseCallBack";
+import DemoMemo      from "@screens/CodeScreen/components/test/DemoMemo";
+import DemouseReduce      from "@screens/CodeScreen/components/test/DemouseReduce";
 
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
@@ -37,6 +40,9 @@ const CodeScreen = ()=>{
             <Stack.Screen name="NotificationRegister" component={NotificationRegister} options={{ headerShown: true }} />
             <Stack.Screen name="SwipeBtn" component={SwipeBtn} options={{ headerShown: true }} />
             <Stack.Screen name="TabViewExample" component={TabViewExample} options={{ headerShown: false }} />
+            <Stack.Screen name="DemoUseCallBack" component={DemoUseCallBack} options={{ headerShown: true }} />
+            <Stack.Screen name="DemoMemo" component={DemoMemo} options={{ headerShown: true }} />
+            <Stack.Screen name="DemouseReduce" component={DemouseReduce} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }
