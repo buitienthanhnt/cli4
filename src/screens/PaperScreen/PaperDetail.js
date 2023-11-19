@@ -7,6 +7,7 @@ import RenderHTML from 'react-native-render-html';                          // n
 import WebView from 'react-native-webview';                                 // npm install react-native-webview
 import Wishlist from "@screens/AccountScreen/Wishlist";
 import perf from "@react-native-firebase/perf";
+import { useFect } from "@hooks/useFect";
 
 const renderers = {
     iframe: IframeRenderer
@@ -17,6 +18,9 @@ const customHTMLElementModels = {
 };
 
 const PaperDetail = ({ navigation, route }) => {
+
+    // use custom hook
+    // const {isLoading, data, error} = useFect(Config.url + Config.api_request.getPaperDetail + (route.params?.paper_id || route.params.data.id));
 
     const [html, setHtml] = useState(route?.params?.data?.conten || '');
     const [detail, setDetail] = useState(null);
