@@ -14,6 +14,7 @@ import ScrollViews          from "@screens/CodeScreen/ScrollViews";
 import QrGenerator          from "@screens/CodeScreen/QrGenerator";
 import PanResponders        from "@screens/CodeScreen/PanResponders";
 import NotificationRegister from "@screens/CodeScreen/NotificationRegister";
+import SwipeBtn             from "@screens/CodeScreen/SwipeBtn";
 import TabViewExample       from "@screens/CodeScreen/TabViewExample";
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ const CodeScreen = ()=>{
             <Stack.Screen name="Dark" component={Dark} options={{ headerShown: true }} />
             <Stack.Screen name="TestRedux" component={TestRedux} options={{ headerShown: true }} />
             <Stack.Screen name="NotificationRegister" component={NotificationRegister} options={{ headerShown: true }} />
+            <Stack.Screen name="SwipeBtn" component={SwipeBtn} options={{ headerShown: true }} />
             <Stack.Screen name="TabViewExample" component={TabViewExample} options={{ headerShown: false }} />
         </Stack.Navigator>
     );

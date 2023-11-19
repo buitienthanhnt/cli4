@@ -195,6 +195,16 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> SwipeBtn </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("SwipeBtn");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
                 <View style={css.btn}>
                     <Button title="open TestRedux" onPress={() => {
                         props?.navigation.navigate("TestRedux");
@@ -244,11 +254,11 @@ const ShowDemo = () => {
 const css = StyleSheet.create({
     container: { flex: 1, padding: 5, backgroundColor: '#c9dd9d',},
     functionItem: {
-        backgroundColor: 'rgba(25, 109, 238, 0.6)', 
-        marginVertical: 5, 
-        padding: 10, 
-        borderRadius: 10, 
-        flexDirection: 'row', 
+        backgroundColor: 'rgba(25, 109, 238, 0.6)',
+        marginVertical: 5,
+        padding: 10,
+        borderRadius: 10,
+        flexDirection: 'row',
         justifyContent: 'space-between',
     },
     btn: {
