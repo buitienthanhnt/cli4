@@ -1,38 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useReduce } from './useReduce';
 
+const fecthReducer = (state, action) => {
+	switch (action.type) {
+		case 'start_request':
+			return {
+				...state, isLoading: true
+			};
+		case 'success_request':
+			return {
+				...state, data: action.data, isLoading: false
+			};
+		case 'error_request':
+			return {
+				...state, isLoading: false, error: action.error
+			}
+		default:
+	}
+	return state;
+};
+
 const useFect = (url = '') => {
-	// const [state, setState] = useState({isLoading: false, data: [], error: null});
-	const [state, dispatch] = useReduce((state, action) => {
-		console.log("action: ", action);
-		switch (action.type) {
-			case 'start_request':
-				return {
-					...state, isLoading: true
-				};
-				
-			case 'success_request':
-				return {
-					...state, data: action.data, isLoading: false
-				};
-			case 'error_request':
-				return {
-					...state, isLoading: false, error: action.error
-				}
-			default:
-				
-		}
-		return state;
-	}, { isLoading: false, data: null, error: null });
+	const [state, dispatch] = useReduce(fecthReducer, { isLoading: false, data: null, error: null });
 
 	useEffect(() => {
-		console.log("");
-
 		(async () => {
-			dispatch({
-				type: 'start_request'
-			});
-
+			dispatch({type: 'start_request'});
 			try {
 				const response = await fetch(url);
 				let data = await response.json();
@@ -48,7 +41,6 @@ const useFect = (url = '') => {
 					error: error
 				})
 			}
-
 		})()
 	}, [url]);
 

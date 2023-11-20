@@ -20,7 +20,8 @@ const customHTMLElementModels = {
 const PaperDetail = ({ navigation, route }) => {
 
     // use custom hook
-    // const {isLoading, data, error} = useFect(Config.url + Config.api_request.getPaperDetail + (route.params?.paper_id || route.params.data.id));
+    // gan bien detail banfg gia tri bien data(detail = data)
+    // const {isLoading, data: detail, error} = useFect(Config.url + Config.api_request.getPaperDetail + (route.params?.paper_id || route.params.data.id));
 
     const [html, setHtml] = useState(route?.params?.data?.conten || '');
     const [detail, setDetail] = useState(null);
