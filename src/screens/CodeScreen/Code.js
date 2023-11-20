@@ -244,6 +244,12 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.btn}>
+                    <Button title="open FlatInScroll" onPress={() => {
+                        props?.navigation.navigate("FlatInScroll");
+                    }}></Button>
+                </View>
+
+                <View style={css.btn}>
                     <Button title="open loadding screen" onPress={() => {
                         setLoaddding(true);
                     }}></Button>
