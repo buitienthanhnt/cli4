@@ -48,7 +48,7 @@ const Childrent = React.memo(
             <Text>Childrent Childrent</Text>
         </View>)
     }, (prevProps, nextProps) =>{
-        // return prevProps.count === nextProps.count // true sex khoong reRender, false se reRender 
+        // return prevProps.count === nextProps.count // true se khoong reRender, false se reRender 
     }
 );
 
