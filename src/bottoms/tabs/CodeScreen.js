@@ -20,6 +20,7 @@ import DemoUseCallBack      from "@screens/CodeScreen/components/test/DemoUseCal
 import DemoMemo             from "@screens/CodeScreen/components/test/DemoMemo";
 import DemouseReduce        from "@screens/CodeScreen/components/test/DemouseReduce";
 import FlatInScroll         from "@screens/CodeScreen/components/FlatInScroll";
+import ExVirtualizedlist    from "@screens/CodeScreen/components/ExVirtualizedlist";
 
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
@@ -45,6 +46,7 @@ const CodeScreen = ()=>{
             <Stack.Screen name="DemoMemo" component={DemoMemo} options={{ headerShown: true }} />
             <Stack.Screen name="DemouseReduce" component={DemouseReduce} options={{ headerShown: true }} />
             <Stack.Screen name="FlatInScroll" component={FlatInScroll} options={{ headerShown: true }} />
+            <Stack.Screen name="ExVirtualizedlist" component={ExVirtualizedlist} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }

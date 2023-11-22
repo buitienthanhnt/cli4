@@ -7,11 +7,13 @@ const arr = [
 const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 89, 90, 0,];
 const FlatInScroll = () => {
 	return (
-		<View style={{flex: 1}}>
+		<ScrollView style={{flex: 1}}>
 			<Text>FlatInScroll</Text>
 
 			<View style={{flex: 1}}>
 				<FlatList
+					nestedScrollEnabled={true}
+					ScrollEnabled={false}
 					showsVerticalScrollIndicator={false}
 					data={arr}
 					// getItemCount={()=>{
@@ -34,7 +36,7 @@ const FlatInScroll = () => {
 			})()} */}
 
 			{/* {arr.map((item) => <Item item={item} />)} */}
-		</View>);
+		</ScrollView>);
 }
 
 const Item = () => {
