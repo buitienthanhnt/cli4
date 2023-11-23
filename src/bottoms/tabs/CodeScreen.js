@@ -21,6 +21,7 @@ import DemoMemo             from "@screens/CodeScreen/components/test/DemoMemo";
 import DemouseReduce        from "@screens/CodeScreen/components/test/DemouseReduce";
 import FlatInScroll         from "@screens/CodeScreen/components/FlatInScroll";
 import ExVirtualizedlist    from "@screens/CodeScreen/components/ExVirtualizedlist";
+import ExForm               from "@screens/CodeScreen/components/ExForm";
 
 const Stack = createNativeStackNavigator();
 const CodeScreen = ()=>{
@@ -47,6 +48,7 @@ const CodeScreen = ()=>{
             <Stack.Screen name="DemouseReduce" component={DemouseReduce} options={{ headerShown: true }} />
             <Stack.Screen name="FlatInScroll" component={FlatInScroll} options={{ headerShown: true }} />
             <Stack.Screen name="ExVirtualizedlist" component={ExVirtualizedlist} options={{ headerShown: true }} />
+            <Stack.Screen name="ExForm" component={ExForm} options={{ headerShown: true }} />
         </Stack.Navigator>
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -9,63 +9,76 @@ import {
   FlatList,
   ScrollView
 } from 'react-native';
+import { FlashList } from "@shopify/flash-list";
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const data = function (length, from = 0) {
+  const arr = [];
+  for (let index = from; index < length+from; index++) {
+    arr.push({
+      id: index + "",
+      title: "title item: " + index,
+      img: ""
+    })
+  }
+  return arr;
+}
 
-const getItem = (_data, index) => ({
-  id: Math.random().toString(12).substring(0),
-  title: `Item ${index + 1}`,
-});
+const Item = ({ title, index }) => {
+  return (
+    <View style={[styles.item, index % 2 ? { backgroundColor: "rgba(208, 145, 0, 0.7)" } : {}]}>
+      <Text style={styles.title}>{title}</Text>
+    </View>
+  );
+};
 
-const getItemCount = _data => 50;
+const getItem = (_data, index) => _data[index];
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-    {/* <FlatList
-      data={data}
-      renderItem={({ item }) => {
-        return (
-          <View style={{ height: 40, backgroundColor: 'blue', margin: 5 }}>
-            <Text>{item}</Text>
-          </View>)
-      }}>
-    </FlatList> */}
-  </View>
-);
+const renderItem = ({ item, index }) => {
+  return <Item {...item} index={index} />;
+}
 
-const Item2 = () => {
-  return <View style={{ height: 120, backgroundColor: 'green' }}>
-    <Text>item2</Text>
-    {/* <FlatList 
-            data={data} 
-            renderItem={({item})=>{
-                return(
-                    <View>
-                        <Text>{item}</Text>
-                    </View>)
-                }}>
-            </FlatList> */}
-  </View>
+const ExFlash = () => {
+  const [values, setValues] = useState(data(20));
+  return (
+    <View style={{ flex: 1, backgroundColor: 'green' }}>
+      <FlashList
+      showsVerticalScrollIndicator={false}
+        data={values}
+        renderItem={renderItem}
+        estimatedItemSize={120}
+        refreshing={false}
+        onRefresh={()=>{
+
+        }}
+        onEndReached={()=>{
+            let newValue = values;
+            let ar = data(20, newValue.length);
+            setValues(newValue.concat(ar));
+        }}
+        onEndReachedThreshold={0.5}
+        extraData={values}
+        
+      />
+    </View>
+  )
 }
 
 const ExVirtualizedlist = () => {
+  const len = 30;
+  return (<ExFlash></ExFlash>);
+
   return (
     <View style={styles.container}>
       <VirtualizedList
         style={{ flex: 1 }}
-        initialNumToRender={4}
-        renderItem={({ item, index }) => {
-          if (false) {
-            return <Item2></Item2>;
-          } else {
-            return <Item title={item.title} />;
-          }
-        }}
-        // keyExtractor={item => item.id}
-        getItemCount={() => { return 12; }}
+        data={data(len)}
         getItem={getItem}
-        data={data}
+        renderItem={renderItem}
+        getItemCount={() => { return len }}
+        keyExtractor={(itew, id) => "key_" + id}
+        initialNumToRender={12}
+        showsVerticalScrollIndicator={false}
+        windowSize={3}
       />
     </View>
   );
@@ -74,18 +87,19 @@ const ExVirtualizedlist = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
   },
   item: {
-    backgroundColor: '#f9c2ff',
-    height: 150,
-    justifyContent: 'center',
+    height: 120,
+    padding: 20,
+    borderRadius: 8,
     marginVertical: 8,
     marginHorizontal: 16,
-    padding: 20,
+    justifyContent: 'center',
+    backgroundColor: '#f9c2ff',
   },
   title: {
-    fontSize: 32,
+    fontSize: 18,
   },
 });
 
