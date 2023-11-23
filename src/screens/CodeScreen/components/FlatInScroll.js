@@ -1,10 +1,12 @@
-import { FlatList, ScrollView, Text, TouchableOpacity, View, VirtualizedList } from "react-native";
-import data from '../../../config/studio/storeData';
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View, VirtualizedList, TouchableHighlight } from "react-native";
+import { useState } from 'react';
 
 const arr = [
 	1, 2, 3, 4, 5, 6, 7, 8, 89, 90, 0, 12, 34
-]
-const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 89, 90, 0,];
+];
+
+const arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 89, 90, 0];
+
 function data(){
 	const element = [];
 	for (let index = 0; index <20; index++) {
