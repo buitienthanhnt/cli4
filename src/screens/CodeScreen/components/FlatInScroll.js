@@ -1,8 +1,5 @@
-import { useState } from "react";
-import {
-	FlatList, Platform, ScrollView, StyleSheet, Text, TouchableHighlight,
-	TouchableOpacity, View, VirtualizedList
-} from "react-native";
+import { FlatList, ScrollView, Text, TouchableOpacity, View, VirtualizedList } from "react-native";
+import data from '../../../config/studio/storeData';
 
 const arr = [
 	1, 2, 3, 4, 5, 6, 7, 8, 89, 90, 0, 12, 34
@@ -26,7 +23,7 @@ const FlatInScroll = () => {
 		setValue([...newValue]);
 	}
 
-	return ( 
+	return (
 		<FlatList
 		style={{padding: 20}}
 			ItemSeparatorComponent={
@@ -39,16 +36,16 @@ const FlatInScroll = () => {
 			data={value}
 			renderItem={({ item, index, separators }) => (
 				<TouchableHighlight
-					style={{height: 40, borderRadius: 16, justifyContent: 'center', 
+					style={{height: 40, borderRadius: 16, justifyContent: 'center',
 						alignItems: 'center', padding: 8,
 						backgroundColor: 'green'
 					}}
 					key={item.key}
-					onPress={() => {   
+					onPress={() => {
 						deleteItem(item, index);
 					 }}
 					onShowUnderlay={separators.highlight}
-					onHideUnderlay={separators.unhighlight}> 
+					onHideUnderlay={separators.unhighlight}>
 					<View >
 						<Text style={{color: 'violet'}}>{item.title}</Text>
 					</View>
@@ -91,7 +88,7 @@ const Item2 = () => {
 			data={arr2}
 			// getItemCount={()=>{
 			// 	return arr2.length;
-			// }} 
+			// }}
 			renderItem={({ item }) => {
 				return <View>
 					<Text>123</Text>

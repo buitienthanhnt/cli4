@@ -243,6 +243,13 @@ const Code = (props) => {
                     }}></Button>
                 </View>
 
+                {/* ExVirtualizedlist */}
+                <View style={css.btn}>
+                    <Button title="open ExVirtualizedlist" onPress={() => {
+                        props?.navigation.navigate("ExVirtualizedlist");
+                    }}></Button>
+                </View>
+
                 <View style={css.btn}>
                     <Button title="open FlatInScroll" onPress={() => {
                         props?.navigation.navigate("FlatInScroll");
