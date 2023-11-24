@@ -262,10 +262,10 @@ const Code = (props) => {
                     }}></Button>
                 </View>
 
-                {/* <Button title="to FadeInView" onPress={() => {
+                <Button title="to FadeInView" onPress={() => {
                     props?.navigation.navigate("FadeInView");
                 }}></Button>
-                <Text> {"\n"}</Text> */}
+                <Text> {"\n"}</Text>
 
                 {/* <ShowDemo></ShowDemo> */}
 
