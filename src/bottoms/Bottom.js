@@ -35,10 +35,9 @@ const BottomTabs = ({navigation, route})=>{
                 headerShown: false               // ẩn phần tiêu đề bên trên của: Tab.Navigator
             })}
             // tabBarOptions={{ showLabel: false }} // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
-            
         >
-            <Tab.Screen 
-                name="HomeScreen" 
+            <Tab.Screen
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
                     tabBarLabel: 'Home',
@@ -49,44 +48,44 @@ const BottomTabs = ({navigation, route})=>{
                 }}
             />
 
-            <Tab.Screen 
-                name="PaperScreen" 
+            <Tab.Screen
+                name="PaperScreen"
                 component={PaperScreen}
                 options={{
-                    tabBarLabel: 'Papers',              
+                    tabBarLabel: 'Papers',
                     tabBarIcon: ({ focused, color, size }) => <Icon name={focused ? 'truck' : 'list'} size={26} color={color} />
                 }}
             />
 
-            <Tab.Screen 
-                name="AccountScreen" 
-                component={AccountScreen} 
+            <Tab.Screen
+                name="AccountScreen"
+                component={AccountScreen}
                 tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'User',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"bug"} size={26} color={color} />)
-                }} 
+                }}
             />
 
-            <Tab.Screen 
-                name="MoreScreen" 
-                component={MoreScreen} 
+            <Tab.Screen
+                name="MoreScreen"
+                component={MoreScreen}
                 tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'More',
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={"windows"} size={26} color={color} />)
                 }} />
-            
-            <Tab.Screen 
-                name="CodeScreen" 
-                component={CodeScreen} 
+
+            <Tab.Screen
+                name="CodeScreen"
+                component={CodeScreen}
                 tabBarOptions={{ showLabel: false }}
                 options={{
                     tabBarLabel: 'code',
                     tabBarBadge: count,
                     tabBarShowLabel: false,     // ẩn bottom_tab title(tiêu đề của thanh dưới trang)
                     tabBarIcon: ({ focused, color, size }) => (<Icon name={'code'} size={26} color={color}/>)
-                }} 
+                }}
             />
 
         </Tab.Navigator>

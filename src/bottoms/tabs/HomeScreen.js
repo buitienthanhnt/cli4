@@ -1,11 +1,23 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '@screens/HomeScreen/Home';
+import { screens } from '@bottoms/screen';
 
 const Stack = createNativeStackNavigator();
 const HomeScreen = ()=>{
     return(
         <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            {
+                screens.homeTab.map((item, index)=>{
+                    return (
+                        <Stack.Screen 
+                            name={item.name} 
+                            component={item.component} 
+                            options={item.options} 
+                            key={"homeScreen_"+ index}
+                        />
+                    )
+                })
+            }
+
         </Stack.Navigator>
     );
 };
