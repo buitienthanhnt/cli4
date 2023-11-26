@@ -55,7 +55,6 @@ const NumberReducer = (state = AppState, action) => {
             new_num = state.number -= 1;
             return { ...state, number: new_num };
             break;
-
         default:
             break;
     }
@@ -65,7 +64,7 @@ const NumberReducer = (state = AppState, action) => {
 const PaperReducer = (state = AppState, action)=>{
     switch (action.type) {
         case "ON_MESSAGE":
-            return {...state, message_count: state.message_count + 1} 
+            return {...state, message_count: state.message_count + 1};
             break;
     
         default:
@@ -74,4 +73,18 @@ const PaperReducer = (state = AppState, action)=>{
     return state;
 }
 
-export { Reducer, NumberReducer, PaperReducer};
+const AuthenReducer = (state = AppState, action)=>{
+    switch (action.type) {
+        case "SET_USER":
+            return {...state, user_data: action.user_data};
+            break;
+        case "CLEAR_USER":
+            return {...state, user_data: null};
+            break;
+        default:
+            break;
+    }
+    return state;
+}
+
+export { Reducer, NumberReducer, PaperReducer, AuthenReducer};

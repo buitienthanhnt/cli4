@@ -53,7 +53,7 @@ import DemoMemo             from "@screens/CodeScreen/components/test/DemoMemo";
 import DemouseReduce        from "@screens/CodeScreen/components/test/DemouseReduce";
 import FlatInScroll         from "@screens/CodeScreen/components/FlatInScroll";
 import ExVirtualizedlist    from "@screens/CodeScreen/components/ExVirtualizedlist";
-// import ExForm               from "@screens/CodeScreen/components/ExForm";
+ import ExForm              from "@screens/CodeScreen/components/ExForm";
 //--------------------------------- CodeScreen------------------------------------------//
 
 export const screens = {
@@ -286,10 +286,10 @@ export const screens = {
             component: ExVirtualizedlist,
             options: {headerShown: true}
         },
-        // {
-        //     name: "ExForm",
-        //     component: ExForm,
-        //     options: {headerShown: true}
-        // },
+         {
+             name: "ExForm",
+             component: ExForm,
+             options: {headerShown: true}
+         },
     ]
 }
