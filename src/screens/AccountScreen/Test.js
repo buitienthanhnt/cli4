@@ -213,7 +213,7 @@ const DataBase = () => {
 	const [data, setData] = useState([]);
 	const orderType = "email"
 	const [lastEmail, setLastEmail] = useState('');
-	const page_size = 4;
+	const page_size = 8;
 	useEffect(() => {
 		// const _database = database().ref('/user').limitToFirst(1).once() || tren xuong
 		// const _database = database().ref('/user').limitToLast(3).once() ||duoi len
@@ -234,9 +234,10 @@ const DataBase = () => {
 
 					var result = [];
 					let lastIndex = null;
-					snapshot.forEach((snapshot, index) => { // phai dung qua forEach.
-						result.push(snapshot.val());
-						lastIndex = snapshot.val().email;
+					snapshot.forEach((snap) => { // phai dung qua forEach.
+						const convert_value = snap.val();
+						convert_value.key = snap.key;
+						result.push(convert_value);
 					});
 					if (result) {
 						setData(result);
@@ -251,15 +252,17 @@ const DataBase = () => {
 	}, []);
 
 	const loadUser = () => {
-		var ref = database.database().ref("user");
+		var ref = database().ref("user");
 		ref.orderByChild(orderType).startAt(lastEmail).limitToFirst(page_size).once("value", function (snapshot) {
 			let result = []; let _lastEmail = null;
 			if (snapshot.numChildren() > 1) {
 
 				snapshot.forEach((snap) => {
 					if (snap.val().email !== lastEmail) {
-						result.push(snap.val());
-						_lastEmail = snap.val().email;
+						const convert_value = snap.val();
+						convert_value.key = snap.key;
+						result.push(convert_value);
+						_lastEmail = convert_value.email;
 					}
 				});
 
@@ -303,7 +306,7 @@ const DataBase = () => {
 
 		return (
 			<View style={{ paddingVertical: 8 }}>
-				<TouchableOpacity style={css.btn} onPress={setDb}>
+				<TouchableOpacity style={css.btn} onPress={addNewDb}>
 					<Text>add new databases</Text>
 				</TouchableOpacity>
 			</View>
