@@ -35,6 +35,7 @@
     "@react-navigation/native-stack": "^6.9.13",
     "@shopify/flash-list": "^1.6.3",
     "axios": "^1.5.0",
+    "deprecated-react-native-prop-types": "^5.0.0",
     "expo-font": "^11.4.0",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
