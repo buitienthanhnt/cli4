@@ -22,11 +22,11 @@ import Svg, {
     Pattern,
     Mask,
   } from 'react-native-svg';
-  import Call from '@assets/svgIcon/call/call.svg'; // https://github.com/kristerkari/react-native-svg-transformer
-  
+  // import Call from '@assets/svgIcon/call/call.svg'; // **** https://github.com/kristerkari/react-native-svg-transformer
+
   import React from 'react';
   import { View, StyleSheet } from 'react-native';
-  
+
   export default class ExSvg extends React.Component {
     render() {
       return (
@@ -54,7 +54,7 @@ import Svg, {
               fill="yellow"
             />
           </Svg>
-          
+
             <Svg
                 width="130"
                 height="130"
@@ -80,7 +80,7 @@ import Svg, {
                     fill="yellow"
                 />
             </Svg>
-            <Call stroke='red'></Call>
+            {/*<Call stroke='red'></Call>*/}
         </View>
       );
     }
