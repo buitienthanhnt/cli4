@@ -1,0 +1,2 @@
+export const root = "/cli4";
+export const leaveRequest = `${root}/leaveRequest`;
