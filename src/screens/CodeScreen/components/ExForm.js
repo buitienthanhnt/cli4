@@ -8,6 +8,8 @@ import { useState, useCallback } from 'react';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select'; // ***** https://www.npmjs.com/package/react-native-sectioned-multi-select
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import database from '@react-native-firebase/database';
+import { leaveRequest } from '@services/firebase';
+import { Svg } from 'react-native-svg';                                 // https://github.com/software-mansion/react-native-svg/blob/main/USAGE.md
 // https://gist.github.com/tuantvk/f6f1cada9d18d2d49219b4f9e8caa859
 // https://echobind.com/post/react-hook-form-for-react-native
 // https://www.npmjs.com/package/react-native-appearance dark_mode
@@ -62,18 +64,16 @@ class MultiSelectExample extends React.Component {
 
   render() {
     return (
-      <View>
-        <SectionedMultiSelect
-          items={items}
-          IconRenderer={Icon}
-          uniqueKey="id"
-          subKey="children"
-          selectText="Choose some things..."
-          showDropDowns={true}
-          onSelectedItemsChange={this.onSelectedItemsChange}
-          selectedItems={this.state.selectedItems}
-        />
-      </View>
+      <SectionedMultiSelect
+        items={items}
+        IconRenderer={Icon}
+        uniqueKey="id"
+        subKey="children"
+        selectText="Choose some things..."
+        showDropDowns={true}
+        onSelectedItemsChange={this.onSelectedItemsChange}
+        selectedItems={this.state.selectedItems}
+      />
     );
   }
 }
@@ -83,6 +83,7 @@ class MultiSelectExample extends React.Component {
 export default function ExForm() {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+  const team = 'team2';
 
   const {
     register,
@@ -93,21 +94,16 @@ export default function ExForm() {
     formState: { errors }, } = useForm();
 
   const onSubmit = data => {
-    // console.log(data);
-    addRequest(data);
+    console.log(leaveRequest);
+    addRequest(`${leaveRequest}/${team}`, data);
   };
 
-  const addRequest = useCallback((data)=>{
+  const addRequest = useCallback((refNode = `${leaveRequest}/${team}`, data)=>{
     try {
       // tạo mới 1 nút tham chiếu (với khóa mới) dạng array(nếu chưa tồn tại),
       // nếu tồn tại nút tham chiếu rồi thì sẽ thêm phần tử vào mảng tham chiếu.
-      const newReference = database().ref('/user/request2').push();
-      newReference.set({
-        email: data.email,
-        password: data.password,
-        items: data.items,
-        timeInput: data.timeInput
-      }).then(()=>{
+      const newReference = database().ref(refNode).push();
+      newReference.set(data).then(()=>{
         console.log('added new data');
       })
     } catch (error) {
@@ -115,15 +111,14 @@ export default function ExForm() {
     }
   }, []);
 
-  // ghi đè toàn bộ nội dung data của nút tham chiếu: request của: user.
+  // ghi đè toàn bộ nội dung data của nút tham chiếu: nút request của: user.
   // nếu chưa có nút tham chiếu thì nó sẽ tự tạo mới.
   // nếu là: database().ref('/user/request2').set sẽ là ghi đè,
   // nếu là: database().ref('/user/request2').push sẽ là thêm mới giá trị(vào mảng) với khóa mới ngẫu nhiên
-  const setttingData = useCallback((data)=>{
+  const setttingData = useCallback((data, refNode)=>{
     try {
-      database().ref('/user/request2').set({
-      name: 123,
-      address: '21b national street'
+      database().ref(refNode).push(data).then(()=>{
+        console.log('');
       })
     } catch (error) {
       console.log(error);
@@ -168,7 +163,7 @@ export default function ExForm() {
         />
       </View>
 
-      <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text style={styles.label}>on time choose:</Text>
         <Controller
           control={control}
@@ -200,9 +195,10 @@ export default function ExForm() {
         />
       </View>
 
-      <View>
+      <View style={{}}>
         <Text style={styles.label}>multiselect</Text>
         <Controller
+          style={{flex: 1}}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <MultiSelectExample setInForm={setValue}></MultiSelectExample>
@@ -229,7 +225,7 @@ export default function ExForm() {
 
       <View style={styles.button}>
         <Button
-          color
+          styles={{height: 40}}
           title="Button"
           onPress={handleSubmit(onSubmit)}
         />
@@ -240,23 +236,22 @@ export default function ExForm() {
 
 const styles = StyleSheet.create({
   label: {
-    color: 'white',
+    // color: 'white',
     margin: 20,
     marginLeft: 0,
   },
   button: {
-    marginTop: 30,
-    color: 'white',
-    height: 40,
+    // color: 'white',
     backgroundColor: '#ec5990',
     borderRadius: 4,
+    
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     paddingTop: 24,
     padding: 8,
-    backgroundColor: '#0e101c',
+    // backgroundColor: '#0e101c',
     gap: 10
   },
   input: {

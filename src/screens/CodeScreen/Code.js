@@ -237,6 +237,17 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
+                {/* // DemouseReduce */}
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='car' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> ExSvg </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("ExSvg");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
                 <View style={css.btn}>
                     <Button title="open TestRedux" onPress={() => {
                         props?.navigation.navigate("TestRedux");
