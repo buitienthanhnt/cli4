@@ -99,7 +99,9 @@ export default function ExForm() {
 
   const addRequest = useCallback((data)=>{
     try {
-      const newReference = database().ref('/user/request').push();
+      // tạo mới 1 nút tham chiếu (với khóa mới) dạng array(nếu chưa tồn tại),
+      // nếu tồn tại nút tham chiếu rồi thì sẽ thêm phần tử vào mảng tham chiếu.
+      const newReference = database().ref('/user/request2').push();
       newReference.set({
         email: data.email,
         password: data.password,
@@ -113,10 +115,15 @@ export default function ExForm() {
     }
   }, []);
 
+  // ghi đè toàn bộ nội dung data của nút tham chiếu: request của: user.
+  // nếu chưa có nút tham chiếu thì nó sẽ tự tạo mới.
+  // nếu là: database().ref('/user/request2').set sẽ là ghi đè,
+  // nếu là: database().ref('/user/request2').push sẽ là thêm mới giá trị(vào mảng) với khóa mới ngẫu nhiên
   const setttingData = useCallback((data)=>{
     try {
-      database().ref('/user/request').set({
-      
+      database().ref('/user/request2').set({
+      name: 123,
+      address: '21b national street'
       })
     } catch (error) {
       console.log(error);
