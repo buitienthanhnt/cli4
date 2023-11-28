@@ -7,7 +7,7 @@ import { utils } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 
 import "react-native-get-random-values"; // yarn add react-native-get-random-values đi kèm với uuid nếu không uuid sẽ có thể bị lỗi.
-import { v4 as uuidv4 } from 'uuid';     // yarn add uuid https://github.com/uuidjs/uuid
+import { v4 as uuidv4 } from 'uuid';     // yarn add uuid https://github.com/uuidjs/uuid hoặc: yarn add @types/uuid -D (cho typeScript)
 
 const ExUploadImg = ()=>{
     const [image, setImage] = useState([]);
