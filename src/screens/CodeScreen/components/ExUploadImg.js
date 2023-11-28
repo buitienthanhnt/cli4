@@ -194,7 +194,6 @@ const ExUploadImg = () => {
                                     key={'image_' + index} resizeMode='cover' />
                                 <TouchableOpacity style={{ position: 'absolute', left: 20, top: 5 }}
                                     onPress={() => {
-                                        console.log(index);
                                         let target_image = image;
                                         target_image.splice(index, 1);
                                         setImage([...target_image]);
