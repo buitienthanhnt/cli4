@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+import storage from '@react-native-firebase/storage'; //storage upload images: https://rnfirebase.io/storage/usage && https://rnfirebase.io/app/utils
 import functions, { firebase } from '@react-native-firebase/functions';
 
 const FireStore = () => {
