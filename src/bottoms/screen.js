@@ -55,6 +55,7 @@ import FlatInScroll         from "@screens/CodeScreen/components/FlatInScroll";
 import ExVirtualizedlist    from "@screens/CodeScreen/components/ExVirtualizedlist";
 import ExForm               from "@screens/CodeScreen/components/ExForm";
 import ExSvg                from '@screens/CodeScreen/components/ExSvg';
+import ExUploadImg          from '@screens/CodeScreen/components/ExUploadImg';
 //--------------------------------- CodeScreen------------------------------------------//
 
 export const screens = {
@@ -295,6 +296,11 @@ export const screens = {
          {
             name: "ExSvg",
             component: ExSvg,
+            options: {headerShown: true}
+         },
+         {
+            name: "ExUploadImg",
+            component: ExUploadImg,
             options: {headerShown: true}
          },
     ]

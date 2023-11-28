@@ -237,12 +237,23 @@ const Code = (props) => {
                     </TouchableOpacity>
                 </View>
 
-                {/* // DemouseReduce */}
+                {/* // ExSvg */}
                 <View style={css.functionItem}>
                     <FontAwesome5Icon name='car' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> ExSvg </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("ExSvg");
+                    }}>
+                        <Icon name='arrow-circle-right' size={28} color='black' />
+                    </TouchableOpacity>
+                </View>
+
+                {/* // ExUploadImg */}
+                <View style={css.functionItem}>
+                    <FontAwesome5Icon name='photo-video' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> ExUploadImg </Text>
+                    <TouchableOpacity onPress={() => {
+                        props?.navigation.navigate("ExUploadImg");
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>

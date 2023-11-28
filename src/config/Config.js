@@ -23,6 +23,7 @@ const Config = (path = '', params = null) => {
       testPost: 'api/testPost',
       parseUrl: 'api/parseUrl',
       registerFcm: 'api/notification/registerFcm',
+      uploadImageMb: 'api/mobile/upimage',
     },
     buy_params: function (params) {
       // this không dùng được trong: arrow function vì bản thân this lúc đó sẽ la windown.
