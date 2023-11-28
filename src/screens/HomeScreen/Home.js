@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, TouchableOpacity, Text } from "react-native";
-import FastImage from 'react-native-fast-image'
+import { View, FlatList, TouchableOpacity, Image } from "react-native";
 
 import PageList from "@config/PageList";
 
@@ -30,13 +29,13 @@ const Home = (props) => {
                                 console.log(123);
                             }}>
                                 <View style={{ width: "100%", height: 120, borderWidth: 1 }}>
-                                    <FastImage
+                                    <Image
                                         style={{ flex: 1 }}
                                         defaultSource={require('../../assets/splash.png')}
                                         resizeMode="cover"
                                         source={{
                                             uri: item.img_path,
-                                            priority: FastImage.priority.normal,
+                                            // priority: FastImage.priority.normal,
                                         }}
                                     />
                                 </View>
