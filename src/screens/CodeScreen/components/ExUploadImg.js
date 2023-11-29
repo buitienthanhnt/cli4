@@ -48,15 +48,24 @@ const ExUploadImg = () => {
     /**
      * upload image to laravel server
      */
-    const up_load_image = async (image = null) => {
+    const up_load_image = async () => {
+        console.log(image);
         if (image) {
             const formData = new FormData();
-            formData.append("upload_file", { // getfrom:$_FILES["upload_file"]
-                uri: image,
-                type: "image/png",
-                name: image,
-            });
             formData.append("username", "tha nan"); // get from request
+
+            // set multil files for formData use: upload_file[]; 1 file use: upload_file
+            if (image.length) {
+                for (let index = 0; index < image.length; index++) {
+                    formData.append("upload_file[]", 
+                        { // getfrom:$_FILES["upload_file"]
+                            uri: image[index],
+                            type: "image/png",
+                            name: image[index],
+                        }
+                    );
+                }
+            }
 
             const config = {
                 method: "post",
@@ -211,7 +220,7 @@ const ExUploadImg = () => {
             <View>
                 <Text style={{ color: '#ff8cf9', fontSize: 18, fontWeight: '500' }}>for laravel services: </Text>
                 <Button title="submit" onPress={() => {
-                    up_load_image(image[0]);
+                    up_load_image();
                 }}></Button>
             </View>
             {/* ========================upload in to laravel server================================== */}
