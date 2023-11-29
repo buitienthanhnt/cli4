@@ -86,60 +86,10 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.functionItem}>
-                    <FontAwesome5Icon name='images' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> Slide Image </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("ScrollViews");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
                     <FontAwesome5Icon name='firefox-browser' size={28} color='black'/>
                     <Text style={{ fontSize: 18 }}> WebView </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("WebviewApp");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='squarespace' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> SwipeListViews </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("SwipeListViews");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='photo-video' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> Swiper Pages </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("SwiperComponent");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='page4' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> test Animate1 </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("Animate1");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='hand-paper' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> pull handle </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("PanResponders");
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>
@@ -167,7 +117,7 @@ const Code = (props) => {
 
                 <View style={css.functionItem}>
                     <FontAwesome5Icon name='mail-bulk' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> register notification </Text>
+                    <Text style={{ fontSize: 18 }}> Notification </Text>
                     <TouchableOpacity onPress={() => {
                         props?.navigation.navigate("NotificationRegister");
                     }}>
@@ -186,102 +136,23 @@ const Code = (props) => {
                 </View>
 
                 <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> TabViewExample </Text>
+                    <FontAwesome5Icon name='page4' size={28} color='black'/>
+                    <Text style={{ fontSize: 18 }}> ExAnimated </Text>
                     <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("TabViewExample");
+                        props?.navigation.navigate("ExAnimated");
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>
                 </View>
 
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> SwipeBtn </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("SwipeBtn");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> DemoUseCallBack </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("DemoUseCallBack");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                {/* // DemoMemo */}
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> DemoMemo </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("DemoMemo");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                {/* // DemouseReduce */}
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> DemouseReduce </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("DemouseReduce");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                {/* // ExSvg */}
-                <View style={css.functionItem}>
-                    <FontAwesome5Icon name='car' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> ExSvg </Text>
-                    <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("ExSvg");
-                    }}>
-                        <Icon name='arrow-circle-right' size={28} color='black' />
-                    </TouchableOpacity>
-                </View>
-
-                {/* // ExUploadImg */}
                 <View style={css.functionItem}>
                     <FontAwesome5Icon name='photo-video' size={28} color='black'/>
-                    <Text style={{ fontSize: 18 }}> ExUploadImg </Text>
+                    <Text style={{ fontSize: 18 }}> demo test </Text>
                     <TouchableOpacity onPress={() => {
-                        props?.navigation.navigate("ExUploadImg");
+                        props?.navigation.navigate("DemoTest");
                     }}>
                         <Icon name='arrow-circle-right' size={28} color='black' />
                     </TouchableOpacity>
-                </View>
-
-                <View style={css.btn}>
-                    <Button title="open TestRedux" onPress={() => {
-                        props?.navigation.navigate("TestRedux");
-                    }}></Button>
-                </View>
-
-                {/* ExVirtualizedlist */}
-                <View style={css.btn}>
-                    <Button title="open ExVirtualizedlist" onPress={() => {
-                        props?.navigation.navigate("ExVirtualizedlist");
-                    }}></Button>
-                </View>
-
-                <View style={css.btn}>
-                    <Button title="open FlatInScroll" onPress={() => {
-                        props?.navigation.navigate("FlatInScroll");
-                    }}></Button>
-                </View>
-
-                <View style={css.btn}>
-                    <Button title="open ExForm" onPress={() => {
-                        props?.navigation.navigate("ExForm");
-                    }}></Button>
                 </View>
 
                 <View style={css.btn}>
@@ -290,16 +161,9 @@ const Code = (props) => {
                     }}></Button>
                 </View>
 
-                <Button title="to FadeInView" onPress={() => {
-                    props?.navigation.navigate("FadeInView");
-                }}></Button>
-                <Text> {"\n"}</Text>
-
-                {/* <ShowDemo></ShowDemo> */}
-
                 {/* <BoxShow></BoxShow>
                 <BoxShow></BoxShow>
-                <BoxShow></BoxShow> */}
+                <ShowDemo></ShowDemo> */}
             </ScrollView>
         </View>
 

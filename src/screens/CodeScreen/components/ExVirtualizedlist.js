@@ -42,7 +42,7 @@ const ExFlash = () => {
   return (
     <View style={{ flex: 1, backgroundColor: 'green' }}>
       <FlashList
-      showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         data={values}
         renderItem={renderItem}
         estimatedItemSize={120}
@@ -57,7 +57,6 @@ const ExFlash = () => {
         }}
         onEndReachedThreshold={0.5}
         extraData={values}
-        
       />
     </View>
   )

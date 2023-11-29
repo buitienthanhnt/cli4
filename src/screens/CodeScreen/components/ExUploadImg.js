@@ -156,17 +156,25 @@ const ExUploadImg = () => {
             //     resultData.push(res_uri);
             // });
 
-            // dùng qua for để bắt await với vòng lặp.
+            // dùng qua for để bắt await với vòng lặp(mất nhiều thời gian hơn Promise.all).
+            // for (let index = 0; index < image.length; index++) {
+            //     const res_uri = await storageUploadItem(image[index]);
+            //     if (res_uri) {
+            //         resultData.push({
+            //             url: res_uri,
+            //             meta: { type: '' }
+            //         });
+            //     }
+            // }
+            // (1701244091293(for await) - 1701244085614(promies.all)  = 5679)
+            // cách 2 dùng qua promies.all(nhanh hơn dùng vòng for await
+            let allPromies = [];
             for (let index = 0; index < image.length; index++) {
-                const res_uri = await storageUploadItem(image[index]);
-                if (res_uri) {
-                    resultData.push({
-                        url: res_uri,
-                        meta: { type: '' }
-                    });
-                }
+                allPromies.push(storageUploadItem(image[index]));
             }
-            console.log(resultData);
+            resultData = await Promise.all(allPromies).then((values) =>{
+                return values;
+            });
             return resultData;
         }
         console.log('not image');
