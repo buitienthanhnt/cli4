@@ -186,7 +186,7 @@ const ExUploadImg = () => {
     // pa_2 tạo source data bên realtimeDatabase trước rồi upload ảnh vào storage 
     //  rồi update vào item của source data bên realtimeDatabase sau(cái này nhanh hơn pa_1 dùng: storageUploadImages)
     // newThenUpload(tạo 1 source data) --> updateImageSource(chạy vòng lặp bất đồng bộ) --> imageUpdate(upload image sau đó update lại vào source data trước đó)
-    const newThenUpload = useCallback( async ()=>{
+    const newThenUpload = useCallback(()=>{
         const uid = uuidv4();
         const newReference = database().ref(sources).push(); // tạo 1 tham chiếu mới
         // sẽ dùng theo tham chiếu bên trên.
@@ -198,7 +198,7 @@ const ExUploadImg = () => {
         );
     }, []);
 
-    const updateImageSource = useCallback(async (source_id = null)=>{
+    const updateImageSource = useCallback((source_id = null)=>{
         if (source_id) {
             for (let index = 0; index < image.length; index++) {
                 imageUpdate(source_id, image[index]);
@@ -207,7 +207,7 @@ const ExUploadImg = () => {
         }
     }, []);
 
-    const imageUpdate = async (source_id, image_path)=>{
+    const imageUpdate = (source_id, image_path)=>{
         const imageName = uuidv4();
         const reference = storage().ref('/demo/'+ source_id+ '/' + imageName);
 

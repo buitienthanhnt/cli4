@@ -31,8 +31,8 @@ const screens = [
         component: 'FadeInView'
     },
     {
-        name: 'to FadeInView',
-        component: 'FadeInView'
+        name: 'to ExAnimated1',
+        component: 'ExAnimated1'
     },
 ];
 
