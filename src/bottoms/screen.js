@@ -57,7 +57,7 @@ import ExForm               from "@screens/CodeScreen/components/ExForm";
 import ExSvg                from '@screens/CodeScreen/components/ExSvg';
 import ExUploadImg          from '@screens/CodeScreen/components/ExUploadImg';
 import ExAnimated           from '@screens/CodeScreen/components/animated';
-import { ExAnimated1 }      from '@screens/CodeScreen/components/animated/ExAnimated1';
+import { ExAnimated1, ExAnimated2, ExAnimated3 }      from '@screens/CodeScreen/components/animated/ExAnimated1';
 import Demopromies          from '@screens/CodeScreen/components/test/Demopromies';
 import DemoTest             from '@screens/CodeScreen/components/test';
 //--------------------------------- CodeScreen------------------------------------------//
@@ -315,6 +315,16 @@ export const screens = {
          {
             name: "ExAnimated1",
             component: ExAnimated1,
+            options: {headerShown: true}
+         },
+         {
+            name: "ExAnimated2",
+            component: ExAnimated2,
+            options: {headerShown: true}
+         },
+         {
+            name: "ExAnimated3",
+            component: ExAnimated3,
             options: {headerShown: true}
          },
          {

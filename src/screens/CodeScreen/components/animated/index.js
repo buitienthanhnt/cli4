@@ -34,29 +34,38 @@ const screens = [
         name: 'to ExAnimated1',
         component: 'ExAnimated1'
     },
+    {
+        name: 'to ExAnimated2',
+        component: 'ExAnimated2'
+    },
+    {
+        name: 'to ExAnimated3',
+        component: 'ExAnimated3'
+    },
 ];
 
-const ExAnimated = ({navigation})=>{
+const ExAnimated = ({ navigation }) => {
 
-    const redirectView = useCallback((viewName)=>{
+    const redirectView = useCallback((viewName) => {
         navigation.navigate(viewName);
     }, [navigation]);
 
-    const randomValue = useCallback((max)=>{
+    const randomValue = useCallback((max) => {
         return Math.floor(Math.random() * max);
     }, []);
-    const randomColor = useCallback(()=>{
+    const randomColor = useCallback(() => {
         return `rgba(${randomValue(256)}, ${randomValue(256)}, ${randomValue(256)}, 1)`;
     }, []);
 
-    const renderItem = useCallback(({item, index})=>{
-        return(
-            <TouchableOpacity 
-                style={{height: 60, flex: 1, backgroundColor: randomColor(), 
+    const renderItem = useCallback(({ item, index }) => {
+        return (
+            <TouchableOpacity
+                style={{
+                    height: 60, flex: 1, backgroundColor: randomColor(),
                     justifyContent: 'center', alignItems: 'center', margin: 2,
                     borderRadius: 10
                 }}
-                onPress={()=>{
+                onPress={() => {
                     redirectView(item.component);
                 }}
             >
@@ -65,17 +74,17 @@ const ExAnimated = ({navigation})=>{
         )
     }, []);
 
-    return(
-        <View style={{flex: 1, padding: 10}}>
-            <FlatList 
+    return (
+        <View style={{ flex: 1, padding: 10 }}>
+            <FlatList
                 data={screens}
                 numColumns={2}
                 horizontal={false}
                 renderItem={renderItem}
-                // ItemSeparatorComponent={()=>{
-                //     return <View style={{height: 5}}></View>
-                // }}
-                
+            // ItemSeparatorComponent={()=>{
+            //     return <View style={{height: 5}}></View>
+            // }}
+
             >
             </FlatList>
         </View>
