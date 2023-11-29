@@ -5,10 +5,11 @@ import Config from '@config/Config';
 import axios from 'axios';
 import { utils } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
+import database from '@react-native-firebase/database';
 
 import "react-native-get-random-values"; // yarn add react-native-get-random-values đi kèm với uuid nếu không uuid sẽ có thể bị lỗi.
 import { v4 as uuidv4 } from 'uuid';     // yarn add uuid https://github.com/uuidjs/uuid hoặc: yarn add @types/uuid -D (cho typeScript)
-
+import { sources } from '@services/firebase';
 const ExUploadImg = () => {
     const [image, setImage] = useState([]);
 
@@ -49,7 +50,6 @@ const ExUploadImg = () => {
      * upload image to laravel server
      */
     const up_load_image = async () => {
-        console.log(image);
         if (image) {
             const formData = new FormData();
             formData.append("username", "tha nan"); // get from request
@@ -144,7 +144,8 @@ const ExUploadImg = () => {
     }, []);
 
     /**
-     * upload multi image into storege firebase.
+     * pa_1 upload multi image into storege firebase.
+     * dùng upload ảnh
      */
     const storageUploadImages = useCallback(async () => {
         let resultData = [];
@@ -180,6 +181,52 @@ const ExUploadImg = () => {
         console.log('not image');
         return [];
     }, []);
+
+
+    // pa_2 tạo source data bên realtimeDatabase trước rồi upload ảnh vào storage 
+    //  rồi update vào item của source data bên realtimeDatabase sau(cái này nhanh hơn pa_1 dùng: storageUploadImages)
+    // newThenUpload(tạo 1 source data) --> updateImageSource(chạy vòng lặp bất đồng bộ) --> imageUpdate(upload image sau đó update lại vào source data trước đó)
+    const newThenUpload = useCallback( async ()=>{
+        const uid = uuidv4();
+        const newReference = database().ref(sources).push(); // tạo 1 tham chiếu mới
+        // sẽ dùng theo tham chiếu bên trên.
+        newReference.set({ "active": true, "id": uid, "name": 'nan', items: []}).then((values)=>{
+            updateImageSource(newReference.key);
+            console.log('pass addNewFolder!');
+        }, 
+        (reason)=>{}
+        );
+    }, []);
+
+    const updateImageSource = useCallback(async (source_id = null)=>{
+        if (source_id) {
+            for (let index = 0; index < image.length; index++) {
+                imageUpdate(source_id, image[index]);
+            }
+            console.log('pass updateImageSource');
+        }
+    }, []);
+
+    const imageUpdate = async (source_id, image_path)=>{
+        const imageName = uuidv4();
+        const reference = storage().ref('/demo/'+ source_id+ '/' + imageName);
+
+        const task = reference.putFile(image_path);
+        task.on(
+            'state_changed', 
+            null, 
+            (a)=>{
+                log('error: ', a);
+            }, 
+            ()=>{
+                reference.getDownloadURL().then(uri => {
+                    database().ref(sources+'/'+source_id+'/items').push().set(uri);
+                });
+            }
+        );
+    };
+    // pa_2 tạo source data bên realtimeDatabase trước rồi upload ảnh vào storage 
+    //  rồi update vào item của source data bên realtimeDatabase sau
 
     return (
         <View style={{ padding: 10 }}>
@@ -234,7 +281,7 @@ const ExUploadImg = () => {
             {/* ========================upload in to laravel server================================== */}
             <View style={{ backgroundColor: "black", height: 1, marginVertical: 10 }}></View>
             {/* ========================upload into storage firebase================================== */}
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', gap: 10 }}>
                 <Text style={{ color: '#9389ff', fontSize: 18, fontWeight: '500' }}>for firebase application: </Text>
                 <TouchableOpacity
                     style={{ backgroundColor: '#afffe0', height: 32, justifyContent: 'center', alignItems: 'center', width: 160, borderRadius: 40 }}
@@ -243,6 +290,15 @@ const ExUploadImg = () => {
                     }}
                 >
                     <Text>upload to firebase</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={{ backgroundColor: '#afffe0', height: 32, justifyContent: 'center', alignItems: 'center', borderRadius: 40, padding: 5 }}
+                    onPress={async () => {
+                        newThenUpload();
+                    }}
+                >
+                    <Text>new folder then upload image</Text>
                 </TouchableOpacity>
             </View>
             {/* ========================upload into storage firebase================================== */}
