@@ -69,13 +69,8 @@ const AccountDetail = (props) => {
             }}></Button>
             <Text></Text>
 
-            <Button title="to cloud function" onPress={() => {
-                props.navigation.navigate("CloudFun");
-            }}></Button>
-            <Text></Text>
-
-            <Button title="to cloud DataBase" onPress={() => {
-                props.navigation.navigate("DataBase");
+            <Button title="to test firebase" onPress={() => {
+                props.navigation.navigate("ExFirebase");
             }}></Button>
             <Text></Text>
 
@@ -84,22 +79,17 @@ const AccountDetail = (props) => {
             }}></Button>}
             <Text></Text>
 
-            <Button title="to cloud FireStore" onPress={() => {
-                props.navigation.navigate("FireStore");
-            }}></Button>
-            <Text></Text>
-
             {firebase.auth().currentUser && <Button title="to userDetail" onPress={() => {
                 console.log(user);
                 props.navigation.navigate("UserDetail");
             }}></Button>
             }
             
-            <Text></Text>
+            {/* <Text></Text>
             <Button title="log user" onPress={()=>{
                 console.log(user, '======', firebase.auth().currentUser);
             }}></Button>
-            <Text></Text>
+            <Text></Text> */}
 
             <RBSheet ref={refRBSheet}
                 //  height = {height/2}    // chiều cao popup modal
@@ -199,7 +189,6 @@ const AccountDetail = (props) => {
                 }}
             />
 
-            <Text style={{ color: 'red' }}>Error Message</Text>
             <BasicSlider></BasicSlider>
 
             <BasicTable></BasicTable>

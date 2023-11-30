@@ -1,5 +1,5 @@
-import {useEffect} from 'react'
-import { Button, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import {useEffect, useState} from 'react'
+import { Button, Text, TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useSharedValue, useAnimatedStyle, withSpring, withTiming, Easing, withRepeat } from 'react-native-reanimated';
 
@@ -56,7 +56,7 @@ const ExAnimated2 = () => {
 
 const duration = 2000;
 
-export function ExAnimated3() {
+function ExAnimated3() {
   const defaultAnim = useSharedValue(200);
   const linear = useSharedValue(200);
 
@@ -99,6 +99,48 @@ export function ExAnimated3() {
   );
 }
 
+const ExAnimated4 = (props)=>{
+  const width = 210;
+  const height = 120;
+  const topY = useSharedValue(-120);
+  const [show, setShow] = useState(false);
+  useEffect(()=>{
+    
+  }, [])
+  return(
+    <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+      {show && (<Animated.View 
+        style={{
+          width: width, 
+          height: height, 
+          backgroundColor: 'rgba(0, 207, 101, 0.4)',
+          position: 'absolute',
+          transform: [{translateY: 120}],
+          borderRadius: 10,
+          padding: 10,
+          left: (Dimensions.get('screen').width/2 - width/2),
+          zIndex: 1
+        }}
+      >
+        <Text style={{fontSize: 16, fontWeight: 500}}>{props?.message || 'Not message'}</Text>
+      </Animated.View>)}
+
+      <Button title='show messsage' onPress={()=>{
+        setShow(true);
+        topY.value = withSpring(topY.value+ 2*height);
+        setTimeout(()=>{
+          setShow(false);
+          topY.value = -height;
+        }, 3000);
+      }}></Button>
+      <Text></Text>
+      <Button title='show messsage'></Button>
+      <Button title='show messsage'></Button>
+    
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -124,7 +166,7 @@ const styles = StyleSheet.create({
 });
 
 
-export { ExAnimated1, ExAnimated2 };
+export { ExAnimated1, ExAnimated2, ExAnimated3, ExAnimated4 };
 // =========================================================
 // useSharedValue: là 1 hook để tham chiếu giá trị cho hiệu ứng(đây là yêu cầu bắt buộc cho việc lưu và cập nhập giá trị thuộc tính.)
 // withSpring: là 1 dạng hiệu ứng để chi phối giá trị cập nhập.

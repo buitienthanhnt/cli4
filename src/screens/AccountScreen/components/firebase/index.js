@@ -3,52 +3,24 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 
 const screens = [
     {
-        name: 'Animate1',
-        component: 'Animate1'
+        name: 'to ListData',
+        component: 'ListData'
     },
     {
-        name: 'SwipeListViews',
-        component: 'SwipeListViews'
+        name: 'to FireStore',
+        component: 'FireStore'
     },
     {
-        name: 'pull handle',
-        component: 'PanResponders'
+        name: 'to cloud DataBase',
+        component: 'DataBase'
     },
     {
-        name: 'TabViewExample',
-        component: 'TabViewExample'
-    },
-    {
-        name: 'SwipeBtn',
-        component: 'SwipeBtn'
-    },
-    {
-        name: 'Slide Image',
-        component: 'ScrollViews'
-    }, // FadeInView
-    {
-        name: 'to FadeInView',
-        component: 'FadeInView'
-    },
-    {
-        name: 'to ExAnimated1',
-        component: 'ExAnimated1'
-    },
-    {
-        name: 'to ExAnimated2',
-        component: 'ExAnimated2'
-    },
-    {
-        name: 'to ExAnimated3',
-        component: 'ExAnimated3'
-    },
-    {
-        name: 'to show message',
-        component: 'ExAnimated4'
+        name: 'to cloud function',
+        component: 'CloudFun'
     },
 ];
 
-const ExAnimated = ({ navigation }) => {
+const ExFireabse = ({ navigation }) => {
 
     const redirectView = useCallback((viewName) => {
         navigation.navigate(viewName);
@@ -57,6 +29,7 @@ const ExAnimated = ({ navigation }) => {
     const randomValue = useCallback((max) => {
         return Math.floor(Math.random() * max);
     }, []);
+
     const randomColor = useCallback(() => {
         return `rgba(${randomValue(256)}, ${randomValue(256)}, ${randomValue(256)}, 1)`;
     }, []);
@@ -85,13 +58,9 @@ const ExAnimated = ({ navigation }) => {
                 numColumns={2}
                 horizontal={false}
                 renderItem={renderItem}
-            // ItemSeparatorComponent={()=>{
-            //     return <View style={{height: 5}}></View>
-            // }}
-
             >
             </FlatList>
         </View>
     )
 };
-export default ExAnimated;
+export default ExFireabse;

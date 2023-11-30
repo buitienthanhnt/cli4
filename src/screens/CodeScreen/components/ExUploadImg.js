@@ -177,8 +177,9 @@ const ExUploadImg = () => {
                 return values;
             });
             return resultData;
+        }else{
+            console.log('not image');
         }
-        console.log('not image');
         return [];
     }, []);
 
@@ -284,12 +285,12 @@ const ExUploadImg = () => {
             <View style={{ justifyContent: 'center', alignItems: 'center', gap: 10 }}>
                 <Text style={{ color: '#9389ff', fontSize: 18, fontWeight: '500' }}>for firebase application: </Text>
                 <TouchableOpacity
-                    style={{ backgroundColor: '#afffe0', height: 32, justifyContent: 'center', alignItems: 'center', width: 160, borderRadius: 40 }}
+                    style={{ backgroundColor: '#afffe0', height: 32, justifyContent: 'center', alignItems: 'center', borderRadius: 40, padding: 5 }}
                     onPress={async () => {
                         storageUploadImages();
                     }}
                 >
-                    <Text>upload to firebase</Text>
+                    <Text>upload to firebase {'(no source)'}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
