@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import { Button, Text, TouchableOpacity, View, StyleSheet, Dimensions } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { useSharedValue, useAnimatedStyle, withSpring, withTiming, Easing, withRepeat } from 'react-native-reanimated';
+import Animated, { ReduceMotion } from 'react-native-reanimated';
+import { useSharedValue, useAnimatedStyle, withSpring, withTiming, Easing, withRepeat, withDelay } from 'react-native-reanimated';
 
 const ExAnimated1 = () => {
   const width = useSharedValue(120);
@@ -108,14 +108,14 @@ const ExAnimated4 = (props)=>{
     
   }, [])
   return(
-    <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+    <View style={{justifyContent: 'center', alignItems: 'center'}}>
       {show && (<Animated.View 
         style={{
           width: width, 
           height: height, 
           backgroundColor: 'rgba(0, 207, 101, 0.4)',
           position: 'absolute',
-          transform: [{translateY: 120}],
+          transform: [{translateY: topY}],
           borderRadius: 10,
           padding: 10,
           left: (Dimensions.get('screen').width/2 - width/2),
@@ -127,16 +127,58 @@ const ExAnimated4 = (props)=>{
 
       <Button title='show messsage' onPress={()=>{
         setShow(true);
-        topY.value = withSpring(topY.value+ 2*height);
+        topY.value = withTiming(-60, {duration: 1420, easing: Easing.elastic(2), reduceMotion: ReduceMotion.System})
         setTimeout(()=>{
           setShow(false);
           topY.value = -height;
         }, 3000);
       }}></Button>
       <Text></Text>
-      <Button title='show messsage'></Button>
-      <Button title='show messsage'></Button>
-    
+      <View style={{backgroundColor: 'violet', width: 120, height: 220}}>
+      </View>
+    </View>
+  );
+}
+
+const ExAnimated5 = (props)=>{
+  const DURATION = 1000;
+  const DELAY = 500;
+
+  const text = ['React', 'Native', 'Reanimated'];
+  const [isShown, setShown] = useState(false);
+
+  const opacity1 = useSharedValue(0);
+  const opacity2 = useSharedValue(0);
+  const opacity3 = useSharedValue(0);
+
+  // prettier-ignore
+  const show = () => {
+    if (isShown) {
+      opacity3.value = withDelay(0 * DELAY, withTiming(0, { duration: DURATION }));
+      opacity2.value = withDelay(1 * DELAY, withTiming(0, { duration: DURATION }));
+      opacity1.value = withDelay(2 * DELAY, withTiming(0, { duration: DURATION }));
+    } else {
+      opacity1.value = withDelay(0 * DELAY, withTiming(1, { duration: DURATION }));
+      opacity2.value = withDelay(1 * DELAY, withTiming(1, { duration: DURATION }));
+      opacity3.value = withDelay(2 * DELAY, withTiming(1, { duration: DURATION }));
+    }
+    setShown(!isShown);
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.text1}>
+        <Animated.Text style={{ ...styles.label, opacity: opacity1 }}>
+          {text[0]}
+        </Animated.Text>
+        <Animated.Text style={{ ...styles.label, opacity: opacity2 }}>
+          {text[1]}
+        </Animated.Text>
+        <Animated.Text style={{ ...styles.label, opacity: opacity3 }}>
+          {text[2]}
+        </Animated.Text>
+      </View>
+      <Button title={isShown ? 'Hide' : 'Show'} onPress={show} />
     </View>
   );
 }
@@ -163,10 +205,33 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
   },
+  text1: {
+    flexDirection: 'row',
+  },
+  tab: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  label: {
+    fontSize: 42,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  divider: {
+    borderRightWidth: 1,
+    borderRightColor: '#ddd',
+  },
+  animatedBorder: {
+    height: 8,
+    width: 64,
+    backgroundColor: 'tomato',
+    borderRadius: 20,
+  },
 });
 
 
-export { ExAnimated1, ExAnimated2, ExAnimated3, ExAnimated4 };
+export { ExAnimated1, ExAnimated2, ExAnimated3, ExAnimated4, ExAnimated5 };
 // =========================================================
 // useSharedValue: là 1 hook để tham chiếu giá trị cho hiệu ứng(đây là yêu cầu bắt buộc cho việc lưu và cập nhập giá trị thuộc tính.)
 // withSpring: là 1 dạng hiệu ứng để chi phối giá trị cập nhập.

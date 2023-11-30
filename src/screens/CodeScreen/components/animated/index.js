@@ -46,6 +46,10 @@ const screens = [
         name: 'to show message',
         component: 'ExAnimated4'
     },
+    {
+        name: 'to show delay',
+        component: 'ExAnimated5'
+    },
 ];
 
 const ExAnimated = ({ navigation }) => {
