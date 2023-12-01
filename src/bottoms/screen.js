@@ -21,6 +21,7 @@ import { UserDetail } from '@screens/AccountScreen/Authen/UserDetail';
 import { Test, CloudFun, DataBase } from '@screens/AccountScreen/Test';
 import ExFirebase     from '@screens/AccountScreen/components/firebase';
 import ListData       from '@screens/AccountScreen/components/firebase/ListData';
+import FsourceForm    from '@screens/AccountScreen/components/firebase/FsourceForm';
 //--------------------------------- AccountScreen------------------------------------------//
 
 //--------------------------------- PaperScreen------------------------------------------//
@@ -143,6 +144,11 @@ export const screens = {
         {
             name: "ListData",
             component: ListData,
+            options: {headerShown: true}
+        },
+        {
+            name: "FsourceForm",
+            component: FsourceForm,
             options: {headerShown: true}
         },
     ],
