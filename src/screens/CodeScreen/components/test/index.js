@@ -52,6 +52,7 @@ const DemoTest = ({ navigation }) => {
     // useSelector: state.authenRe thì sẽ chỉ reRener khi state authenRe này được dispatch
     // còn dispatch vào: ADD_NUMBER sẽ không reRender.
     const {user_data} = useSelector((state) => state.authenRe);
+    const {address, key} = useSelector(state => state.appRe);
     const dispatch = useDispatch();
 
     const redirectView = useCallback((viewName) => {
@@ -97,24 +98,29 @@ const DemoTest = ({ navigation }) => {
             </View>
 
             <TouchableOpacity onPress={() => {
-                console.log(number, 'user data: ',user_data);
+                console.log(key);
+                // console.log(number, 'user data: ',user_data);
             }}>
                 <Text style={{color: 'violet', fontSize: 16}}>show state{`(test redux)`}:</Text>
             </TouchableOpacity>
-            <Text style={{color: 'green', fontSize: 16, fontWeight: '600'}}>number: , user name: {user_data?.name}</Text>
+            <Text style={{color: 'green', fontSize: 16, fontWeight: '600'}}>
+                number: , user 
+                name: {user_data?.name}
+            </Text>
+            <Text>{key}</Text>
             <TouchableOpacity onPress={() => {
-                console.log('onPress');
-                // gọi vào reducer để cập nhập data
-                dispatch({
-                    type: 'ADD_NUMBER',
-                    value: 20,
-                })
-
+                
                 // gọi vào reducer để cập nhập data
                 // dispatch({
-                //     type: 'SET_USER',
-                //     user_data: {id: 12, name: 'tha', street: '21b national'}
+                //     type: 'ADD_NUMBER',
+                //     value: 20,
                 // })
+
+                // gọi vào reducer để cập nhập data
+                dispatch({
+                    type: 'SET_USER',
+                    user_data: {id: 12, name: 'tha', street: '21b national'}
+                })
             }}>
                 <Text style={{color: 'blue'}}>add number</Text>
             </TouchableOpacity>
@@ -125,6 +131,15 @@ const DemoTest = ({ navigation }) => {
                 })
             }}>
                 <Text style={{color: 'red'}}>sub number</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => {
+                dispatch({
+                    type: 'SET_KEY',
+                    key: 2222222
+                })
+            }}>
+                <Text style={{color: 'orange'}}>update key</Text>
             </TouchableOpacity>
         </View>
     )
