@@ -30,11 +30,20 @@ const ListData = (props) => {
 
     const fechData = useCallback(() => {
         // once: Đọc một lần
-        database().ref(sources).orderByChild('id').equalTo(user_id).once('value').then((snapshot) => {
+        // database().ref(sources).orderByChild('id').equalTo(user_id).once('value').then((snapshot) => {
+        //     if (snapshot.numChildren()) {
+        //         // setSourceData(Object.values(snapshot.toJSON())); // array not key
+        //     };
+        // })
+        database().ref('/newpaper/category').once('value').then((snapshot)=>{
             if (snapshot.numChildren()) {
-                // setSourceData(Object.values(snapshot.toJSON())); // array not key
-            };
-        })
+                let values = [];
+                snapshot.forEach((item)=>{
+                    values = item;
+                })
+                console.log(values);
+            }
+        });
     }, []);
 
     const renderItem = ({ item, index }) => {
@@ -155,6 +164,26 @@ const ListData = (props) => {
                         }}
                     >
                         <Text>add new source</Text>
+                    </TouchableOpacity>
+
+                    <Text>nếu bị lỗi client không có quyền truy cập firebase database thì {'\n'}
+                        có thể do đã hết hạn quyền truy cập trong phần rules của database {'\n'}
+                        giải pháp là tăng thêm thời gian cấp quyền truy cập cho firebase database{'\n'}
+                        vào -\ realtime databases -\Rules tăng .read và .write các chữ số thứ 4 và thứ 5 {'\n'}
+                        từ trái sang lên 1 đơn vị.
+                    </Text>
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: 'orange',
+                            alignItems: 'center',
+                            padding: 8,
+                            borderRadius: 5,
+                            width: 120
+                        }}
+                        onPress={fechData}
+                    >
+                        <Text>fecth data</Text>
                     </TouchableOpacity>
 
                 </View>
