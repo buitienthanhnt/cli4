@@ -50,6 +50,7 @@
     "react-native-device-info": "^10.8.0",
     "react-native-elements": "^3.4.3",
     "react-native-fast-image": "^8.6.3",
+    "react-native-flatlist-alphabet": "^1.1.2",
     "react-native-gesture-handler": "^2.13.1",
     "react-native-get-random-values": "^1.10.0",
     "react-native-image-picker": "^7.0.3",
